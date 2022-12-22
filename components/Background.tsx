@@ -19,10 +19,13 @@ const config = {
     introAnimationSpeed: 0.5,
     introAnimationDelay: 1500,
     introZoomTime: 2000,
+    introZoomAmount: 2,
     introFadeTime: 800,
     seed: 3,
     overflow: 0.6,
     shiftLeft: 10,
+    textColour: colours.textDark,
+    introTextColour: colours.textSecondary,
 } as const
 
 interface Pos {
@@ -126,13 +129,19 @@ export function Background() {
     )
 }
 
+const move = keyframes`
+    0% { translate: -${config.shiftLeft}px 0; }
+    100% { translate: ${config.cellWidth - config.shiftLeft}px 0; }
+`
+
+const fade = keyframes`
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+`
+
 const zoom = keyframes`
-    0% {
-        scale: 2;
-    }
-    100% {
-        scale: 1;
-    }
+    0% { scale: ${config.introZoomAmount}; color: ${config.introTextColour}; }
+    100% { scale: 1; color: ${config.textColour}; }
 `
 
 const Wrapper = styled('div')`
@@ -148,29 +157,11 @@ const CellWrapper = styled('div')`
     filter: url('#filter');
 `
 
-const move = keyframes`
-    0% {
-        translate: -${config.shiftLeft}px 0 ;
-    }
-    100% {
-        translate: ${config.cellWidth - config.shiftLeft}px 0 ;
-    }
-`
-
 const Cells = styled(flex)`
     width: 100vw;
     height: 100vh;
     transform-origin: 50% 50%;
     animation: ${move} ${config.animationInterval}s infinite linear;
-`
-
-const fade = keyframes`
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 `
 
 const Cell = styled(flex)<{ x: number; y: number; sleep: number }>`
