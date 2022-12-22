@@ -20,8 +20,8 @@ const config = {
     introAnimationDelay: 1500,
     introFadeTime: 800,
     seed: 3,
-    overflow: 0.5,
-    shiftLeft: 0,
+    overflow: 0.6,
+    shiftLeft: 10,
 }
 
 interface Pos {
