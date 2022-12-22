@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { range } from '../lib/array'
 import { colours } from '../lib/colours'
 import { debounce } from '../lib/debounce'
@@ -18,11 +18,12 @@ const config = {
     stagger: 3,
     introAnimationSpeed: 0.5,
     introAnimationDelay: 1500,
+    introZoomTime: 2000,
     introFadeTime: 800,
     seed: 3,
     overflow: 0.6,
     shiftLeft: 10,
-}
+} as const
 
 interface Pos {
     x: number
@@ -112,17 +113,15 @@ export function Background() {
                 </defs>
             </svg>
 
-            <ZoomIntro>
-                <CellWrapper>
-                    <Cells>
-                        {cellPositions.map(({ x, y }) => (
-                            <Cell x={x} y={y} sleep={getSleepTime({ x, y })} key={`${x}${y}`}>
-                                WUFO
-                            </Cell>
-                        ))}
-                    </Cells>
-                </CellWrapper>
-            </ZoomIntro>
+            <CellWrapper>
+                <Cells>
+                    {cellPositions.map(({ x, y }) => (
+                        <Cell x={x} y={y} sleep={getSleepTime({ x, y })} key={`${x}${y}`}>
+                            WUFO
+                        </Cell>
+                    ))}
+                </Cells>
+            </CellWrapper>
         </Wrapper>
     )
 }
@@ -141,13 +140,6 @@ const Wrapper = styled('div')`
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-`
-
-const ZoomIntro = styled('div')`
-    scale: 2;
-    animation: ${zoom} 1s cubic-bezier(0.75, 0, 0.25, 1);
-    animation-fill-mode: forwards;
-    animation-delay: ${config.introAnimationDelay}ms;
 `
 
 const CellWrapper = styled('div')`
@@ -191,7 +183,11 @@ const Cell = styled(flex)<{ x: number; y: number; sleep: number }>`
     left: ${({ x }) => x - config.cellWidth / 2}px;
     opacity: 0;
     top: ${({ y }) => y - config.cellHeight}px;
-    animation: ${fade} ${config.introFadeTime}ms;
+    animation: ${fade} ${config.introFadeTime}ms
+        ${({ sleep }) =>
+            sleep === 0
+                ? css`, ${zoom} ${config.introZoomTime}ms cubic-bezier(0.9, 0, 0.5, 1)`
+                : ''};
     animation-delay: ${({ sleep }) => sleep}ms;
     animation-fill-mode: forwards;
 `
