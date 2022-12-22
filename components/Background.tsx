@@ -171,7 +171,7 @@ const Cell = styled(flex)<{ x: number; y: number; sleep: number }>`
     font-size: ${config.fontSize}px;
     left: ${({ x }) => x - config.cellWidth / 2}px;
     opacity: 0;
-    top: ${({ y }) => y - config.cellHeight / 2}px;
+    top: ${({ y }) => y - config.cellHeight}px;
     animation: ${fade} ${config.introFadeTime}ms;
     animation-delay: ${({ sleep }) => sleep}ms;
     animation-fill-mode: forwards;
