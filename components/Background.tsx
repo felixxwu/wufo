@@ -21,7 +21,7 @@ const config = {
     introFadeTime: 800,
     seed: 3,
     overflow: 0.5,
-    shiftLeft: 30,
+    shiftLeft: 0,
 }
 
 interface Pos {
