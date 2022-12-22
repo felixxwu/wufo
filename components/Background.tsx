@@ -124,11 +124,24 @@ export function Background() {
     )
 }
 
+const zoom = keyframes`
+    0% {
+        scale: 2;
+    }
+    100% {
+        scale: 1;
+    }
+`
+
 const Wrapper = styled('div')`
     position: absolute;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    scale: 2;
+    animation: ${zoom} 5s;
+    animation-fill-mode: forwards;
+    animation-delay: ${config.introAnimationDelay + config.introFadeTime}ms;
 `
 
 const CellWrapper = styled('div')`
