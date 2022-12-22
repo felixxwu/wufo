@@ -31,10 +31,16 @@ interface Pos {
 export function Background() {
     const [size, setSize] = useState({ w: 0, h: 0 })
     const setSizeDebounced = useRef(debounce(setSize, 1000))
+    const wrapper = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        const onresize = () =>
-            setSizeDebounced.current({ w: window.innerWidth, h: window.innerHeight })
+        const onresize = () => {
+            if (!wrapper.current) return
+            setSizeDebounced.current({
+                w: wrapper.current.clientWidth,
+                h: wrapper.current.clientHeight,
+            })
+        }
         window.onresize = onresize
         onresize()
     }, [])
@@ -85,7 +91,7 @@ export function Background() {
     }
 
     return (
-        <Wrapper>
+        <Wrapper ref={wrapper}>
             <svg
                 xmlns='http://www.w3.org/2000/svg'
                 version='1.1'
