@@ -139,7 +139,7 @@ const Wrapper = styled('div')`
     height: 100vh;
     overflow: hidden;
     scale: 2;
-    animation: ${zoom} 5s;
+    animation: ${zoom} 3s;
     animation-fill-mode: forwards;
     animation-delay: ${config.introAnimationDelay + config.introFadeTime}ms;
 `
