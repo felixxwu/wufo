@@ -144,9 +144,9 @@ const Wrapper = styled('div')`
 
 const ZoomIntro = styled('div')`
     scale: 2;
-    animation: ${zoom} 3s;
+    animation: ${zoom} 1s cubic-bezier(0.75, 0, 0.25, 1);
     animation-fill-mode: forwards;
-    animation-delay: ${config.introAnimationDelay + config.introFadeTime}ms;
+    animation-delay: ${config.introAnimationDelay}ms;
 `
 
 const CellWrapper = styled('div')`
