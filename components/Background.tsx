@@ -21,6 +21,7 @@ const config = {
     introFadeTime: 800,
     seed: 3,
     overflow: 0.5,
+    shiftLeft: 30,
 }
 
 interface Pos {
@@ -157,10 +158,10 @@ const CellWrapper = styled('div')`
 
 const move = keyframes`
     0% {
-        translate: -${config.cellWidth / 2}px  0 ;
+        translate: -${config.shiftLeft}px 0 ;
     }
     100% {
-        translate: ${config.cellWidth / 2}px 0 ;
+        translate: ${config.cellWidth - config.shiftLeft}px 0 ;
     }
 `
 
