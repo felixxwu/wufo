@@ -111,15 +111,17 @@ export function Background() {
                 </defs>
             </svg>
 
-            <CellWrapper>
-                <Cells>
-                    {cellPositions.map(({ x, y }) => (
-                        <Cell x={x} y={y} sleep={getSleepTime({ x, y })} key={`${x}${y}`}>
-                            WUFO
-                        </Cell>
-                    ))}
-                </Cells>
-            </CellWrapper>
+            <ZoomIntro>
+                <CellWrapper>
+                    <Cells>
+                        {cellPositions.map(({ x, y }) => (
+                            <Cell x={x} y={y} sleep={getSleepTime({ x, y })} key={`${x}${y}`}>
+                                WUFO
+                            </Cell>
+                        ))}
+                    </Cells>
+                </CellWrapper>
+            </ZoomIntro>
         </Wrapper>
     )
 }
@@ -138,6 +140,9 @@ const Wrapper = styled('div')`
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+`
+
+const ZoomIntro = styled('div')`
     scale: 2;
     animation: ${zoom} 3s;
     animation-fill-mode: forwards;
