@@ -13,7 +13,7 @@ const config = {
     noiseAmp: 500,
     noiseOctave: 1,
     animationInterval: 10,
-    zoom: 0.85,
+    zoom: 0.9,
     angle: 10,
     stagger: 3,
     introAnimationSpeed: 0.5,
@@ -22,10 +22,11 @@ const config = {
     introZoomAmount: 2,
     introFadeTime: 800,
     seed: 3,
-    overflow: 0.6,
+    overflow: 8,
     shiftLeft: 10,
     textColour: colours.textDark,
     introTextColour: colours.textSecondary,
+    onLoadCutoff: 0.5, // 0.5 = 50% of animations started
 } as const
 
 interface Pos {
@@ -33,10 +34,11 @@ interface Pos {
     y: number
 }
 
-export function Background() {
+export function Background(p: { onLoad: () => void }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
-    const setSizeDebounced = useRef(debounce(setSize, 1000))
+    const setSizeDebounced = useRef(debounce(setSize, 500))
     const wrapper = useRef<HTMLDivElement>(null)
+    const numAnimationsStarted = useRef(0)
 
     useEffect(() => {
         const onresize = () => {
@@ -54,8 +56,9 @@ export function Background() {
         const positions: Pos[] = []
         const numVCells = Math.ceil(size.h / config.cellHeight)
         const numHCells = Math.ceil(size.w / config.cellWidth)
-        range(-numVCells * config.overflow, numVCells * (1 + config.overflow), j =>
-            range(-numHCells * config.overflow, numHCells * (1 + config.overflow), i => {
+        if (numVCells === 0 || numHCells === 0) return []
+        range(-config.overflow, numVCells + config.overflow, j =>
+            range(-config.overflow, numHCells + config.overflow, i => {
                 positions.push({
                     x: Math.round(
                         i * config.cellWidth +
@@ -95,6 +98,13 @@ export function Background() {
         return pos.x === closestPointToCentre.x && pos.y === closestPointToCentre.y
     }
 
+    function handleAnimationStart() {
+        numAnimationsStarted.current++
+        if (numAnimationsStarted.current > cellPositions.length * config.onLoadCutoff) {
+            p.onLoad()
+        }
+    }
+
     return (
         <Wrapper ref={wrapper}>
             <svg
@@ -119,7 +129,13 @@ export function Background() {
             <CellWrapper>
                 <Cells>
                     {cellPositions.map(({ x, y }) => (
-                        <Cell x={x} y={y} sleep={getSleepTime({ x, y })} key={`${x}${y}`}>
+                        <Cell
+                            x={x}
+                            y={y}
+                            sleep={getSleepTime({ x, y })}
+                            key={`${x}${y}`}
+                            onAnimationStart={handleAnimationStart}
+                        >
                             WUFO
                         </Cell>
                     ))}
