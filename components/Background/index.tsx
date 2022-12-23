@@ -1,0 +1,137 @@
+import { useEffect, useRef, useState } from 'react'
+import { range } from '../../lib/array'
+import { consts } from '../../lib/consts'
+import { debounce } from '../../lib/debounce'
+import { isPointInside } from '../../lib/isPointInside'
+import { rotate } from '../../lib/rotate'
+import { Pos } from '../../lib/types'
+import { Cell } from './Cell'
+import { Wrapper, CellWrapper, Cells, Keyframes } from './styles'
+import { SvgFilter } from './SvgFilter'
+
+export function Background(p: { onLoad: () => void }) {
+    const [size, setSize] = useState({ w: 0, h: 0 })
+    const setSizeDebounced = useRef(debounce(setSize, 500))
+    const wrapper = useRef<HTMLDivElement>(null)
+    const numAnimationsStarted = useRef(0)
+
+    useEffect(() => {
+        const onresize = () => {
+            if (!wrapper.current) return
+            setSizeDebounced.current({
+                w: wrapper.current.clientWidth,
+                h: wrapper.current.clientHeight,
+            })
+        }
+        window.onresize = onresize
+        onresize()
+    }, [])
+
+    const cellPositions = (() => {
+        const positions: { pos: Pos; rotated: Pos }[] = []
+        const numVCells = Math.ceil(size.h / consts.background.cellHeight)
+        const numHCells = Math.ceil(size.w / consts.background.cellWidth)
+        if (numVCells === 0 || numHCells === 0) return []
+        range(-consts.background.overflow, numVCells + consts.background.overflow, j =>
+            range(-consts.background.overflow, numHCells + consts.background.overflow, i => {
+                const pos = {
+                    x: Math.round(
+                        i * consts.background.cellWidth +
+                            ((j % consts.background.stagger) * consts.background.cellWidth) /
+                                consts.background.stagger
+                    ),
+                    y: Math.round(j * consts.background.cellHeight),
+                }
+                const rotated = rotate(pos, -consts.background.angle, {
+                    x: size.w / 2,
+                    y: size.h / 2,
+                })
+                positions.push({ pos, rotated })
+            })
+        )
+        return positions
+    })()
+
+    const filteredPositions = cellPositions.filter(cell =>
+        isPointInside(cell.rotated, size, {
+            w: consts.background.cellWidth,
+            h: consts.background.cellHeight,
+        })
+    )
+
+    function calculateDistFromCentre(pos: Pos) {
+        return Math.sqrt(Math.pow(pos.x - size.w / 2, 2) + Math.pow(pos.y - size.h / 2, 2))
+    }
+
+    function getSleepTime(pos: Pos) {
+        return isCentreCell(pos)
+            ? 0
+            : calculateDistFromCentre(pos) / consts.background.introAnimationSpeed +
+                  consts.background.introAnimationDelay
+    }
+
+    const closestPointToCentre = (() => {
+        let closest = cellPositions[0]?.pos
+        let minDist = Infinity
+        cellPositions.forEach(({ pos }) => {
+            const dist = calculateDistFromCentre(pos)
+            if (dist < minDist) {
+                closest = pos
+                minDist = dist
+            }
+        })
+        return closest
+    })()
+
+    function isCentreCell(pos: Pos) {
+        return pos.x === closestPointToCentre.x && pos.y === closestPointToCentre.y
+    }
+
+    function handleAnimationStart() {
+        numAnimationsStarted.current++
+        if (
+            numAnimationsStarted.current >
+            filteredPositions.length * consts.background.onLoadCutoff
+        ) {
+            p.onLoad()
+        }
+        //@ts-ignore
+        // window.checknotvisible = () => {
+        //     const nonvisilbe = Array.from(document.querySelectorAll('.cell')).filter(cell => {
+        //         const rect = cell.getBoundingClientRect()
+        //         return !(
+        //             rect.top >= 0 &&
+        //             rect.left >= 0 &&
+        //             rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        //             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        //         )
+        //     })
+        //     console.log(`nonvisilbe`, nonvisilbe.length)
+        // }
+    }
+
+    return (
+        <Wrapper ref={wrapper}>
+            <SvgFilter
+                noiseAmp={consts.background.noiseAmp}
+                noiseFrequency={consts.background.noiseFrequency}
+                noiseOctave={consts.background.noiseOctave}
+                seed={consts.background.seed}
+            />
+
+            <CellWrapper>
+                <Cells>
+                    {filteredPositions.map(({ pos }) => (
+                        <Cell
+                            onAnimate={handleAnimationStart}
+                            pos={pos}
+                            sleep={getSleepTime(pos)}
+                            key={`${pos.x} ${pos.y}`}
+                        />
+                    ))}
+                </Cells>
+            </CellWrapper>
+            <Keyframes />
+        </Wrapper>
+    )
+}
