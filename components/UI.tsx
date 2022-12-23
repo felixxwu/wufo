@@ -6,7 +6,7 @@ import { flex } from '../lib/flex'
 export function UI() {
     return (
         <Wrapper>
-            <div>Content is under maintenance.</div>
+            <div>Content here.</div>
             <br />
             <Link href='https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY' target='_blank'>
                 Spotify
