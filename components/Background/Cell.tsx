@@ -7,7 +7,6 @@ import { Pos } from '../../lib/types'
 export function Cell(props: { pos: Pos; sleep: number; onAnimate: () => void }) {
     return (
         <Wrapper
-            className='cell'
             style={{
                 left: `${props.pos.x}px`,
                 top: `${props.pos.y - 2 * consts.background.cellHeight}px`,

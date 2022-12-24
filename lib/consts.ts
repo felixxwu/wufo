@@ -8,6 +8,7 @@ export const consts = {
     releaseAnimationStaggerDelay: 200,
     headerIconSize: 30,
     coverArtSize: 200,
+    performanceCutoff: 1000, // if it takes 1000ms to start the first animation, the device is too slow
     background: {
         cellWidth: 120,
         cellHeight: 36,

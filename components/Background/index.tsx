@@ -12,6 +12,9 @@ import { SvgFilter } from './SvgFilter'
 
 export function Background(props: { onLoad: () => void }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
+    const [timing, setTiming] = useState({ start: 0, end: 0 })
+    const deviceIsTooSlow = timing.end - timing.start > consts.performanceCutoff
+    if (timing.end - timing.start > 0) console.log(timing.end - timing.start)
     const setSizeDebounced = useRef(debounce(setSize, 500))
     const wrapper = useRef<HTMLDivElement>(null)
     const numAnimationsStarted = useRef(0)
@@ -26,6 +29,7 @@ export function Background(props: { onLoad: () => void }) {
         }
         window.onresize = onresize
         onresize()
+        setTiming({ ...timing, start: new Date().getTime() })
     }, [])
 
     const cellPositions = (() => {
@@ -96,19 +100,9 @@ export function Background(props: { onLoad: () => void }) {
         ) {
             props.onLoad()
         }
-        //@ts-ignore
-        // window.checknotvisible = () => {
-        //     const nonvisilbe = Array.from(document.querySelectorAll('.cell')).filter(cell => {
-        //         const rect = cell.getBoundingClientRect()
-        //         return !(
-        //             rect.top >= 0 &&
-        //             rect.left >= 0 &&
-        //             rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        //             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        //         )
-        //     })
-        //     console.log(`nonvisilbe`, nonvisilbe.length)
-        // }
+        if (timing.end === 0) {
+            setTiming({ ...timing, end: new Date().getTime() })
+        }
     }
 
     return (
@@ -120,8 +114,8 @@ export function Background(props: { onLoad: () => void }) {
                 seed={consts.background.seed}
             />
 
-            <CellWrapper>
-                <Cells>
+            <CellWrapper style={deviceIsTooSlow ? { filter: 'none' } : {}}>
+                <Cells style={deviceIsTooSlow ? { animation: 'none' } : {}}>
                     {filteredPositions.map(({ pos }) => (
                         <Cell
                             onAnimate={handleAnimationStart}
