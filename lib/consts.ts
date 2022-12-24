@@ -1,8 +1,13 @@
-import { colours } from './colours'
+import { colors } from './colors'
 
 export const consts = {
     borderRadius: 10,
-    shadow: '0 0 5px 0 rgba(0,0,0,0.5)',
+    borderRadiusSmall: 5,
+    shadow: '0 0 10px 0 rgba(0,0,0,0.5)',
+    shortTransition: 200,
+    releaseAnimationStaggerDelay: 200,
+    headerIconSize: 30,
+    coverArtSize: 200,
     background: {
         cellWidth: 120,
         cellHeight: 36,
@@ -21,8 +26,8 @@ export const consts = {
         seed: 3,
         overflow: 8,
         shiftLeft: 60,
-        textColour: colours.textDark,
-        introTextColour: colours.textSecondary,
-        onLoadCutoff: 0.5, // 0.5 = 50% of animations started
+        textColor: colors.textDark,
+        introTextColor: colors.textSecondary,
+        onLoadCutoff: 0.7, // 0.5 = 50% of animations started
     },
 } as const

@@ -3,13 +3,14 @@ import { range } from '../../lib/array'
 import { consts } from '../../lib/consts'
 import { debounce } from '../../lib/debounce'
 import { isPointInside } from '../../lib/isPointInside'
+import { BGKeyframes } from '../../lib/keyframes'
 import { rotate } from '../../lib/rotate'
 import { Pos } from '../../lib/types'
 import { Cell } from './Cell'
-import { Wrapper, CellWrapper, Cells, Keyframes } from './styles'
+import { Wrapper, CellWrapper, Cells } from './styles'
 import { SvgFilter } from './SvgFilter'
 
-export function Background(p: { onLoad: () => void }) {
+export function Background(props: { onLoad: () => void }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
     const setSizeDebounced = useRef(debounce(setSize, 500))
     const wrapper = useRef<HTMLDivElement>(null)
@@ -93,7 +94,7 @@ export function Background(p: { onLoad: () => void }) {
             numAnimationsStarted.current >
             filteredPositions.length * consts.background.onLoadCutoff
         ) {
-            p.onLoad()
+            props.onLoad()
         }
         //@ts-ignore
         // window.checknotvisible = () => {
@@ -131,7 +132,7 @@ export function Background(p: { onLoad: () => void }) {
                     ))}
                 </Cells>
             </CellWrapper>
-            <Keyframes />
+            <BGKeyframes />
         </Wrapper>
     )
 }

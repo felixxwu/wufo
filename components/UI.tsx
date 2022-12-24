@@ -1,47 +1,42 @@
-import { useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { colours } from '../lib/colours'
+import { colors } from '../lib/colors'
+import { consts } from '../lib/consts'
+import { content } from '../lib/content'
 import { flex } from '../lib/flex'
+import { Header } from './Header'
+import { Release } from './Release'
 
 export function UI() {
     return (
         <Wrapper>
-            <div>Content here.</div>
-            <br />
-            <Link href='https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY' target='_blank'>
-                Spotify
-            </Link>
-            <Link href='https://soundcloud.com/wufo' target='_blank'>
-                SoundCloud
-            </Link>
-            <Link href='https://www.youtube.com/@wufodnb' target='_blank'>
-                YouTube
-            </Link>
-            <Link href='https://www.instagram.com/wufodnb' target='_blank'>
-                Instagram
-            </Link>
-            <Link href='https://www.facebook.com/profile.php?id=100088831532494' target='_blank'>
-                Facebook
-            </Link>
+            <Content>
+                <Header />
+                {content.releases.map((release, i) => (
+                    <Release
+                        release={release}
+                        animationDelay={(i + 1) * consts.releaseAnimationStaggerDelay}
+                        key={i}
+                    />
+                ))}
+            </Content>
         </Wrapper>
     )
 }
 
-const fadeIn = keyframes`
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-`
-
 const Wrapper = styled(flex)`
+    align-items: flex-start;
     position: absolute;
-    flex-direction: column;
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
-    animation: ${fadeIn} 1s;
 `
 
-const Link = styled('a')`
-    color: ${colours.textSecondary};
+const Content = styled(flex)`
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    flex-direction: column;
+    gap: 20px;
 `

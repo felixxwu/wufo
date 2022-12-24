@@ -1,4 +1,4 @@
-export function SvgFilter(p: {
+export function SvgFilter(props: {
     noiseFrequency: number
     noiseOctave: number
     seed: number
@@ -14,12 +14,12 @@ export function SvgFilter(p: {
                 <filter id='filter'>
                     <feTurbulence
                         type='fractalNoise'
-                        baseFrequency={p.noiseFrequency}
-                        numOctaves={p.noiseOctave}
+                        baseFrequency={props.noiseFrequency}
+                        numOctaves={props.noiseOctave}
                         result='warp'
-                        seed={p.seed}
+                        seed={props.seed}
                     ></feTurbulence>
-                    <feDisplacementMap scale={p.noiseAmp} in='SourceGraphic' in2='warp' />
+                    <feDisplacementMap scale={props.noiseAmp} in='SourceGraphic' in2='warp' />
                 </filter>
             </defs>
         </svg>
