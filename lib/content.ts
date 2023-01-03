@@ -6,6 +6,7 @@ import { SoundCloud } from '../icons/soundcloud'
 import { Instagram } from '../icons/instagram'
 import { Facebook } from '../icons/facebook'
 import { YouTube } from '../icons/youtube'
+import { Twitter } from '../icons/twitter'
 
 export const content: Content = {
     avatar: header,
@@ -16,6 +17,7 @@ export const content: Content = {
         { link: 'https://www.youtube.com/@wufodnb', Icon: YouTube },
         { link: 'https://www.instagram.com/wufodnb', Icon: Instagram },
         { link: 'https://www.facebook.com/profile.php?id=100088831532494', Icon: Facebook },
+        { link: 'https://twitter.com/wufodnb', Icon: Twitter },
     ],
     email: 'wufodnb@gmail.com',
     releases: [
