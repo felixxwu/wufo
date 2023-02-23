@@ -3,7 +3,7 @@ import { StaticImageData } from 'next/image'
 export interface IRelease {
     title: string
     hue: number
-    cover: StaticImageData
+    cover: StaticImageData | string
     soundcloud: string
     spotify?: string
     apple?: string

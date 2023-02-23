@@ -1,7 +1,7 @@
 import { colors } from './colors'
 
 export const consts = {
-    borderRadius: 10,
+    borderRadius: 8,
     borderRadiusSmall: 5,
     shadow: '0 0 10px 0 rgba(0,0,0,0.5)',
     shortTransition: 200,

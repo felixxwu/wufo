@@ -6,11 +6,11 @@ import { consts } from '../lib/consts'
 import { flex } from '../lib/flex'
 import { Song } from '../lib/types'
 
-export function TrackWidget(props: { song: Song; trackNumber: number }) {
+export function TrackWidget(props: { song: Song; trackNumber: number; hue: number }) {
     const [loaded, setLoaded] = useState(false)
     if (loaded && props.song.link) {
         return (
-            <IFrame>
+            <IFrame hue={props.hue}>
                 <iframe
                     width='100%'
                     height='20'
@@ -49,8 +49,9 @@ const Wrapper = styled(flex)`
     }
 `
 
-const IFrame = styled(flex)`
-    filter: invert() grayscale() contrast(3) brightness(0.9);
+const IFrame = styled(flex)<{ hue: number }>`
+    filter: invert() hue-rotate(${({ hue }) => (hue ?? 0) + 170}deg) contrast(3) brightness(0.9)
+        saturate(50%);
     width: 100%;
     height: 45px;
     padding: 0 10px;

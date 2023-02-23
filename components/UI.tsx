@@ -1,5 +1,4 @@
-import styled, { keyframes } from 'styled-components'
-import { colors } from '../lib/colors'
+import styled from 'styled-components'
 import { consts } from '../lib/consts'
 import { content } from '../lib/content'
 import { flex } from '../lib/flex'
@@ -30,6 +29,7 @@ const Wrapper = styled(flex)`
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+    padding: 30vh 0;
 `
 
 const Content = styled(flex)`
@@ -38,5 +38,5 @@ const Content = styled(flex)`
     max-width: 800px;
     padding: 20px;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
 `

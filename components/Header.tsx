@@ -5,14 +5,12 @@ import { consts } from '../lib/consts'
 import { content } from '../lib/content'
 import { flex } from '../lib/flex'
 import { fadeInDown } from '../lib/keyframes'
-import header from '../public/header.jpg'
 
 export function Header() {
     return (
         <Wrapper>
-            <Avatar src={header} alt='Header' />
+            <Name>WUFO</Name>
             <Bio>{content.bio}</Bio>
-            <Email href={`mailto:${content.email}`}>{content.email}</Email>
             <Links>
                 {content.socials.map(({ link, Icon }) => (
                     <Link href={link} target='_blank' key={link}>
@@ -26,6 +24,7 @@ export function Header() {
                     </Link>
                 ))}
             </Links>
+            <Email href={`mailto:${content.email}`}>{content.email}</Email>
         </Wrapper>
     )
 }
@@ -34,6 +33,13 @@ const Wrapper = styled(flex)`
     flex-direction: column;
     gap: 20px;
     animation: ${fadeInDown} 1s;
+`
+
+const Name = styled('div')`
+    font-size: 60px;
+    font-weight: 900;
+    font-style: italic;
+    color: ${colors.text};
 `
 
 const Avatar = styled(Image)`

@@ -31,7 +31,15 @@ export function Release(props: { release: IRelease; animationDelay: number }) {
             {...props}
             style={{ animationDelay: props.animationDelay + 'ms', animationFillMode: 'forwards' }}
         >
-            <Cover src={props.release.cover} alt={props.release.title} />
+            {typeof props.release.cover === 'string' ? (
+                <ImgCover
+                    src={props.release.cover}
+                    width={consts.coverArtSize}
+                    height={consts.coverArtSize}
+                />
+            ) : (
+                <Cover src={props.release.cover} alt={props.release.title} />
+            )}
             <Songs>
                 <Title>
                     {props.release.title}
@@ -43,7 +51,7 @@ export function Release(props: { release: IRelease; animationDelay: number }) {
                     </Links>
                 </Title>
                 {props.release.songs.map((song, i) => (
-                    <TrackWidget song={song} trackNumber={i + 1} key={i} />
+                    <TrackWidget song={song} trackNumber={i + 1} hue={props.release.hue} key={i} />
                 ))}
             </Songs>
         </Wrapper>
@@ -77,6 +85,12 @@ const Cover = styled(Image)`
     margin: 0 auto;
     width: ${consts.coverArtSize}px;
     height: ${consts.coverArtSize}px;
+    border-radius: ${consts.borderRadius}px;
+`
+
+const ImgCover = styled('img')`
+    grid-area: cover;
+    margin: 0 auto;
     border-radius: ${consts.borderRadius}px;
 `
 
