@@ -57,7 +57,12 @@ export function Release(props: { release: IRelease; animationDelay: number }) {
                     </Links>
                 </Title>
                 {props.release.songs.map((song, i) => (
-                    <TrackWidget song={song} trackNumber={i + 1} hue={props.release.hue} key={i} />
+                    <TrackWidget
+                        song={song}
+                        trackNumber={i + 1}
+                        hue={props.release.hue ?? 0}
+                        key={i}
+                    />
                 ))}
             </Songs>
         </Wrapper>
