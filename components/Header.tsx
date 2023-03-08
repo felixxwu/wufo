@@ -9,7 +9,8 @@ import { fadeInDown } from '../lib/keyframes'
 export function Header() {
     return (
         <Wrapper>
-            <Name>WUFO</Name>
+            <Logo src='/logo.svg' alt='WUFO' width='100' height='70' />
+
             <Bio>{content.bio}</Bio>
             <Links>
                 {content.socials.map(({ link, Icon }) => (
@@ -47,6 +48,10 @@ const Avatar = styled(Image)`
     height: 150px;
     border-radius: 100%;
     box-shadow: ${consts.shadow};
+`
+
+const Logo = styled(Image)`
+    filter: brightness(${colors.textSecondaryLightness});
 `
 
 const Links = styled(flex)`
