@@ -1,5 +1,6 @@
 import { Content } from './types'
 import header from '../public/header.jpg'
+import nightandday from '../public/night&day.jpg'
 import { Spotify } from '../icons/spotify'
 import { SoundCloudRound } from '../icons/soundcloud-round'
 import { YouTubeRound } from '../icons/youtube-round'
@@ -10,7 +11,7 @@ import { TwitterRound } from '../icons/twitter-round'
 
 export const content: Content = {
     avatar: header,
-    bio: 'Drum & Bass producer based in London, also known as Noxive',
+    bio: 'London based Drum & Bass producer, also known as Noxive',
     socials: [
         { link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY', Icon: Spotify },
         { link: 'https://music.apple.com/us/artist/wufo/1643758828', Icon: AppleRound },
@@ -22,18 +23,6 @@ export const content: Content = {
     ],
     email: 'wufodnb@gmail.com',
     releases: [
-        // {
-        //     title: 'Night & Day EP',
-        //     hue: 180,
-        //     cover: hydepark,
-        //     soundcloud: 'https://soundcloud.com/argofox/wufo-hyde-park',
-        //     songs: [
-        //         { title: "You Don't Know", link: 'https://soundcloud.com/argofox/wufo-hyde-park' },
-        //         { title: 'Night & Day', link: 'https://soundcloud.com/argofox/wufo-hyde-park' },
-        //         { title: 'Sunday Secrets', link: 'https://soundcloud.com/argofox/wufo-hyde-park' },
-        //         { title: 'Endpoint', link: 'https://soundcloud.com/argofox/wufo-hyde-park' },
-        //     ],
-        // },
         {
             title: 'Hyde Park',
             hue: 45,
@@ -43,6 +32,37 @@ export const content: Content = {
             apple: 'https://music.apple.com/us/album/hyde-park/1643758822',
             youtube: 'https://www.youtube.com/watch?v=GFohON2Fi8w',
             songs: [{ title: 'Hyde Park', link: 'https://soundcloud.com/argofox/wufo-hyde-park' }],
+        },
+        {
+            title: 'Night & Day EP',
+            hue: null,
+            cover: nightandday,
+            songs: [
+                { title: "You Don't Know (ft. Jitsu)" },
+                { title: 'Night & Day' },
+                { title: 'Sunday Secrets' },
+                { title: 'Endpoint' },
+            ],
+            releaseDate: 'Coming March 27th',
+        },
+        {
+            title: 'Blockbuster Love',
+            hue: null,
+            cover: 'https://i1.sndcdn.com/avatars-000353687978-x2w341-t500x500.jpg',
+            songs: [{ title: 'Blockbuster Love (ft. Taylor B-W)' }],
+            releaseDate: 'Coming April',
+        },
+        {
+            title: 'Callback EP',
+            hue: null,
+            cover: 'https://i1.sndcdn.com/avatars-rERUsvEDDhPyU7kC-jnPBHw-t500x500.jpg',
+            songs: [
+                { title: 'Callback' },
+                { title: 'Threaded' },
+                { title: 'Control Flow' },
+                { title: 'The Day' },
+            ],
+            releaseDate: 'Coming Soon',
         },
     ],
 }

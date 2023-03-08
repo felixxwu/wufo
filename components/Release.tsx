@@ -44,10 +44,16 @@ export function Release(props: { release: IRelease; animationDelay: number }) {
                 <Title>
                     {props.release.title}
                     <Links>
-                        {Link(props.release.spotify, SpotifyRound)}
-                        {Link(props.release.soundcloud, SoundCloudRound)}
-                        {Link(props.release.apple, AppleRound)}
-                        {Link(props.release.youtube, YouTubeRound)}
+                        {props.release.releaseDate ? (
+                            <ReleaseDate>{props.release.releaseDate}</ReleaseDate>
+                        ) : (
+                            <>
+                                {Link(props.release.spotify, SpotifyRound)}
+                                {Link(props.release.soundcloud, SoundCloudRound)}
+                                {Link(props.release.apple, AppleRound)}
+                                {Link(props.release.youtube, YouTubeRound)}
+                            </>
+                        )}
                     </Links>
                 </Title>
                 {props.release.songs.map((song, i) => (
@@ -66,7 +72,8 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     align-items: flex-start;
     padding: 20px;
     width: 100%;
-    background-color: hsl(${({ release }) => release.hue}, 50%, 35%);
+    background-color: ${({ release }) =>
+        release.hue === null ? '#333' : `hsl(${release.hue}, 50%, 35%)`};
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
     gap: 20px;
@@ -108,6 +115,10 @@ const Title = styled(flex)`
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
+`
+
+const ReleaseDate = styled('em')`
+    font-weight: 500;
 `
 
 const Links = styled(flex)`

@@ -2,18 +2,19 @@ import { StaticImageData } from 'next/image'
 
 export interface IRelease {
     title: string
-    hue: number
+    hue: number | null
     cover: StaticImageData | string
-    soundcloud: string
+    soundcloud?: string
     spotify?: string
     apple?: string
     youtube?: string
     songs: Song[]
+    releaseDate?: string
 }
 
 export interface Song {
     title: string
-    link: string
+    link?: string
 }
 
 export interface Pos {

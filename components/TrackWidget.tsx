@@ -25,8 +25,12 @@ export function TrackWidget(props: { song: Song; trackNumber: number; hue: numbe
         )
     } else {
         return (
-            <Wrapper key={props.song.title} onClick={() => setLoaded(true)}>
-                <Play color={colors.text} style={{ width: '12px' }} />
+            <Wrapper
+                key={props.song.title}
+                onClick={() => setLoaded(true)}
+                style={{ pointerEvents: props.song.link ? 'auto' : 'none' }}
+            >
+                {props.song.link && <Play color={colors.text} style={{ width: '12px' }} />}
                 {props.trackNumber}. {props.song.title}
             </Wrapper>
         )
