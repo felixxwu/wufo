@@ -8,6 +8,9 @@ import { AppleRound } from '../icons/apple-round'
 import { InstagramRound } from '../icons/instagram-round'
 import { FacebookRound } from '../icons/facebook-round'
 import { TwitterRound } from '../icons/twitter-round'
+import fokuz from '../public/fokuz.png'
+import souldeep from '../public/souldeep.png'
+import celcius from '../public/celcius.png'
 
 export const content: Content = {
     avatar: header,
@@ -36,7 +39,7 @@ export const content: Content = {
         {
             title: 'Night & Day EP',
             hue: null,
-            cover: nightandday,
+            cover: souldeep,
             songs: [
                 { title: "You Don't Know (ft. Jitsu)" },
                 { title: 'Night & Day' },
@@ -48,14 +51,14 @@ export const content: Content = {
         {
             title: 'Blockbuster Love',
             hue: null,
-            cover: 'https://i1.sndcdn.com/avatars-000353687978-x2w341-t500x500.jpg',
+            cover: celcius,
             songs: [{ title: 'Blockbuster Love (ft. Taylor B-W)' }],
             releaseDate: 'Coming April',
         },
         {
             title: 'Callback EP',
             hue: null,
-            cover: 'https://i1.sndcdn.com/avatars-rERUsvEDDhPyU7kC-jnPBHw-t500x500.jpg',
+            cover: fokuz,
             songs: [
                 { title: 'Callback' },
                 { title: 'Threaded' },
