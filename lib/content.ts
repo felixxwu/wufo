@@ -38,15 +38,30 @@ export const content: Content = {
         },
         {
             title: 'Night & Day EP',
-            hue: null,
-            cover: souldeep,
+            hue: 224,
+            cover: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t500x500.jpg',
+            soundcloud: 'https://soundcloud.com/soul-deep-recordings/sets/wufo-night-day',
+            spotify: 'https://open.spotify.com/album/5hBYTI38j7NqTt9qKsg8n8',
+            apple: 'https://music.apple.com/us/album/night-day-ep/1672463499',
+            youtube: 'https://www.youtube.com/playlist?list=PL-BYmIN56P18OCfk0MSbjecJNcRzo9xOF',
             songs: [
-                { title: "You Don't Know (ft. Jitsu)" },
-                { title: 'Night & Day' },
-                { title: 'Sunday Secrets' },
-                { title: 'Endpoint' },
+                {
+                    title: 'Night & Day',
+                    link: 'https://soundcloud.com/soul-deep-recordings/wufo-night-day',
+                },
+                {
+                    title: "You Don't Know (ft. Jitsu)",
+                    link: 'https://soundcloud.com/soul-deep-recordings/wufo-jitsu-you-dont-know',
+                },
+                {
+                    title: 'Sunday Secrets',
+                    link: 'https://soundcloud.com/soul-deep-recordings/wufo-sunday-secrets',
+                },
+                {
+                    title: 'Endpoint',
+                    link: 'https://soundcloud.com/soul-deep-recordings/wufo-endpoint',
+                },
             ],
-            releaseDate: 'Coming March 27th',
         },
         {
             title: 'Blockbuster Love',
