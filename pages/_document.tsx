@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import { colors } from '../lib/colors'
+import Script from 'next/script'
 
 export default function Document() {
     return (
@@ -15,10 +16,10 @@ export default function Document() {
             <body style={{ backgroundColor: colors.bg, color: colors.text }}>
                 <Main />
                 <NextScript />
-                <script
+                <Script
                     src='https://w.soundcloud.com/player/api.js'
                     type='text/javascript'
-                ></script>
+                ></Script>
             </body>
         </Html>
     )
