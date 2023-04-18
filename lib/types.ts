@@ -1,5 +1,24 @@
 import { StaticImageData } from 'next/image'
 
+declare global {
+    interface Window {
+        SC: {
+            Widget: {
+                (iframe: HTMLIFrameElement): {
+                    play(): void
+                    pause(): void
+                    bind(event: string, callback: () => void): void
+                }
+                Events: {
+                    PLAY: string
+                    PAUSE: string
+                    FINISH: string
+                }
+            }
+        }
+    }
+}
+
 export interface IRelease {
     title: string
     hue: number | null

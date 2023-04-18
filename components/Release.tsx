@@ -11,6 +11,7 @@ import { IconProps, IRelease } from '../lib/types'
 import { fadeInDown } from '../lib/keyframes'
 import { TrackWidget } from './TrackWidget'
 import { Play } from '../icons/play'
+import { Pause } from '../icons/pause'
 import { useState } from 'react'
 
 function Link(link: string | undefined, Icon: (props: IconProps) => JSX.Element) {
@@ -27,17 +28,42 @@ function Link(link: string | undefined, Icon: (props: IconProps) => JSX.Element)
     )
 }
 
-export function Release(props: { release: IRelease; animationDelay: number }) {
-    const [played, setPlayed] = useState(false)
+export function Release(props: {
+    release: IRelease
+    animationDelay: number
+    playState: { songs: { playing: boolean }[] }
+    onPlayStateChange: (playing: boolean, index: number) => void
+    onTrackEnd: (song: number) => void
+}) {
+    const [lastPlayed, setLastPlayed] = useState(0)
+
+    function handlePlayPause() {
+        if (props.playState.songs.some(song => song.playing)) {
+            props.onPlayStateChange(false, lastPlayed)
+        } else {
+            props.onPlayStateChange(true, lastPlayed)
+        }
+    }
+
+    function handleTrackPlayStateChange(playing: boolean, index: number) {
+        props.onPlayStateChange(playing, index)
+        if (playing) {
+            setLastPlayed(index)
+        }
+    }
 
     return (
         <Wrapper
             {...props}
             style={{ animationDelay: props.animationDelay + 'ms', animationFillMode: 'forwards' }}
         >
-            {!props.release.releaseDate && !played && (
-                <HoverPlayIcon onClick={() => setPlayed(true)}>
-                    <Play color={colors.text} style={{ scale: '2' }} />
+            {!props.release.releaseDate && (
+                <HoverPlayIcon onClick={handlePlayPause}>
+                    {props.playState.songs.some(song => song.playing) ? (
+                        <Pause color={colors.text} style={{ scale: '2' }} />
+                    ) : (
+                        <Play color={colors.text} style={{ scale: '2' }} />
+                    )}
                 </HoverPlayIcon>
             )}
 
@@ -70,9 +96,11 @@ export function Release(props: { release: IRelease; animationDelay: number }) {
                 {props.release.songs.map((song, i) => (
                     <TrackWidget
                         song={song}
-                        overwriteLoaded={i === 0 && played}
                         trackNumber={i + 1}
                         hue={props.release.hue ?? 0}
+                        playing={props.playState.songs[i].playing}
+                        onPlayChange={playing => handleTrackPlayStateChange(playing, i)}
+                        onTrackEnd={() => props.onTrackEnd(i)}
                         key={i}
                     />
                 ))}

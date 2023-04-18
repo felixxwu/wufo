@@ -4,17 +4,44 @@ import { content } from '../lib/content'
 import { flex } from '../lib/flex'
 import { Header } from './Header'
 import { Release } from './Release'
+import { useState } from 'react'
 
 export function UI() {
+    const [playState, setPlayState] = useState(
+        content.releases.map(release => ({
+            songs: release.songs.map(() => ({ playing: false })),
+        }))
+    )
+
     return (
         <Wrapper>
             <Content>
                 <Header />
-                {content.releases.map((release, i) => (
+                {content.releases.map((release, releaseIndex) => (
                     <Release
                         release={release}
-                        animationDelay={(i + 1) * consts.releaseAnimationStaggerDelay}
-                        key={i}
+                        animationDelay={(releaseIndex + 1) * consts.releaseAnimationStaggerDelay}
+                        playState={playState[releaseIndex]}
+                        onPlayStateChange={(playing, index) => {
+                            const newPlayState = [...playState]
+                            newPlayState[releaseIndex].songs[index].playing = playing
+                            setPlayState(newPlayState)
+                        }}
+                        onTrackEnd={song => {
+                            const newPlayState = [...playState]
+                            newPlayState[releaseIndex].songs[song].playing = false
+                            const nextSong = newPlayState[releaseIndex].songs[song + 1]
+                            if (nextSong) {
+                                newPlayState[releaseIndex].songs[song + 1].playing = true
+                            } else {
+                                const nextRelease = newPlayState[releaseIndex + 1]
+                                if (nextRelease) {
+                                    newPlayState[releaseIndex + 1].songs[0].playing = true
+                                }
+                            }
+                            setPlayState(newPlayState)
+                        }}
+                        key={releaseIndex}
                     />
                 ))}
             </Content>
