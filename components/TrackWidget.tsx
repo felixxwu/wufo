@@ -19,11 +19,9 @@ export function TrackWidget(props: {
     useEffect(() => {
         if (!iframe.current) return
         window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.PAUSE, () => {
-            console.log(`PAUSE`)
             props.onPlayChange(false)
         })
         window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.FINISH, () => {
-            console.log(`FINISH`)
             props.onTrackEnd()
         })
     }, [])

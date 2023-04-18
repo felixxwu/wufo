@@ -16,10 +16,11 @@ export default function Document() {
             <body style={{ backgroundColor: colors.bg, color: colors.text }}>
                 <Main />
                 <NextScript />
-                <Script
+                <script
                     src='https://w.soundcloud.com/player/api.js'
                     type='text/javascript'
-                ></Script>
+                    defer
+                ></script>
             </body>
         </Html>
     )
