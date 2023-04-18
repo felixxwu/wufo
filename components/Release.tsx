@@ -136,7 +136,6 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
 
 const Cover = styled(Image)`
     grid-area: cover;
-    margin: 0 auto;
     width: ${consts.coverArtSize}px;
     height: ${consts.coverArtSize}px;
     border-radius: ${consts.borderRadius}px;
@@ -144,7 +143,6 @@ const Cover = styled(Image)`
 
 const ImgCover = styled('img')`
     grid-area: cover;
-    margin: 0 auto;
     border-radius: ${consts.borderRadius}px;
 `
 
