@@ -1,6 +1,5 @@
 import { Content } from './types'
 import header from '../public/header.jpg'
-import nightandday from '../public/night&day.jpg'
 import { Spotify } from '../icons/spotify'
 import { SoundCloudRound } from '../icons/soundcloud-round'
 import { YouTubeRound } from '../icons/youtube-round'
@@ -9,8 +8,6 @@ import { InstagramRound } from '../icons/instagram-round'
 import { FacebookRound } from '../icons/facebook-round'
 import { TwitterRound } from '../icons/twitter-round'
 import fokuz from '../public/fokuz.png'
-import souldeep from '../public/souldeep.png'
-import celcius from '../public/celcius.png'
 
 export const content: Content = {
     avatar: header,

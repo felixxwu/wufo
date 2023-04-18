@@ -6,9 +6,15 @@ import { consts } from '../lib/consts'
 import { flex } from '../lib/flex'
 import { Song } from '../lib/types'
 
-export function TrackWidget(props: { song: Song; trackNumber: number; hue: number }) {
+export function TrackWidget(props: {
+    song: Song
+    trackNumber: number
+    hue: number
+    overwriteLoaded?: boolean
+}) {
     const [loaded, setLoaded] = useState(false)
-    if (loaded && props.song.link) {
+
+    if ((props.overwriteLoaded || loaded) && props.song.link) {
         return (
             <IFrame hue={props.hue}>
                 <iframe
