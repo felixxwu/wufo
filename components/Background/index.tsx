@@ -7,8 +7,9 @@ import { BGKeyframes } from '../../lib/keyframes'
 import { rotate } from '../../lib/rotate'
 import { Pos } from '../../lib/types'
 import { Cell } from './Cell'
-import { Wrapper, CellWrapper, Cells } from './styles'
+import { Wrapper, CellWrapper, Cells, NoiseWrapper } from './styles'
 import { SvgFilter } from './SvgFilter'
+import { Noise } from './noise'
 
 export function Background(props: { onLoad: () => void }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
@@ -127,6 +128,9 @@ export function Background(props: { onLoad: () => void }) {
                 </Cells>
             </CellWrapper>
             <BGKeyframes />
+            <NoiseWrapper>
+                <Noise />
+            </NoiseWrapper>
         </Wrapper>
     )
 }

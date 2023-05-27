@@ -52,7 +52,7 @@ export const content: Content = {
         },
         {
             title: 'Night & Day EP',
-            hue: 224,
+            hue: 210,
             cover: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t500x500.jpg',
             soundcloud: 'https://soundcloud.com/soul-deep-recordings/sets/wufo-night-day',
             spotify: 'https://open.spotify.com/album/5hBYTI38j7NqTt9qKsg8n8',

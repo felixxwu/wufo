@@ -120,7 +120,7 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     padding: ${CARD_PADDING}px;
     width: 100%;
     background-color: ${({ release }) =>
-        release.hue === null ? '#333' : `hsl(${release.hue}, 50%, 35%)`};
+        release.hue === null ? '#333' : `hsl(${release.hue}, 30%, 30%)`};
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
     gap: 20px;
