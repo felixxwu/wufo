@@ -80,7 +80,7 @@ export function TrackWidget(props: {
                 style={{
                     pointerEvents: props.song.link ? 'auto' : 'none',
                     color: props.playing ? colors.text : colors.textSecondary,
-                    backgroundColor: isLastPlayed ? colors.highlight : '',
+                    backgroundColor: props.playing ? colors.highlight : '',
                 }}
             >
                 {props.song.link &&

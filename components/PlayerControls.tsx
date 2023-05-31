@@ -97,7 +97,7 @@ export function PlayerControls(props: {
     )
 }
 
-const margin = 20
+const margin = 30
 const thumbSize = 15
 const sliderHeight = 15
 const barPositionFromTop = 7
@@ -131,7 +131,7 @@ const SliderThumb = styled('div')`
     position: absolute;
     width: ${thumbSize}px;
     height: ${thumbSize}px;
-    background-color: #fff;
+    background-color: ${colors.text};
     border-radius: 50%;
     margin-left: ${-thumbSize / 2}px;
 `
@@ -140,7 +140,7 @@ const SliderBarProgress = styled('div')`
     margin-top: ${barPositionFromTop}px;
     position: absolute;
     height: 2px;
-    background-color: #fff;
+    background-color: ${colors.text}};
 `
 
 const SliderBarLoaded = styled('div')`
@@ -176,5 +176,5 @@ const PlayPauseButton = styled('div')`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: ${colors.text};
 `
