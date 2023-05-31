@@ -12,41 +12,35 @@ export function UI() {
     const [playState, setPlayState] = useState(initialStateValues.playState)
     const [lastPlayed, setLastPlayed] = useState(initialStateValues.lastPlayed)
 
-    console.log(`playState`, playState)
-    console.log(`lastPlayed`, lastPlayed)
+    const controls = useControls(playState, setPlayState, lastPlayed, setLastPlayed)
 
-    const { playPause, playNext, playPrev } = useControls(
-        playState,
-        setPlayState,
-        lastPlayed,
-        setLastPlayed
-    )
-
-    // useEffect(() => {
-    //     const onkeydown = (e: KeyboardEvent) => {
-    //         if (e.key === ' ') {
-    //             playPause()
-    //             e.preventDefault()
-    //         }
-    //         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-    //             playNext()
-    //             e.preventDefault()
-    //         }
-    //         if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-    //             playPrev()
-    //             e.preventDefault()
-    //         }
-    //     }
-    //     window.document.onkeydown = onkeydown
-    // }, [playState])
+    useEffect(() => {
+        const onkeydown = (e: KeyboardEvent) => {
+            if (e.key === ' ') {
+                controls.playPause()
+                e.preventDefault()
+            }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                controls.playNext()
+                e.preventDefault()
+            }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                controls.playPrev()
+                e.preventDefault()
+            }
+        }
+        window.onkeydown = onkeydown
+    }, [playState])
 
     return (
         <Wrapper>
-            <Content>
+            <Content id='main-content'>
                 <Header />
                 {content.releases.map((release, releaseIndex) => (
                     <Release
                         release={release}
+                        releaseIndex={releaseIndex}
+                        lastPlayed={lastPlayed}
                         animationDelay={(releaseIndex + 1) * consts.releaseAnimationStaggerDelay}
                         playState={playState[releaseIndex]}
                         onPlayStateChange={(playing, index) => {
@@ -71,6 +65,7 @@ export function UI() {
                             }
                             setPlayState(newPlayState)
                         }}
+                        controls={controls}
                         key={releaseIndex}
                     />
                 ))}

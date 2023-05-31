@@ -7,12 +7,15 @@ declare global {
                 (iframe: HTMLIFrameElement): {
                     play(): void
                     pause(): void
-                    bind(event: string, callback: () => void): void
+                    bind(event: string, callback: (e: any) => void): void
+                    seekTo(milliseconds: number): void
+                    getDuration(callback: (milliseconds: number) => void): void
                 }
                 Events: {
                     PLAY: string
                     PAUSE: string
                     FINISH: string
+                    PLAY_PROGRESS: string
                 }
             }
         }

@@ -8,7 +8,9 @@ export const consts = {
     releaseAnimationStaggerDelay: 200,
     headerIconSize: 30,
     coverArtSize: 235,
-    performanceCutoff: 600, // if it takes 600ms to start the first animation, the device is too slow
+    performanceCutoff: 800, // if it takes 800ms to start the first animation, the device is too slow
+    mobileViewWidth: 600,
+    startOfSongThreshold: 0.05,
     background: {
         cellWidth: 120,
         cellHeight: 36,

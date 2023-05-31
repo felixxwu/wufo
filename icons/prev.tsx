@@ -1,15 +1,15 @@
 import { IconProps } from '../lib/types'
 
-export function Play(props: IconProps) {
+export function Prev(props: IconProps) {
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
             width='24'
             height='24'
-            viewBox='-3 0 24 24'
+            viewBox='0 0 24 24'
             style={props.style}
         >
-            <path d='M3 22v-20l18 10-18 10z' fill={props.color} />
+            <path d='M4 2v20h-2v-20h2zm18 0l-16 10 16 10v-20z' fill={props.color} />
         </svg>
     )
 }

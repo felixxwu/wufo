@@ -1,25 +1,43 @@
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Play } from '../icons/play'
+import { Pause } from '../icons/pause'
 import { colors } from '../lib/colors'
 import { consts } from '../lib/consts'
 import { flex } from '../lib/flex'
 import { Song } from '../lib/types'
+import { PlayerControls } from './PlayerControls'
+import { createPortal } from 'react-dom'
+import { LastPlayed } from './initialStateValues'
+import { useControls } from './useControls'
 
 export function TrackWidget(props: {
     song: Song
-    trackNumber: number
+    releaseIndex: number
+    songIndex: number
     hue: number
     playing: boolean
+    lastPlayed: LastPlayed
     onPlayChange: (playing: boolean) => void
     onTrackEnd: () => void
+    controls: ReturnType<typeof useControls>
 }) {
     const iframe = useRef<HTMLIFrameElement>(null)
+    const [playbackProgress, setPlaybackProgress] = useState(0)
+    const [loadProgress, setLoadProgress] = useState(0)
+
+    const isLastPlayed =
+        props.releaseIndex === props.lastPlayed.releaseIndex &&
+        props.songIndex === props.lastPlayed.songIndex
 
     useEffect(() => {
         if (!iframe.current) return
         window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.PAUSE, () => {
             props.onPlayChange(false)
+        })
+        window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.PLAY_PROGRESS, e => {
+            setPlaybackProgress(e.relativePosition)
+            setLoadProgress(e.loadedProgress)
         })
         window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.FINISH, () => {
             props.onTrackEnd()
@@ -35,17 +53,51 @@ export function TrackWidget(props: {
         }
     }, [props.playing])
 
-    function handleClick() {
-        props.onPlayChange(true)
+    function handleSeek(percent: number) {
+        if (!iframe.current) return
+        window.SC.Widget(iframe.current).getDuration(length => {
+            window.SC.Widget(iframe.current!).seekTo(percent * length)
+        })
     }
 
-    if (props.song.link) {
-        return (
-            <Clip onClick={handleClick} playing={props.playing}>
-                <IFrame hue={props.hue}>
+    function handlePlayPause() {
+        if (!props.onPlayChange) return
+
+        if (props.playing) {
+            props.onPlayChange(false)
+        } else {
+            props.onPlayChange(true)
+        }
+    }
+
+    const mainContent = document.getElementById('main-content')
+
+    return (
+        <>
+            <Wrapper
+                key={props.song.title}
+                onClick={handlePlayPause}
+                style={{
+                    pointerEvents: props.song.link ? 'auto' : 'none',
+                    color: props.playing ? colors.text : colors.textSecondary,
+                    backgroundColor: isLastPlayed ? colors.highlight : '',
+                }}
+            >
+                {props.song.link &&
+                    (props.playing ? (
+                        <Pause color={colors.text} style={{ width: '12px' }} />
+                    ) : (
+                        <Play color={colors.text} style={{ width: '12px' }} />
+                    ))}
+                {props.song.title}
+            </Wrapper>
+
+            {props.song.link && (
+                <IFrame>
                     <iframe
+                        style={{ pointerEvents: 'none' }}
                         ref={iframe}
-                        style={{ pointerEvents: props.playing ? 'auto' : 'none' }}
+                        tabIndex={-1}
                         width='100%'
                         height='20'
                         scrolling='no'
@@ -53,30 +105,33 @@ export function TrackWidget(props: {
                         allow='autoplay'
                         src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
                             props.song.link
-                        )}&color=%23ff5500&auto_play=true&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false`}
+                        )}&color=%000000&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false`}
                     ></iframe>
                 </IFrame>
-            </Clip>
-        )
-    } else {
-        return (
-            <Wrapper
-                key={props.song.title}
-                onClick={() => props.onPlayChange && props.onPlayChange(true)}
-                style={{ pointerEvents: props.song.link ? 'auto' : 'none' }}
-            >
-                {props.song.link && <Play color={colors.text} style={{ width: '12px' }} />}
-                {props.song.title}
-            </Wrapper>
-        )
-    }
+            )}
+
+            {mainContent &&
+                createPortal(
+                    <PlayerControls
+                        songName={props.song.title}
+                        playing={props.playing}
+                        isLastPlayed={isLastPlayed}
+                        playbackProgress={playbackProgress}
+                        loadedProgress={loadProgress}
+                        onSeek={handleSeek}
+                        onPlayPause={handlePlayPause}
+                        controls={props.controls}
+                    />,
+                    mainContent
+                )}
+        </>
+    )
 }
 
 const TRACK_HEIGHT = 45
 
 const Wrapper = styled(flex)`
     justify-content: flex-start;
-    color: ${colors.textSecondary};
     gap: 10px;
     width: 100%;
     padding: 0 10px;
@@ -90,20 +145,8 @@ const Wrapper = styled(flex)`
     }
 `
 
-const Clip = styled.div<{ playing: boolean }>`
-    width: 100%;
-    overflow: hidden;
-    border-radius: ${consts.borderRadiusSmall}px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: ${({ playing }) => (playing ? 'transparent' : colors.highlight)};
-    }
-`
-
-const IFrame = styled(flex)<{ hue: number }>`
-    filter: invert() hue-rotate(${({ hue }) => (hue ?? 0) + 170}deg) contrast(1.5) brightness(1)
-        saturate(50%);
+const IFrame = styled(flex)`
+    display: none;
     width: calc(100% + 110px);
     height: ${TRACK_HEIGHT}px;
     padding: 0 10px;

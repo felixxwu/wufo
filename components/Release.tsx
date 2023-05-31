@@ -13,6 +13,8 @@ import { TrackWidget } from './TrackWidget'
 import { Play } from '../icons/play'
 import { Pause } from '../icons/pause'
 import { useState } from 'react'
+import { LastPlayed } from './initialStateValues'
+import { useControls } from './useControls'
 
 function Link(link: string | undefined, Icon: (props: IconProps) => JSX.Element) {
     if (!link) return null
@@ -30,10 +32,13 @@ function Link(link: string | undefined, Icon: (props: IconProps) => JSX.Element)
 
 export function Release(props: {
     release: IRelease
+    releaseIndex: number
     animationDelay: number
     playState: { songs: { playing: boolean }[] }
+    lastPlayed: LastPlayed
     onPlayStateChange: (playing: boolean, index: number) => void
     onTrackEnd: (song: number) => void
+    controls: ReturnType<typeof useControls>
 }) {
     const [lastPlayed, setLastPlayed] = useState(0)
 
@@ -96,11 +101,14 @@ export function Release(props: {
                 {props.release.songs.map((song, i) => (
                     <TrackWidget
                         song={song}
-                        trackNumber={i + 1}
+                        releaseIndex={props.releaseIndex}
+                        songIndex={i}
                         hue={props.release.hue ?? 0}
                         playing={props.playState.songs[i].playing}
+                        lastPlayed={props.lastPlayed}
                         onPlayChange={playing => handleTrackPlayStateChange(playing, i)}
                         onTrackEnd={() => props.onTrackEnd(i)}
+                        controls={props.controls}
                         key={i}
                     />
                 ))}
@@ -127,7 +135,7 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     opacity: 0;
     animation: ${fadeInDown} 1s;
 
-    @media (max-width: 600px) {
+    @media (max-width: ${consts.mobileViewWidth}px) {
         grid-template-areas: 'cover' 'songs';
         grid-template-rows: auto auto;
         grid-template-columns: 1fr;
@@ -139,11 +147,21 @@ const Cover = styled(Image)`
     width: ${consts.coverArtSize}px;
     height: ${consts.coverArtSize}px;
     border-radius: ${consts.borderRadius}px;
+
+    @media (max-width: ${consts.mobileViewWidth}px) {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 const ImgCover = styled('img')`
     grid-area: cover;
     border-radius: ${consts.borderRadius}px;
+
+    @media (max-width: ${consts.mobileViewWidth}px) {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 const Songs = styled(flex)`
