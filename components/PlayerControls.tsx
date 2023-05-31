@@ -140,7 +140,7 @@ const SliderBarProgress = styled('div')`
     margin-top: ${barPositionFromTop}px;
     position: absolute;
     height: 2px;
-    background-color: ${colors.text}};
+    background-color: ${colors.text};
 `
 
 const SliderBarLoaded = styled('div')`

@@ -14,11 +14,21 @@ import { Noise } from './noise'
 export function Background(props: { onLoad: () => void }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
     const [timing, setTiming] = useState({ start: 0, end: 0 })
+    const [debugCount, setDebugCount] = useState(0)
     const deviceIsTooSlow = timing.end - timing.start > consts.performanceCutoff
-    if (timing.end - timing.start > 0) console.log(timing.end - timing.start)
     const setSizeDebounced = useRef(debounce(setSize, 500))
     const wrapper = useRef<HTMLDivElement>(null)
     const numAnimationsStarted = useRef(0)
+
+    useEffect(() => {
+        const onClick = (e: MouseEvent) => {
+            if (e.clientY < 30) setDebugCount(x => x + 1)
+        }
+        window.addEventListener('click', onClick)
+        return () => {
+            window.removeEventListener('click', onClick)
+        }
+    }, [])
 
     useEffect(() => {
         const onresize = () => {
@@ -131,6 +141,9 @@ export function Background(props: { onLoad: () => void }) {
             <NoiseWrapper>
                 <Noise />
             </NoiseWrapper>
+            {debugCount > 20 && (
+                <div style={{ position: 'fixed', top: 0 }}>{timing.end - timing.start}</div>
+            )}
         </Wrapper>
     )
 }
