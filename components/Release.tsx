@@ -62,25 +62,27 @@ export function Release(props: {
             {...props}
             style={{ animationDelay: props.animationDelay + 'ms', animationFillMode: 'forwards' }}
         >
-            {!props.release.releaseDate && (
-                <HoverPlayIcon onClick={handlePlayPause}>
-                    {props.playState.songs.some(song => song.playing) ? (
-                        <Pause color={colors.text} style={{ scale: '2' }} />
-                    ) : (
-                        <Play color={colors.text} style={{ scale: '2' }} />
-                    )}
-                </HoverPlayIcon>
-            )}
+            <ImgWrapper>
+                {!props.release.releaseDate && (
+                    <HoverPlayIcon onClick={handlePlayPause}>
+                        {props.playState.songs.some(song => song.playing) ? (
+                            <Pause color={colors.text} style={{ scale: '2' }} />
+                        ) : (
+                            <Play color={colors.text} style={{ scale: '2' }} />
+                        )}
+                    </HoverPlayIcon>
+                )}
 
-            {typeof props.release.cover === 'string' ? (
-                <ImgCover
-                    src={props.release.cover}
-                    width={consts.coverArtSize}
-                    height={consts.coverArtSize}
-                />
-            ) : (
-                <Cover src={props.release.cover} alt={props.release.title} />
-            )}
+                {typeof props.release.cover === 'string' ? (
+                    <ImgCover
+                        src={props.release.cover}
+                        width={consts.coverArtSize}
+                        height={consts.coverArtSize}
+                    />
+                ) : (
+                    <Cover src={props.release.cover} alt={props.release.title} />
+                )}
+            </ImgWrapper>
 
             <Songs>
                 <Title>
@@ -144,20 +146,22 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
 
 const Cover = styled(Image)`
     grid-area: cover;
-    width: ${consts.coverArtSize}px;
-    height: ${consts.coverArtSize}px;
     border-radius: ${consts.borderRadius}px;
-
-    @media (max-width: ${consts.mobileViewWidth}px) {
-        width: 100%;
-        height: 100%;
-    }
+    width: 100%;
+    height: 100%;
 `
 
 const ImgCover = styled('img')`
+    width: 100%;
+    height: 100%;
     grid-area: cover;
     border-radius: ${consts.borderRadius}px;
+`
 
+const ImgWrapper = styled('div')`
+    position: relative;
+    width: ${consts.coverArtSize}px;
+    height: ${consts.coverArtSize}px;
     @media (max-width: ${consts.mobileViewWidth}px) {
         width: 100%;
         height: 100%;
@@ -197,18 +201,16 @@ const Social = styled('a')`
 
 const HoverPlayIcon = styled('div')`
     position: absolute;
-    left: ${CARD_PADDING}px;
-    top: ${CARD_PADDING}px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${consts.coverArtSize}px;
-    height: ${consts.coverArtSize}px;
     background-color: #000000c1;
     border-radius: ${consts.borderRadius}px;
     opacity: 0;
     cursor: pointer;
     transition: opacity 0.2s;
+    width: 100%;
+    height: 100%;
 
     &:hover {
         opacity: 1;
