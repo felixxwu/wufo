@@ -82,10 +82,6 @@ const Wrapper = styled(flex)`
     overflow-x: hidden;
     overflow-y: auto;
     padding: 30vh 0;
-
-    & * {
-        touch-action: none;
-    }
 `
 
 const Content = styled(flex)`

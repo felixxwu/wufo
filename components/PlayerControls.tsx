@@ -118,6 +118,10 @@ const Wrapper = styled('div')`
     backdrop-filter: blur(30px) brightness(60%);
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
+
+    & * {
+        touch-action: none;
+    }
 `
 
 const Slider = styled('div')`
