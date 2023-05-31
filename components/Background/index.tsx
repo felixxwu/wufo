@@ -15,10 +15,15 @@ export function Background(props: { onLoad: () => void }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
     const [timing, setTiming] = useState({ start: 0, end: 0 })
     const [debugCount, setDebugCount] = useState(0)
-    const deviceIsTooSlow = timing.end - timing.start > consts.performanceCutoff
+    const [isMobile, setIsMobile] = useState(false)
+    const deviceIsTooSlow = timing.end - timing.start > consts.performanceCutoff || isMobile
     const setSizeDebounced = useRef(debounce(setSize, 500))
     const wrapper = useRef<HTMLDivElement>(null)
     const numAnimationsStarted = useRef(0)
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < consts.mobileViewWidth)
+    }, [])
 
     useEffect(() => {
         const onClick = (e: MouseEvent) => {

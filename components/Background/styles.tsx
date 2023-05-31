@@ -10,6 +10,7 @@ export const Wrapper = styled('div')`
 `
 export const CellWrapper = styled('div')`
     rotate: -${consts.background.angle}deg;
+    translate: -70px 0;
     filter: url('#filter');
 `
 export const Cells = styled(flex)`

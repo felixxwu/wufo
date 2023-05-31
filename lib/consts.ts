@@ -28,7 +28,7 @@ export const consts = {
         introFadeTime: 800,
         seed: 3,
         overflow: 8,
-        shiftLeft: 60,
+        shiftLeft: 30,
         textColor: colors.textDark,
         introTextColor: colors.textSecondary,
         onLoadCutoff: 0.7, // 0.5 = 50% of animations started
