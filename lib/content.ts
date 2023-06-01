@@ -48,6 +48,15 @@ const content: Content = {
         //     releaseDate: 'Coming Soon',
         // },
         {
+            title: 'Defiant',
+            slug: 'defiant',
+            hue: 100,
+            cover: 'https://i.scdn.co/image/ab67616d00001e02fd33e759a068cea3ddffe7f7',
+            spotify: 'https://open.spotify.com/track/2w4uaAV0k9ILj1BXXSOk2Y',
+            songs: [{ title: 'Defiant' }],
+            releaseDate: 'Releasing: June 2nd',
+        },
+        {
             title: 'Blockbuster Love',
             slug: 'blockbuster-love',
             hue: 10,

@@ -11,14 +11,15 @@ export function Header() {
 
     return (
         <Wrapper>
-            <Logo src='/logo.svg' alt='WUFO' width='100' height='70' />
-
-            <Bio>{content.bio}</Bio>
+            <Top>
+                <Avatar src={content.avatar} alt='Avatar' />
+                <Bio>{content.bio}</Bio>
+            </Top>
             <Links>
                 {content.socials.map(({ link, Icon }) => (
                     <Link href={link} target='_blank' key={link}>
                         <Icon
-                            color={colors.textSecondary}
+                            color={colors.text}
                             style={{
                                 width: consts.headerIconSize + 'px',
                                 height: consts.headerIconSize + 'px',
@@ -34,8 +35,14 @@ export function Header() {
 
 const Wrapper = styled(flex)`
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
     animation: ${fadeInDown} 1s;
+    backdrop-filter: blur(10px) brightness(1.4);
+    padding: 30px;
+    border-radius: ${consts.borderRadius}px;
+    box-shadow: ${consts.shadow};
+    max-width: 400px;
+    width: 100%;
 `
 
 const Name = styled('div')`
@@ -45,9 +52,13 @@ const Name = styled('div')`
     color: ${colors.text};
 `
 
+const Top = styled(flex)`
+    gap: 20px;
+`
+
 const Avatar = styled(Image)`
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
     box-shadow: ${consts.shadow};
 `
@@ -57,7 +68,8 @@ const Logo = styled(Image)`
 `
 
 const Links = styled(flex)`
-    gap: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
 `
 
 const Link = styled('a')`
@@ -74,6 +86,5 @@ const Email = styled('a')`
 `
 
 const Bio = styled('div')`
-    color: ${colors.textSecondary};
-    text-align: center;
+    color: ${colors.text};
 `

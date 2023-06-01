@@ -183,6 +183,9 @@ const ImgWrapper = styled('div')`
     position: relative;
     width: ${consts.coverArtSize}px;
     height: ${consts.coverArtSize}px;
+    box-shadow: ${consts.shadow};
+    border-radius: ${consts.borderRadius}px;
+
     @media (max-width: ${consts.mobileViewWidth}px) {
         width: 100%;
         height: 100%;
