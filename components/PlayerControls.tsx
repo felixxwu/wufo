@@ -29,12 +29,10 @@ export function PlayerControls(props: {
     useEffect(() => {
         function handlePointerDown(e: PointerEvent) {
             if (!e.composedPath().includes(controls.current!)) return
+            if (e.composedPath().includes(buttons.current!)) return
 
             setIsDragging(true)
-
-            if (!e.composedPath().includes(buttons.current!)) {
-                handlePointerSeek(e)
-            }
+            handlePointerSeek(e)
         }
         function handlePointerMove(e: PointerEvent) {
             if (!isDragging) return
