@@ -19,7 +19,8 @@ export function PlayerControls(props: {
     controls: ReturnType<typeof useControls>
 }) {
     const slider = useRef<HTMLDivElement>(null)
-    const title = useRef<HTMLDivElement>(null)
+    const controls = useRef<HTMLDivElement>(null)
+    const buttons = useRef<HTMLDivElement>(null)
     const [isDragging, setIsDragging] = useState(false)
 
     const progressIsNearStart = props.playbackProgress < consts.startOfSongThreshold
@@ -27,9 +28,13 @@ export function PlayerControls(props: {
 
     useEffect(() => {
         function handlePointerDown(e: PointerEvent) {
-            if (e.target !== slider.current && e.target !== title.current) return
+            if (!e.composedPath().includes(controls.current!)) return
+
             setIsDragging(true)
-            handlePointerSeek(e)
+
+            if (!e.composedPath().includes(buttons.current!)) {
+                handlePointerSeek(e)
+            }
         }
         function handlePointerMove(e: PointerEvent) {
             if (!isDragging) return
@@ -72,15 +77,15 @@ export function PlayerControls(props: {
     }
 
     return (
-        <Wrapper style={{ display: props.isLastPlayed ? '' : 'none' }}>
-            <Title ref={title}>{props.songName}</Title>
+        <Wrapper ref={controls} style={{ display: props.isLastPlayed ? '' : 'none' }}>
+            <Title>{props.songName}</Title>
             <Slider ref={slider} onClick={() => {}}>
                 <SliderBarBG />
                 <SliderBarLoaded style={{ width: `${props.loadedProgress * 100}%` }} />
                 <SliderBarProgress style={{ width: `${props.playbackProgress * 100}%` }} />
                 <SliderThumb style={{ left: `${props.playbackProgress * 100}%` }} />
             </Slider>
-            <Buttons>
+            <Buttons ref={buttons}>
                 <div
                     onClick={handlePlayPrev}
                     style={{
@@ -135,7 +140,6 @@ const largeIconSize = 30
 const smallIconSize = 15
 
 const Wrapper = styled('div')`
-    pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -149,14 +153,10 @@ const Wrapper = styled('div')`
     backdrop-filter: blur(30px) brightness(60%);
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
-
-    & * {
-        touch-action: none;
-    }
+    touch-action: none;
 `
 
 const Title = styled('div')`
-    pointer-events: all;
     width: 100%;
     text-align: center;
 `
@@ -208,7 +208,6 @@ const Buttons = styled('div')`
     gap: 20px;
 
     & > * {
-        pointer-events: all;
         cursor: pointer;
     }
 `
