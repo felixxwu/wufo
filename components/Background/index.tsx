@@ -133,7 +133,7 @@ export function Background(props: { onLoad: () => void; noZoom?: boolean }) {
             />
 
             <CellWrapper style={deviceIsTooSlow ? { filter: 'none' } : {}}>
-                <Cells style={deviceIsTooSlow ? { animation: 'none' } : {}}>
+                <Cells style={deviceIsTooSlow || isMobile ? { animation: 'none' } : {}}>
                     {filteredPositions.map(({ pos }) => (
                         <Cell
                             onAnimate={handleAnimationStart}
