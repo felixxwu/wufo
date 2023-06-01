@@ -11,6 +11,7 @@ export const consts = {
     performanceCutoff: 800, // if it takes 800ms to start the first animation, the device is too slow
     mobileViewWidth: 600,
     startOfSongThreshold: 0.05,
+    getReleaseColor: (hue: number | null) => (hue === null ? '#333' : `hsl(${hue}, 25%, 30%)`),
     background: {
         cellWidth: 120,
         cellHeight: 36,

@@ -9,14 +9,22 @@ import { useControls } from './useControls'
 import { useInitialValues } from './initialStateValues'
 import { colors } from '../lib/colors'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export function UI(props: { slug?: string }) {
     const initialStateValues = useInitialValues()
     const [playState, setPlayState] = useState(initialStateValues.playState)
     const [lastPlayed, setLastPlayed] = useState(initialStateValues.lastPlayed)
+    const router = useRouter()
     const content = useContent()
 
     const controls = useControls(playState, setPlayState, lastPlayed, setLastPlayed)
+
+    useEffect(() => {
+        if (content.releases.length === 0) {
+            router.push('/')
+        }
+    }, [])
 
     useEffect(() => {
         const onkeydown = (e: KeyboardEvent) => {
@@ -39,7 +47,7 @@ export function UI(props: { slug?: string }) {
     return (
         <Wrapper singleSongMode={!!props.slug}>
             <Content id='main-content'>
-                <Header />
+                {!props.slug && <Header />}
                 {content.releases.map((release, releaseIndex) => (
                     <Release
                         release={release}
@@ -76,7 +84,14 @@ export function UI(props: { slug?: string }) {
                         key={releaseIndex}
                     />
                 ))}
-                {props.slug && <Button href='/'>Explore all releases</Button>}
+                {props.slug && (
+                    <Button
+                        href='/'
+                        style={{ backgroundColor: consts.getReleaseColor(content.releases[0].hue) }}
+                    >
+                        SHOW ALL RELEASES
+                    </Button>
+                )}
             </Content>
         </Wrapper>
     )
@@ -102,7 +117,6 @@ const Content = styled(flex)`
 `
 
 const Button = styled(Link)`
-    background-color: ${colors.textSecondary};
     outline: none;
     border: none;
     padding: 15px;
@@ -110,8 +124,9 @@ const Button = styled(Link)`
     box-shadow: ${consts.shadow};
     cursor: pointer;
     text-decoration: none;
-    color: ${colors.textDark};
+    color: ${colors.text};
     opacity: 0;
+    font-weight: lighter;
 
     animation-name: fade-in;
     animation-duration: 2s;

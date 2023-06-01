@@ -151,8 +151,7 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     align-items: flex-start;
     padding: ${CARD_PADDING}px;
     width: 100%;
-    background-color: ${({ release }) =>
-        release.hue === null ? '#333' : `hsl(${release.hue}, 25%, 30%)`};
+    background-color: ${({ release }) => consts.getReleaseColor(release.hue)};
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
     gap: 20px;
