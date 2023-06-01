@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { consts } from '../lib/consts'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Pause } from '../icons/pause'
 import { colors } from '../lib/colors'
 import { Play } from '../icons/play'
@@ -19,17 +19,48 @@ export function PlayerControls(props: {
     controls: ReturnType<typeof useControls>
 }) {
     const slider = useRef<HTMLDivElement>(null)
-    const handlePointerEvent = (e: React.PointerEvent) => {
-        if (e.buttons !== 1) return
-        const sliderRect = slider.current!.getBoundingClientRect()
-        const isInsideSlider = e.clientY > sliderRect.top && e.clientY < sliderRect.bottom
-        const percent = (e.clientX - sliderRect.left) / sliderRect.width
-        const clampedPercent = Math.max(0, Math.min(1, percent))
-        isInsideSlider && props.onSeek(clampedPercent)
-    }
+    const [isDragging, setIsDragging] = useState(false)
 
     const progressIsNearStart = props.playbackProgress < consts.startOfSongThreshold
     const showPrevButton = props.controls.prevSongPlayable() || !progressIsNearStart
+
+    useEffect(() => {
+        function handlePointerDown(e: PointerEvent) {
+            if (e.target !== slider.current) return
+            setIsDragging(true)
+            handlePointerSeek(e)
+        }
+        function handlePointerMove(e: PointerEvent) {
+            if (!isDragging) return
+            handlePointerSeek(e)
+        }
+        function handlePointerUp() {
+            setIsDragging(false)
+        }
+
+        window.addEventListener('pointerdown', handlePointerDown)
+        window.addEventListener('pointermove', handlePointerMove)
+        window.addEventListener('pointerup', handlePointerUp)
+        window.addEventListener('pointercancel', handlePointerUp)
+        window.addEventListener('pointerleave', handlePointerUp)
+        window.addEventListener('blur', handlePointerUp)
+
+        return () => {
+            window.removeEventListener('pointerdown', handlePointerDown)
+            window.removeEventListener('pointermove', handlePointerMove)
+            window.removeEventListener('pointerup', handlePointerUp)
+            window.removeEventListener('pointercancel', handlePointerUp)
+            window.removeEventListener('pointerleave', handlePointerUp)
+            window.removeEventListener('blur', handlePointerUp)
+        }
+    }, [isDragging])
+
+    function handlePointerSeek(e: PointerEvent) {
+        const sliderRect = slider.current!.getBoundingClientRect()
+        const percent = (e.clientX - sliderRect.left) / sliderRect.width
+        const clampedPercent = Math.max(0, Math.min(1, percent))
+        props.onSeek(clampedPercent)
+    }
 
     const handlePlayPrev = () => {
         if (progressIsNearStart) {
@@ -40,11 +71,7 @@ export function PlayerControls(props: {
     }
 
     return (
-        <Wrapper
-            onPointerDown={handlePointerEvent}
-            onPointerMove={handlePointerEvent}
-            style={{ display: props.isLastPlayed ? '' : 'none' }}
-        >
+        <Wrapper style={{ display: props.isLastPlayed ? '' : 'none' }}>
             <div>{props.songName}</div>
             <Slider ref={slider} onClick={() => {}}>
                 <SliderBarBG />
@@ -105,6 +132,7 @@ const largeIconSize = 30
 const smallIconSize = 15
 
 const Wrapper = styled('div')`
+    pointer-events: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,6 +153,7 @@ const Wrapper = styled('div')`
 `
 
 const Slider = styled('div')`
+    pointer-events: all;
     position: relative;
     width: 100%;
     height: ${sliderHeight}px;
@@ -169,6 +198,7 @@ const Buttons = styled('div')`
     gap: 20px;
 
     & > * {
+        pointer-events: all;
         cursor: pointer;
     }
 `
