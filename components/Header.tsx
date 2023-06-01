@@ -2,11 +2,13 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { colors } from '../lib/colors'
 import { consts } from '../lib/consts'
-import { content } from '../lib/content'
+import { useContent } from '../lib/content'
 import { flex } from '../lib/flex'
 import { fadeInDown } from '../lib/keyframes'
 
 export function Header() {
+    const content = useContent()
+
     return (
         <Wrapper>
             <Logo src='/logo.svg' alt='WUFO' width='100' height='70' />

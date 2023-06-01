@@ -1,18 +1,20 @@
 import styled from 'styled-components'
 import { consts } from '../lib/consts'
-import { content } from '../lib/content'
+import { useContent } from '../lib/content'
 import { flex } from '../lib/flex'
 import { Header } from './Header'
 import { Release } from './Release'
 import { useEffect, useState } from 'react'
 import { useControls } from './useControls'
-import { initialStateValues } from './initialStateValues'
+import { useInitialValues } from './initialStateValues'
 import { colors } from '../lib/colors'
 import Link from 'next/link'
 
 export function UI(props: { slug?: string }) {
+    const initialStateValues = useInitialValues()
     const [playState, setPlayState] = useState(initialStateValues.playState)
     const [lastPlayed, setLastPlayed] = useState(initialStateValues.lastPlayed)
+    const content = useContent()
 
     const controls = useControls(playState, setPlayState, lastPlayed, setLastPlayed)
 
@@ -40,7 +42,6 @@ export function UI(props: { slug?: string }) {
                 <Header />
                 {content.releases.map((release, releaseIndex) => (
                     <Release
-                        hide={!props.slug ? false : release.slug !== props.slug}
                         release={release}
                         releaseIndex={releaseIndex}
                         lastPlayed={lastPlayed}

@@ -8,8 +8,20 @@ import { InstagramRound } from '../icons/instagram-round'
 import { FacebookRound } from '../icons/facebook-round'
 import { TwitterRound } from '../icons/twitter-round'
 import fokuz from '../public/fokuz.png'
+import { useRouter } from 'next/router'
 
-export const content: Content = {
+export const useContent = () => {
+    const router = useRouter()
+
+    return router.query.slug
+        ? {
+              ...content,
+              releases: content.releases.filter(release => release.slug === router.query.slug),
+          }
+        : content
+}
+
+const content: Content = {
     avatar: header,
     bio: 'London based Drum & Bass producer, also known as Noxive',
     socials: [

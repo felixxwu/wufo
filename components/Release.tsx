@@ -42,7 +42,6 @@ export function Release(props: {
     onPlayStateChange: (playing: boolean, index: number) => void
     onTrackEnd: (song: number) => void
     controls: ReturnType<typeof useControls>
-    hide: boolean
 }) {
     const [lastPlayed, setLastPlayed] = useState(0)
     const [shared, setShared] = useState(false)
@@ -75,7 +74,6 @@ export function Release(props: {
                 animationDelay: props.animationDelay + 'ms',
                 animationFillMode: 'forwards',
                 filter: props.playState.songs.some(song => song.playing) ? 'invert(1)' : '',
-                display: props.hide ? 'none' : '',
             }}
         >
             <ImgWrapper
