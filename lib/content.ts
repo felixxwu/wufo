@@ -23,20 +23,21 @@ export const content: Content = {
     ],
     email: 'wufodnb@gmail.com',
     releases: [
-        {
-            title: 'Callback EP',
-            hue: null,
-            cover: fokuz,
-            songs: [
-                { title: 'Callback' },
-                { title: 'Threaded' },
-                { title: 'Control Flow' },
-                { title: 'The Day' },
-            ],
-            releaseDate: 'Coming Soon',
-        },
+        // {
+        //     title: 'Callback EP',
+        //     hue: null,
+        //     cover: fokuz,
+        //     songs: [
+        //         { title: 'Callback' },
+        //         { title: 'Threaded' },
+        //         { title: 'Control Flow' },
+        //         { title: 'The Day' },
+        //     ],
+        //     releaseDate: 'Coming Soon',
+        // },
         {
             title: 'Blockbuster Love',
+            slug: 'blockbuster-love',
             hue: 10,
             cover: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t500x500.jpg',
             soundcloud: 'https://soundcloud.com/wufo/sets/blockbuster-love',
@@ -52,6 +53,7 @@ export const content: Content = {
         },
         {
             title: 'Night & Day EP',
+            slug: 'night-and-day',
             hue: 210,
             cover: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t500x500.jpg',
             soundcloud: 'https://soundcloud.com/soul-deep-recordings/sets/wufo-night-day',
@@ -79,6 +81,7 @@ export const content: Content = {
         },
         {
             title: 'Hyde Park',
+            slug: 'hyde-park',
             hue: 45,
             cover: 'https://i1.sndcdn.com/artworks-80gYiY5bOUD9UvpU-3jg2yQ-t500x500.jpg',
             soundcloud: 'https://soundcloud.com/argofox/wufo-hyde-park',

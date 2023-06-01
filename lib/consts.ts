@@ -31,6 +31,6 @@ export const consts = {
         shiftLeft: 30,
         textColor: colors.textDark,
         introTextColor: colors.textSecondary,
-        onLoadCutoff: 0.7, // 0.5 = 50% of animations started
+        onLoadCutoff: 0.7, // 0.5 = load UI after 50% of animations started
     },
 } as const

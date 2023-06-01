@@ -7,8 +7,10 @@ import { Release } from './Release'
 import { useEffect, useState } from 'react'
 import { useControls } from './useControls'
 import { initialStateValues } from './initialStateValues'
+import { colors } from '../lib/colors'
+import Link from 'next/link'
 
-export function UI() {
+export function UI(props: { slug?: string }) {
     const [playState, setPlayState] = useState(initialStateValues.playState)
     const [lastPlayed, setLastPlayed] = useState(initialStateValues.lastPlayed)
 
@@ -33,11 +35,12 @@ export function UI() {
     }, [playState])
 
     return (
-        <Wrapper>
+        <Wrapper singleSongMode={!!props.slug}>
             <Content id='main-content'>
                 <Header />
                 {content.releases.map((release, releaseIndex) => (
                     <Release
+                        hide={!props.slug ? false : release.slug !== props.slug}
                         release={release}
                         releaseIndex={releaseIndex}
                         lastPlayed={lastPlayed}
@@ -58,9 +61,12 @@ export function UI() {
                                 setLastPlayed({ releaseIndex, songIndex: song + 1 })
                             } else {
                                 const nextRelease = newPlayState[releaseIndex + 1]
-                                if (nextRelease) {
+                                if (nextRelease && !props.slug) {
                                     newPlayState[releaseIndex + 1].songs[0].playing = true
-                                    setLastPlayed({ releaseIndex: releaseIndex + 1, songIndex: 0 })
+                                    setLastPlayed({
+                                        releaseIndex: releaseIndex + 1,
+                                        songIndex: 0,
+                                    })
                                 }
                             }
                             setPlayState(newPlayState)
@@ -69,12 +75,13 @@ export function UI() {
                         key={releaseIndex}
                     />
                 ))}
+                {props.slug && <Button href='/'>Explore all releases</Button>}
             </Content>
         </Wrapper>
     )
 }
 
-const Wrapper = styled(flex)`
+const Wrapper = styled(flex)<{ singleSongMode: boolean }>`
     align-items: flex-start;
     position: absolute;
     width: 100vw;
@@ -91,4 +98,34 @@ const Content = styled(flex)`
     padding: 20px;
     flex-direction: column;
     gap: 30px;
+`
+
+const Button = styled(Link)`
+    background-color: ${colors.textSecondary};
+    outline: none;
+    border: none;
+    padding: 15px;
+    border-radius: ${consts.borderRadius}px;
+    box-shadow: ${consts.shadow};
+    cursor: pointer;
+    text-decoration: none;
+    color: ${colors.textDark};
+    opacity: 0;
+
+    animation-name: fade-in;
+    animation-duration: 2s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+
+    @keyframes fade-in {
+        0% {
+            scale: 0.9;
+            opacity: 0;
+        }
+        100% {
+            scale: 1;
+
+            opacity: 1;
+        }
+    }
 `

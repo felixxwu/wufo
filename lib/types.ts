@@ -32,6 +32,7 @@ export interface IRelease {
     youtube?: string
     songs: Song[]
     releaseDate?: string
+    slug?: string
 }
 
 export interface Song {

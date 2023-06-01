@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { LastPlayed, PlayState } from './initialStateValues'
 import { content } from '../lib/content'
+import { useRouter } from 'next/router'
 
 export function useControls(
     playState: PlayState,
@@ -8,6 +9,8 @@ export function useControls(
     lastPlayed: LastPlayed,
     setLastPlayed: Dispatch<SetStateAction<LastPlayed>>
 ) {
+    const router = useRouter()
+
     function currentlyPlaying() {
         return playState.some(release => release.songs.some(song => song.playing))
     }
@@ -17,7 +20,7 @@ export function useControls(
         const nextSong = playState[releaseIndex].songs[songIndex + 1]
         if (nextSong) return true
         const nextRelease = content.releases[releaseIndex + 1]
-        return nextRelease && !nextRelease?.releaseDate
+        return !router.query.slug && nextRelease && !nextRelease?.releaseDate
     }
 
     function playNext() {
@@ -40,7 +43,7 @@ export function useControls(
         const prevSong = playState[releaseIndex].songs[songIndex - 1]
         if (prevSong) return true
         const prevRelease = content.releases[releaseIndex - 1]
-        return prevRelease && !prevRelease?.releaseDate
+        return !router.query.slug && prevRelease && !prevRelease?.releaseDate
     }
 
     function playPrev() {

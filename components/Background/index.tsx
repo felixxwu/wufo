@@ -11,12 +11,12 @@ import { Wrapper, CellWrapper, Cells, NoiseWrapper } from './styles'
 import { SvgFilter } from './SvgFilter'
 import { Noise } from './noise'
 
-export function Background(props: { onLoad: () => void }) {
+export function Background(props: { onLoad: () => void; noZoom?: boolean }) {
     const [size, setSize] = useState({ w: 0, h: 0 })
     const [timing, setTiming] = useState({ start: 0, end: 0 })
     const [debugCount, setDebugCount] = useState(0)
     const [isMobile, setIsMobile] = useState(false)
-    const deviceIsTooSlow = timing.end - timing.start > consts.performanceCutoff || isMobile
+    const deviceIsTooSlow = timing.end - timing.start > consts.performanceCutoff
     const setSizeDebounced = useRef(debounce(setSize, 500))
     const wrapper = useRef<HTMLDivElement>(null)
     const numAnimationsStarted = useRef(0)
@@ -85,10 +85,11 @@ export function Background(props: { onLoad: () => void }) {
     }
 
     function getSleepTime(pos: Pos) {
+        const introAnimationDelay = props.noZoom ? 0 : consts.background.introAnimationDelay
         return isCentreCell(pos)
             ? 0
             : calculateDistFromCentre(pos) / consts.background.introAnimationSpeed +
-                  consts.background.introAnimationDelay
+                  introAnimationDelay
     }
 
     const closestPointToCentre = (() => {
@@ -112,7 +113,8 @@ export function Background(props: { onLoad: () => void }) {
         numAnimationsStarted.current++
         if (
             numAnimationsStarted.current >
-            filteredPositions.length * consts.background.onLoadCutoff
+                filteredPositions.length * consts.background.onLoadCutoff ||
+            props.noZoom
         ) {
             props.onLoad()
         }
@@ -138,6 +140,7 @@ export function Background(props: { onLoad: () => void }) {
                             pos={pos}
                             sleep={getSleepTime(pos)}
                             key={`${pos.x} ${pos.y}`}
+                            noZoom={props.noZoom}
                         />
                     ))}
                 </Cells>

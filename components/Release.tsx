@@ -15,14 +15,17 @@ import { Pause } from '../icons/pause'
 import { useState } from 'react'
 import { LastPlayed } from './initialStateValues'
 import { useControls } from './useControls'
+import { Share } from '../icons/share'
+import { Tick } from '../icons/tick'
+
+const iconSize = 30
+const linkProps = {
+    style: { width: `${iconSize}px`, height: `${iconSize}px`, cursor: 'pointer' },
+    color: colors.text,
+}
 
 function Link(link: string | undefined, Icon: (props: IconProps) => JSX.Element) {
     if (!link) return null
-    const iconSize = 30
-    const linkProps = {
-        style: { width: `${iconSize}px`, height: `${iconSize}px`, cursor: 'pointer' },
-        color: colors.text,
-    }
     return (
         <Social href={link} target='_blank'>
             <Icon {...linkProps} />
@@ -39,8 +42,10 @@ export function Release(props: {
     onPlayStateChange: (playing: boolean, index: number) => void
     onTrackEnd: (song: number) => void
     controls: ReturnType<typeof useControls>
+    hide: boolean
 }) {
     const [lastPlayed, setLastPlayed] = useState(0)
+    const [shared, setShared] = useState(false)
 
     function handlePlayPause() {
         if (props.playState.songs.some(song => song.playing)) {
@@ -57,12 +62,27 @@ export function Release(props: {
         }
     }
 
+    function handleShare() {
+        navigator.clipboard.writeText('https://wufo.uk/' + props.release.slug)
+        setShared(true)
+        setTimeout(() => setShared(false), 2000)
+    }
+
     return (
         <Wrapper
             {...props}
-            style={{ animationDelay: props.animationDelay + 'ms', animationFillMode: 'forwards' }}
+            style={{
+                animationDelay: props.animationDelay + 'ms',
+                animationFillMode: 'forwards',
+                filter: props.playState.songs.some(song => song.playing) ? 'invert(1)' : '',
+                display: props.hide ? 'none' : '',
+            }}
         >
-            <ImgWrapper>
+            <ImgWrapper
+                style={{
+                    filter: props.playState.songs.some(song => song.playing) ? 'invert(1)' : '',
+                }}
+            >
                 {!props.release.releaseDate && (
                     <HoverPlayIcon onClick={handlePlayPause}>
                         {props.playState.songs.some(song => song.playing) ? (
@@ -96,6 +116,10 @@ export function Release(props: {
                                 {Link(props.release.soundcloud, SoundCloudRound)}
                                 {Link(props.release.apple, AppleRound)}
                                 {Link(props.release.youtube, YouTubeRound)}
+                                <Social onClick={handleShare}>
+                                    {shared ? <Tick {...linkProps} /> : <Share {...linkProps} />}
+                                </Social>
+                                {shared && <CopiedNotification>Copied</CopiedNotification>}
                             </>
                         )}
                     </Links>
@@ -130,7 +154,7 @@ const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     padding: ${CARD_PADDING}px;
     width: 100%;
     background-color: ${({ release }) =>
-        release.hue === null ? '#333' : `hsl(${release.hue}, 30%, 30%)`};
+        release.hue === null ? '#333' : `hsl(${release.hue}, 25%, 30%)`};
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
     gap: 20px;
@@ -215,4 +239,15 @@ const HoverPlayIcon = styled('div')`
     &:hover {
         opacity: 1;
     }
+`
+
+const CopiedNotification = styled('div')`
+    position: absolute;
+    translate: 100% 100%;
+    background-color: ${colors.textSecondary};
+    padding: 10px;
+    border-radius: ${consts.borderRadius}px;
+    color: ${colors.textDark};
+    box-shadow: ${consts.shadow};
+    font-weight: lighter;
 `
