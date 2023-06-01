@@ -19,6 +19,7 @@ export function PlayerControls(props: {
     controls: ReturnType<typeof useControls>
 }) {
     const slider = useRef<HTMLDivElement>(null)
+    const title = useRef<HTMLDivElement>(null)
     const [isDragging, setIsDragging] = useState(false)
 
     const progressIsNearStart = props.playbackProgress < consts.startOfSongThreshold
@@ -26,7 +27,7 @@ export function PlayerControls(props: {
 
     useEffect(() => {
         function handlePointerDown(e: PointerEvent) {
-            if (e.target !== slider.current) return
+            if (e.target !== slider.current && e.target !== title.current) return
             setIsDragging(true)
             handlePointerSeek(e)
         }
@@ -72,7 +73,7 @@ export function PlayerControls(props: {
 
     return (
         <Wrapper style={{ display: props.isLastPlayed ? '' : 'none' }}>
-            <div>{props.songName}</div>
+            <Title ref={title}>{props.songName}</Title>
             <Slider ref={slider} onClick={() => {}}>
                 <SliderBarBG />
                 <SliderBarLoaded style={{ width: `${props.loadedProgress * 100}%` }} />
@@ -126,8 +127,10 @@ export function PlayerControls(props: {
 
 const margin = 30
 const thumbSize = 15
-const sliderHeight = 15
-const barPositionFromTop = 7
+const sliderHeight = 25
+const barPositionFromTop = 12
+const thumbTopOffset = 6
+const barHeight = 3
 const largeIconSize = 30
 const smallIconSize = 15
 
@@ -152,6 +155,12 @@ const Wrapper = styled('div')`
     }
 `
 
+const Title = styled('div')`
+    pointer-events: all;
+    width: 100%;
+    text-align: center;
+`
+
 const Slider = styled('div')`
     pointer-events: all;
     position: relative;
@@ -167,27 +176,28 @@ const SliderThumb = styled('div')`
     background-color: ${colors.text};
     border-radius: 50%;
     margin-left: ${-thumbSize / 2}px;
+    margin-top: ${thumbTopOffset}px;
 `
 
 const SliderBarProgress = styled('div')`
     margin-top: ${barPositionFromTop}px;
     position: absolute;
-    height: 2px;
+    height: ${barHeight}px;
     background-color: ${colors.text};
 `
 
 const SliderBarLoaded = styled('div')`
     margin-top: ${barPositionFromTop}px;
     position: absolute;
-    height: 2px;
-    background-color: #8a8a8a;
+    height: ${barHeight}px;
+    background-color: #818181;
 `
 
 const SliderBarBG = styled('div')`
     position: absolute;
     width: 100%;
     margin-top: ${barPositionFromTop}px;
-    height: 2px;
+    height: ${barHeight}px;
     background-color: #424242;
 `
 
