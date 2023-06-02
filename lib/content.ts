@@ -53,8 +53,10 @@ const content: Content = {
             hue: 100,
             cover: 'https://i.scdn.co/image/ab67616d00001e02fd33e759a068cea3ddffe7f7',
             spotify: 'https://open.spotify.com/track/2w4uaAV0k9ILj1BXXSOk2Y',
-            songs: [{ title: 'Defiant' }],
-            releaseDate: 'Releasing: June 2nd',
+            apple: 'https://music.apple.com/us/album/defiant/1687242000',
+            soundcloud: 'https://soundcloud.com/wufo/defiant',
+            youtube: 'https://www.youtube.com/watch?v=AY3axDZug2w',
+            songs: [{ title: 'Defiant', link: 'https://soundcloud.com/wufo/defiant' }],
         },
         {
             title: 'Blockbuster Love',

@@ -130,7 +130,7 @@ const Button = styled(Link)`
 
     animation-name: fade-in;
     animation-duration: 2s;
-    animation-delay: 2s;
+    animation-delay: 1s;
     animation-fill-mode: forwards;
 
     @keyframes fade-in {
