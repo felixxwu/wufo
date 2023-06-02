@@ -48,7 +48,7 @@ const content: Content = {
         //     releaseDate: 'Coming Soon',
         // },
         {
-            title: 'Defiant',
+            title: 'Defiant (ft. Taylor B-W)',
             slug: 'defiant',
             hue: 100,
             cover: 'https://i.scdn.co/image/ab67616d00001e02fd33e759a068cea3ddffe7f7',
@@ -59,7 +59,7 @@ const content: Content = {
             songs: [{ title: 'Defiant', link: 'https://soundcloud.com/wufo/defiant' }],
         },
         {
-            title: 'Blockbuster Love',
+            title: 'Blockbuster Love (ft. Taylor B-W)',
             slug: 'blockbuster-love',
             hue: 10,
             cover: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t500x500.jpg',

@@ -15,7 +15,7 @@ export function PlayerControls(props: {
     playbackProgress: number
     loadedProgress: number
     onSeek: (percent: number) => void
-    onPlayPause: () => void
+    onPlayPause: (e: React.MouseEvent) => void
     controls: ReturnType<typeof useControls>
 }) {
     const slider = useRef<HTMLDivElement>(null)
@@ -75,7 +75,11 @@ export function PlayerControls(props: {
     }
 
     return (
-        <Wrapper ref={controls} style={{ display: props.isLastPlayed ? '' : 'none' }}>
+        <Wrapper
+            ref={controls}
+            style={{ display: props.isLastPlayed ? '' : 'none' }}
+            onClick={e => e.stopPropagation()}
+        >
             <Title>{props.songName}</Title>
             <Slider ref={slider} onClick={() => {}}>
                 <SliderBarBG />
@@ -134,7 +138,7 @@ const sliderHeight = 25
 const barPositionFromTop = 12
 const thumbTopOffset = 6
 const barHeight = 3
-const largeIconSize = 30
+const largeIconSize = 20
 const smallIconSize = 15
 
 const Wrapper = styled('div')`

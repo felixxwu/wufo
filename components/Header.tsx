@@ -68,7 +68,7 @@ const Logo = styled(Image)`
 `
 
 const Links = styled(flex)`
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
 `
 

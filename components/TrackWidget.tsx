@@ -21,6 +21,7 @@ export function TrackWidget(props: {
     onPlayChange: (playing: boolean) => void
     onTrackEnd: () => void
     controls: ReturnType<typeof useControls>
+    hide?: boolean
 }) {
     const iframe = useRef<HTMLIFrameElement>(null)
     const [playbackProgress, setPlaybackProgress] = useState(0)
@@ -60,7 +61,9 @@ export function TrackWidget(props: {
         })
     }
 
-    function handlePlayPause() {
+    function handlePlayPause(e: React.MouseEvent) {
+        e.stopPropagation()
+
         if (!props.onPlayChange) return
 
         if (props.playing) {
@@ -81,14 +84,17 @@ export function TrackWidget(props: {
                     pointerEvents: props.song.link ? 'auto' : 'none',
                     color: props.playing ? colors.text : colors.textSecondary,
                     backgroundColor: props.playing ? colors.highlight : '',
+                    opacity: props.hide ? 0 : 1,
+                    position: props.hide ? 'absolute' : 'relative',
                 }}
             >
-                {props.song.link &&
+                {/* {props.song.link &&
                     (props.playing ? (
                         <Pause color={colors.text} style={{ width: '12px' }} />
                     ) : (
                         <Play color={colors.text} style={{ width: '12px' }} />
-                    ))}
+                    ))} */}
+                {props.songIndex + 1}. &nbsp;
                 {props.song.title}
             </Wrapper>
 

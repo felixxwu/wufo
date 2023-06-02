@@ -46,8 +46,11 @@ export function Release(props: {
     const [lastPlayed, setLastPlayed] = useState(0)
     const [shared, setShared] = useState(false)
 
+    const isPlaying = props.playState.songs.some(song => song.playing)
+    const onlyOneSong = props.release.songs.length === 1
+
     function handlePlayPause() {
-        if (props.playState.songs.some(song => song.playing)) {
+        if (isPlaying) {
             props.onPlayStateChange(false, lastPlayed)
         } else {
             props.onPlayStateChange(true, lastPlayed)
@@ -73,17 +76,18 @@ export function Release(props: {
             style={{
                 animationDelay: props.animationDelay + 'ms',
                 animationFillMode: 'forwards',
-                filter: props.playState.songs.some(song => song.playing) ? 'invert(1)' : '',
+                filter: isPlaying ? 'invert(1)' : '',
             }}
+            onClick={handlePlayPause}
         >
             <ImgWrapper
                 style={{
-                    filter: props.playState.songs.some(song => song.playing) ? 'invert(1)' : '',
+                    filter: isPlaying ? 'invert(1)' : '',
                 }}
             >
                 {!props.release.releaseDate && (
-                    <HoverPlayIcon onClick={handlePlayPause}>
-                        {props.playState.songs.some(song => song.playing) ? (
+                    <HoverPlayIcon>
+                        {isPlaying ? (
                             <Pause color={colors.text} style={{ scale: '2' }} />
                         ) : (
                             <Play color={colors.text} style={{ scale: '2' }} />
@@ -104,8 +108,23 @@ export function Release(props: {
 
             <Songs>
                 <Title>
-                    {props.release.title}
-                    <Links>
+                    <TitleAndPlayButton>
+                        <PlayPauseButton>
+                            {isPlaying ? (
+                                <Pause
+                                    color={consts.getReleaseColor(props.release.hue)}
+                                    style={{ width: `${largeIconSize}px` }}
+                                />
+                            ) : (
+                                <Play
+                                    color={consts.getReleaseColor(props.release.hue)}
+                                    style={{ width: `${largeIconSize}px` }}
+                                />
+                            )}
+                        </PlayPauseButton>
+                        {props.release.title}
+                    </TitleAndPlayButton>
+                    <Links onClick={e => e.stopPropagation()}>
                         {props.release.releaseDate ? (
                             <ReleaseDate>{props.release.releaseDate}</ReleaseDate>
                         ) : (
@@ -133,6 +152,7 @@ export function Release(props: {
                         onPlayChange={playing => handleTrackPlayStateChange(playing, i)}
                         onTrackEnd={() => props.onTrackEnd(i)}
                         controls={props.controls}
+                        hide={onlyOneSong}
                         key={i}
                     />
                 ))}
@@ -142,9 +162,11 @@ export function Release(props: {
 }
 
 const CARD_PADDING = 20
+const largeIconSize = 20
 
 const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     display: grid;
+    cursor: pointer;
     grid-template-areas: 'cover songs';
     grid-template-rows: 1fr;
     grid-template-columns: auto 1fr;
@@ -201,11 +223,27 @@ const Songs = styled(flex)`
 
 const Title = styled(flex)`
     font-weight: 600;
-    gap: 10px;
+    font-size: 18px;
+    gap: 20px;
     padding: 10px;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+`
+
+const TitleAndPlayButton = styled(flex)`
+    gap: 10px;
+    cursor: pointer;
+`
+const PlayPauseButton = styled('div')`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: ${colors.text};
 `
 
 const ReleaseDate = styled('em')`
@@ -218,6 +256,8 @@ const Links = styled(flex)`
 `
 
 const Social = styled('a')`
+    width: ${iconSize}px;
+    height: ${iconSize}px;
     &:hover {
         filter: brightness(2);
     }
@@ -228,7 +268,7 @@ const HoverPlayIcon = styled('div')`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000000c1;
+    background-color: #0000005c;
     border-radius: ${consts.borderRadius}px;
     opacity: 0;
     cursor: pointer;
