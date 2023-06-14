@@ -29,7 +29,7 @@ export const consts = {
         introFadeTime: 800,
         seed: 3,
         overflow: 8,
-        shiftLeft: -30,
+        shiftLeft: 0,
         textColor: colors.textDark,
         introTextColor: colors.textSecondary,
         onLoadCutoff: 0.7, // 0.5 = load UI after 50% of animations started
