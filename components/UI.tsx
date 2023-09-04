@@ -105,6 +105,11 @@ const Wrapper = styled(flex)<{ singleSongMode: boolean }>`
     overflow-x: hidden;
     overflow-y: auto;
     padding: 30vh 0;
+
+    @media (max-width: ${consts.mobileViewWidth}px) {
+        padding: 0;
+        padding-bottom: 30vh;
+    }
 `
 
 const Content = styled(flex)`
