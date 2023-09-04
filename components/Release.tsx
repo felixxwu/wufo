@@ -226,9 +226,10 @@ const Title = styled(flex)`
     font-size: 18px;
     gap: 20px;
     padding: 10px;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
 `
 
@@ -242,6 +243,8 @@ const PlayPauseButton = styled('div')`
     justify-content: center;
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 50%;
     background-color: ${colors.text};
 `

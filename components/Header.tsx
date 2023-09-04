@@ -13,7 +13,10 @@ export function Header() {
         <Wrapper>
             <Top>
                 <Avatar src={content.avatar} alt='Avatar' />
-                <Bio>{content.bio}</Bio>
+                <Bio>
+                    <Name>WUFO</Name>
+                    <span>{content.bio}</span>
+                </Bio>
             </Top>
             <Links>
                 {content.socials.map(({ link, Icon }) => (
@@ -43,13 +46,6 @@ const Wrapper = styled(flex)`
     box-shadow: ${consts.shadow};
     max-width: 400px;
     width: 100%;
-`
-
-const Name = styled('div')`
-    font-size: 60px;
-    font-weight: 900;
-    font-style: italic;
-    color: ${colors.text};
 `
 
 const Top = styled(flex)`
@@ -86,5 +82,14 @@ const Email = styled('a')`
 `
 
 const Bio = styled('div')`
+    display: flex;
+    flex-direction: column;
     color: ${colors.text};
+`
+
+const Name = styled('h1')`
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: 700;
 `

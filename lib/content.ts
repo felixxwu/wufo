@@ -48,6 +48,22 @@ const content: Content = {
         //     releaseDate: 'Coming Soon',
         // },
         {
+            title: 'Deadlock',
+            slug: 'deadlock',
+            hue: 276,
+            cover: 'https://i1.sndcdn.com/artworks-Or0tFk53aj7IM3Rl-I7w5Vg-t500x500.jpg',
+            spotify: 'https://open.spotify.com/track/1e9vJE6znQoBf8ayHexqDY',
+            apple: 'https://music.apple.com/us/album/deadlock/1705651021?i=1705651022',
+            soundcloud: 'https://soundcloud.com/blackprintuk/wufo-deadlock-free-download',
+            youtube: 'https://www.youtube.com/watch?v=oad9XZCw-6o',
+            songs: [
+                {
+                    title: 'Deadlock',
+                    link: 'https://soundcloud.com/blackprintuk/wufo-deadlock-free-download',
+                },
+            ],
+        },
+        {
             title: 'Defiant (ft. Taylor B-W)',
             slug: 'defiant',
             hue: 100,
