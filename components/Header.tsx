@@ -44,12 +44,12 @@ const Wrapper = styled(flex)`
     padding: 30px;
     border-radius: ${consts.borderRadius}px;
     box-shadow: ${consts.shadow};
-    max-width: 400px;
     width: 100%;
 `
 
 const Top = styled(flex)`
     gap: 20px;
+    max-width: 400px;
 `
 
 const Avatar = styled(Image)`

@@ -7,7 +7,6 @@ import { AppleRound } from '../icons/apple-round'
 import { InstagramRound } from '../icons/instagram-round'
 import { FacebookRound } from '../icons/facebook-round'
 import { TwitterRound } from '../icons/twitter-round'
-import fokuz from '../public/fokuz.png'
 import { useRouter } from 'next/router'
 
 export const useContent = () => {
@@ -35,18 +34,27 @@ const content: Content = {
     ],
     email: 'wufodnb@gmail.com',
     releases: [
-        // {
-        //     title: 'Callback EP',
-        //     hue: null,
-        //     cover: fokuz,
-        //     songs: [
-        //         { title: 'Callback' },
-        //         { title: 'Threaded' },
-        //         { title: 'Control Flow' },
-        //         { title: 'The Day' },
-        //     ],
-        //     releaseDate: 'Coming Soon',
-        // },
+        {
+            title: 'Threaded EP',
+            slug: 'threaded',
+            hue: 350,
+            cover: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t500x500.jpg',
+            spotify: 'https://open.spotify.com/album/4nbsKxedMA6bDQRtFJuKq5',
+            youtube: 'https://youtube.com/playlist?list=PL-BYmIN56P18apP6__5MoElht0S1NvuD7',
+            soundcloud: 'https://soundcloud.com/wufo/sets/threaded-ep',
+            songs: [
+                {
+                    title: 'Call Back',
+                    link: 'https://soundcloud.com/fokuzrecordings/wufo-call-back',
+                },
+                { title: 'Threaded', link: 'https://soundcloud.com/fokuzrecordings/wufo-threaded' },
+                {
+                    title: 'Control Flow',
+                    link: 'https://soundcloud.com/fokuzrecordings/wufo-control-flow',
+                },
+                { title: 'The Day', link: 'https://soundcloud.com/fokuzrecordings/wufo-the-day' },
+            ],
+        },
         {
             title: 'Deadlock',
             slug: 'deadlock',
