@@ -92,6 +92,7 @@ export function UI(props: { slug?: string }) {
                         SHOW ALL RELEASES
                     </Button>
                 )}
+                <Copyright>&copy; WUFO 2023</Copyright>
             </Content>
         </Wrapper>
     )
@@ -146,6 +147,24 @@ const Button = styled(Link)`
         100% {
             scale: 1;
 
+            opacity: 1;
+        }
+    }
+`
+
+const Copyright = styled('span')`
+    opacity: 0;
+
+    animation-name: fade-in;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
             opacity: 1;
         }
     }
