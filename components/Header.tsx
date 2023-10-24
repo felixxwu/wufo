@@ -19,8 +19,8 @@ export function Header() {
                 </Bio>
             </Top>
             <Links>
-                {content.socials.map(({ link, Icon }) => (
-                    <Link href={link} target='_blank' key={link}>
+                {content.socials.map(({ link, Icon, ariaLabel }) => (
+                    <Link href={link} target='_blank' key={link} aria-label={ariaLabel}>
                         <Icon
                             color={colors.text}
                             style={{

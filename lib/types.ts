@@ -48,7 +48,7 @@ export interface Pos {
 export interface Content {
     avatar: StaticImageData
     bio: string
-    socials: { link: string; Icon: (props: IconProps) => JSX.Element }[]
+    socials: { link: string; Icon: (props: IconProps) => JSX.Element, ariaLabel: string }[]
     email: string
     releases: IRelease[]
 }

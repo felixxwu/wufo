@@ -24,13 +24,25 @@ const content: Content = {
     avatar: header,
     bio: 'London based Drum & Bass producer, also known as Noxive',
     socials: [
-        { link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY', Icon: Spotify },
-        { link: 'https://music.apple.com/us/artist/wufo/1643758828', Icon: AppleRound },
-        { link: 'https://soundcloud.com/wufo', Icon: SoundCloudRound },
-        { link: 'https://www.youtube.com/@wufodnb', Icon: YouTubeRound },
-        { link: 'https://www.instagram.com/wufodnb', Icon: InstagramRound },
-        { link: 'https://www.facebook.com/profile.php?id=100088831532494', Icon: FacebookRound },
-        { link: 'https://twitter.com/wufodnb', Icon: TwitterRound },
+        {
+            link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY',
+            Icon: Spotify,
+            ariaLabel: 'Spotify',
+        },
+        {
+            link: 'https://music.apple.com/us/artist/wufo/1643758828',
+            Icon: AppleRound,
+            ariaLabel: 'Apple Music',
+        },
+        { link: 'https://soundcloud.com/wufo', Icon: SoundCloudRound, ariaLabel: 'SoundCloud' },
+        { link: 'https://www.youtube.com/@wufodnb', Icon: YouTubeRound, ariaLabel: 'YouTube' },
+        { link: 'https://www.instagram.com/wufodnb', Icon: InstagramRound, ariaLabel: 'Instagram' },
+        {
+            link: 'https://www.facebook.com/profile.php?id=100088831532494',
+            Icon: FacebookRound,
+            ariaLabel: 'Facebook',
+        },
+        { link: 'https://twitter.com/wufodnb', Icon: TwitterRound, ariaLabel: 'Twitter' },
     ],
     email: 'wufodnb@gmail.com',
     releases: [

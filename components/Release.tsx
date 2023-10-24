@@ -111,6 +111,7 @@ export function Release(props: {
                         src={props.release.cover}
                         width={consts.coverArtSize}
                         height={consts.coverArtSize}
+                        alt={props.release.title}
                     />
                 ) : (
                     <Cover src={props.release.cover} alt={props.release.title} />
@@ -181,6 +182,8 @@ export function Release(props: {
                                     ),
                                 }}
                                 onClick={handleShare}
+                                role='button'
+                                tabIndex={0}
                             >
                                 {shared ? (
                                     <Tick {...linkProps(props.release)} />
@@ -189,7 +192,6 @@ export function Release(props: {
                                 )}
                                 Copy Link
                             </Social>
-                            {/* {shared && <CopiedNotification>Copied</CopiedNotification>} */}
                         </>
                     )}
                 </Links>
@@ -312,7 +314,6 @@ const Social = styled('a')`
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    /* opacity: 0.8; */
 
     &:hover {
         filter: brightness(1.2);
@@ -335,15 +336,4 @@ const HoverPlayIcon = styled('div')`
     &:hover {
         opacity: 1;
     }
-`
-
-const CopiedNotification = styled('div')`
-    position: absolute;
-    translate: 100% 100%;
-    background-color: ${colors.textSecondary};
-    padding: 10px;
-    border-radius: ${consts.borderRadius}px;
-    color: ${colors.textDark};
-    box-shadow: ${consts.shadow};
-    font-weight: lighter;
 `
