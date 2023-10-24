@@ -116,7 +116,7 @@ const Wrapper = styled(flex)<{ singleSongMode: boolean }>`
 const Content = styled(flex)`
     justify-content: flex-start;
     width: 100%;
-    max-width: 800px;
+    max-width: 835px;
     padding: 20px;
     flex-direction: column;
     gap: 30px;

@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import styled from 'styled-components'
-import { AppleRound } from '../icons/apple-round'
-import { SoundCloudRound } from '../icons/soundcloud-round'
-import { SpotifyRound } from '../icons/spotify-round'
-import { YouTubeRound } from '../icons/youtube-round'
+import { Apple } from '../icons/apple'
+import { SoundCloud } from '../icons/soundcloud'
+import { Spotify } from '../icons/spotify'
+import { YouTube } from '../icons/youtube'
 import { colors } from '../lib/colors'
 import { consts } from '../lib/consts'
 import { flex } from '../lib/flex'
@@ -18,17 +18,29 @@ import { useControls } from './useControls'
 import { Share } from '../icons/share'
 import { Tick } from '../icons/tick'
 
-const iconSize = 30
-const linkProps = {
+const CARD_PADDING = 20
+const largeIconSize = 15
+const iconSize = 16
+const linkProps = (release: IRelease) => ({
     style: { width: `${iconSize}px`, height: `${iconSize}px`, cursor: 'pointer' },
-    color: colors.text,
-}
+    color: consts.getReleaseColor(release.hue),
+})
 
-function Link(link: string | undefined, Icon: (props: IconProps) => JSX.Element) {
+function Link(
+    link: string | undefined,
+    text: string,
+    Icon: (props: IconProps) => JSX.Element,
+    release: IRelease
+) {
     if (!link) return null
     return (
-        <Social href={link} target='_blank'>
-            <Icon {...linkProps} />
+        <Social
+            style={{ backgroundColor: consts.getLighterReleaseColor(release.hue) }}
+            href={link}
+            target='_blank'
+        >
+            <Icon {...linkProps(release)} />
+            {text}
         </Social>
     )
 }
@@ -47,7 +59,6 @@ export function Release(props: {
     const [shared, setShared] = useState(false)
 
     const isPlaying = props.playState.songs.some(song => song.playing)
-    const onlyOneSong = props.release.songs.length === 1
 
     function handlePlayPause() {
         if (isPlaying) {
@@ -107,62 +118,85 @@ export function Release(props: {
             </ImgWrapper>
 
             <Songs>
-                <Title>
-                    <TitleAndPlayButton>
-                        <PlayPauseButton>
-                            {isPlaying ? (
-                                <Pause
-                                    color={consts.getReleaseColor(props.release.hue)}
-                                    style={{ width: `${largeIconSize}px` }}
-                                />
-                            ) : (
-                                <Play
-                                    color={consts.getReleaseColor(props.release.hue)}
-                                    style={{ width: `${largeIconSize}px` }}
-                                />
-                            )}
-                        </PlayPauseButton>
-                        {props.release.title}
-                    </TitleAndPlayButton>
-                    <Links onClick={e => e.stopPropagation()}>
-                        {props.release.releaseDate ? (
-                            <ReleaseDate>{props.release.releaseDate}</ReleaseDate>
+                <Title
+                    style={{
+                        color: consts.getLighterReleaseColor(props.release.hue),
+                    }}
+                >
+                    <PlayPauseButton
+                        style={{
+                            backgroundColor: consts.getLighterReleaseColor(props.release.hue),
+                        }}
+                    >
+                        {isPlaying ? (
+                            <Pause
+                                color={consts.getReleaseColor(props.release.hue)}
+                                style={{ width: `${largeIconSize}px` }}
+                            />
                         ) : (
-                            <>
-                                {Link(props.release.spotify, SpotifyRound)}
-                                {Link(props.release.soundcloud, SoundCloudRound)}
-                                {Link(props.release.apple, AppleRound)}
-                                {Link(props.release.youtube, YouTubeRound)}
-                                <Social onClick={handleShare}>
-                                    {shared ? <Tick {...linkProps} /> : <Share {...linkProps} />}
-                                </Social>
-                                {shared && <CopiedNotification>Copied</CopiedNotification>}
-                            </>
+                            <Play
+                                color={consts.getReleaseColor(props.release.hue)}
+                                style={{ width: `${largeIconSize}px` }}
+                            />
                         )}
-                    </Links>
+                    </PlayPauseButton>
+                    {props.release.title}
                 </Title>
-                {props.release.songs.map((song, i) => (
-                    <TrackWidget
-                        song={song}
-                        releaseIndex={props.releaseIndex}
-                        songIndex={i}
-                        hue={props.release.hue ?? 0}
-                        playing={props.playState.songs[i].playing}
-                        lastPlayed={props.lastPlayed}
-                        onPlayChange={playing => handleTrackPlayStateChange(playing, i)}
-                        onTrackEnd={() => props.onTrackEnd(i)}
-                        controls={props.controls}
-                        hide={onlyOneSong}
-                        key={i}
-                    />
-                ))}
+                <TrackWidgets>
+                    {props.release.songs.map((song, i) => (
+                        <TrackWidget
+                            song={song}
+                            releaseIndex={props.releaseIndex}
+                            songIndex={i}
+                            hue={props.release.hue ?? 0}
+                            playing={props.playState.songs[i].playing}
+                            lastPlayed={props.lastPlayed}
+                            onPlayChange={playing => handleTrackPlayStateChange(playing, i)}
+                            onTrackEnd={() => props.onTrackEnd(i)}
+                            controls={props.controls}
+                            hide={false}
+                            key={i}
+                        />
+                    ))}
+                </TrackWidgets>
+
+                <Links onClick={e => e.stopPropagation()}>
+                    {props.release.releaseDate ? (
+                        <ReleaseDate>{props.release.releaseDate}</ReleaseDate>
+                    ) : (
+                        <>
+                            {Link(props.release.spotify, 'Spotify', Spotify, props.release)}
+                            {Link(
+                                props.release.soundcloud,
+                                'SoundCloud',
+                                SoundCloud,
+                                props.release
+                            )}
+                            {Link(props.release.apple, 'Apple', Apple, props.release)}
+                            {Link(props.release.youtube, 'YouTube', YouTube, props.release)}
+                            <Social
+                                style={{
+                                    backgroundColor: consts.getLighterReleaseColor(
+                                        props.release.hue
+                                    ),
+                                }}
+                                onClick={handleShare}
+                            >
+                                {shared ? (
+                                    <Tick {...linkProps(props.release)} />
+                                ) : (
+                                    <Share {...linkProps(props.release)} />
+                                )}
+                                Copy Link
+                            </Social>
+                            {/* {shared && <CopiedNotification>Copied</CopiedNotification>} */}
+                        </>
+                    )}
+                </Links>
             </Songs>
         </Wrapper>
     )
 }
-
-const CARD_PADDING = 20
-const largeIconSize = 20
 
 const Wrapper = styled('div')<Parameters<typeof Release>[0]>`
     display: grid;
@@ -217,34 +251,37 @@ const ImgWrapper = styled('div')`
 const Songs = styled(flex)`
     grid-area: songs;
     align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     flex: 1;
+    gap: 10px;
+    height: 100%;
+`
+
+const TrackWidgets = styled('div')`
+    width: 100%;
 `
 
 const Title = styled(flex)`
     font-weight: 600;
     font-size: 18px;
-    gap: 20px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-`
-
-const TitleAndPlayButton = styled(flex)`
     gap: 10px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
     cursor: pointer;
 `
+
 const PlayPauseButton = styled('div')`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
     border-radius: 50%;
     background-color: ${colors.text};
 `
@@ -255,14 +292,30 @@ const ReleaseDate = styled('em')`
 
 const Links = styled(flex)`
     grid-area: links;
-    gap: 10px;
+    padding-top: 5px;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: auto;
 `
 
 const Social = styled('a')`
-    width: ${iconSize}px;
-    height: ${iconSize}px;
+    background-color: ${colors.text};
+    color: ${colors.textDark};
+    font-size: 13px;
+    display: flex;
+    padding: 4px 10px;
+    gap: 5px;
+    border-radius: ${consts.borderRadiusSmall}px;
+    text-decoration: none;
+    font-weight: normal;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    /* opacity: 0.8; */
+
     &:hover {
-        filter: brightness(2);
+        filter: brightness(1.2);
     }
 `
 

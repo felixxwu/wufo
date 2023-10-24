@@ -5,5 +5,5 @@ export const colors = {
     textSecondary: 'hsl(225, 6%, 75%)',
     textSecondaryLightness: 0.75,
     textDark: 'hsl(225, 6%, 17%)',
-    highlight: 'rgba(0, 0, 0, 0.1)',
+    highlight: 'rgba(0, 0, 0, 0.15)',
 } as const

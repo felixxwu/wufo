@@ -81,8 +81,8 @@ export function TrackWidget(props: {
                 key={props.song.title}
                 onClick={handlePlayPause}
                 style={{
-                    pointerEvents: props.song.link ? 'auto' : 'none',
-                    color: props.playing ? colors.text : colors.textSecondary,
+                    pointerEvents: props.song.link && !props.hide ? 'auto' : 'none',
+                    color: consts.getLighterReleaseColor(props.hue),
                     backgroundColor: props.playing ? colors.highlight : '',
                     opacity: props.hide ? 0 : 1,
                     position: props.hide ? 'absolute' : 'relative',

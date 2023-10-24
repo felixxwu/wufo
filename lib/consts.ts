@@ -12,6 +12,8 @@ export const consts = {
     mobileViewWidth: 600,
     startOfSongThreshold: 0.05,
     getReleaseColor: (hue: number | null) => (hue === null ? '#333' : `hsl(${hue}, 25%, 30%)`),
+    getLighterReleaseColor: (hue: number | null) =>
+        hue === null ? '#333' : `hsl(${hue}, 60%, 90%)`,
     background: {
         cellWidth: 120,
         cellHeight: 36,
