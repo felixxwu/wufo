@@ -7,7 +7,7 @@ import { useState } from 'preact/hooks'
 import { Color } from './lib/types'
 
 export function App() {
-  const [color, setColor] = useState<Color>([150, 30, 30])
+  const [color, setColor] = useState<Color>([50, 50, 50])
 
   return (
     <Container>
