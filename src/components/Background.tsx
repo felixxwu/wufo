@@ -1,5 +1,6 @@
 import { CSSProperties, useEffect, useRef, useState } from 'preact/compat'
 import { Color } from '../lib/types'
+import { isMobile } from '../lib/isMobile'
 
 export const DARKEN = 1.5
 
@@ -46,7 +47,9 @@ export function Background({ color }: { color: Color }) {
             seed={seed}
           />
           <feColorMatrix in='cloudbase' type='hueRotate' values='0' result='cloud'>
-            <animate attributeName='values' from='0' to='360' dur='5s' repeatCount='indefinite' />
+            {isMobile() ? null : (
+              <animate attributeName='values' from='0' to='360' dur='5s' repeatCount='indefinite' />
+            )}
           </feColorMatrix>
           <feColorMatrix
             in='cloud'
