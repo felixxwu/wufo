@@ -4,7 +4,7 @@ import { Player } from './Player'
 import { ANIMATION_INTERVAL, Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { Color } from '../lib/types'
 import { TEXT_COLOR } from '../lib/consts'
 import { Profile } from './Profile'
@@ -25,7 +25,27 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
     setRealPlaybackProgress,
     loadedProgress,
     setLoadedProgress,
+    nextSongPlayable,
+    prevSongPlayable,
   } = usePlayerController(setColor)
+
+  useEffect(() => {
+    const onkeydown = (e: KeyboardEvent) => {
+      if (e.key === ' ') {
+        playing ? pause() : play()
+        e.preventDefault()
+      }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        next()
+        e.preventDefault()
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        prev()
+        e.preventDefault()
+      }
+    }
+    window.onkeydown = onkeydown
+  }, [playing, songPlaying])
 
   return (
     <Container>
@@ -57,8 +77,8 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         onPause={pause}
         onNext={next}
         onPrev={prev}
-        nextSongPlayable={true}
-        prevSongPlayable={true}
+        nextSongPlayable={nextSongPlayable}
+        prevSongPlayable={prevSongPlayable}
       />
       <Profile />
       <CopyRight>&copy; WUFO 2023</CopyRight>
@@ -77,6 +97,7 @@ const CopyRight = styled('span', {
   width: '100%',
   textAlign: 'center',
   color: TEXT_COLOR,
+  zIndex: -1,
 
   opacity: '0',
   animationName: 'fade-in',

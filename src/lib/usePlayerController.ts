@@ -34,7 +34,11 @@ export function usePlayerController(setColor: (colors: Color) => void) {
   }
 
   const play = () => {
-    setPlaying(true)
+    if (!showControls) {
+      onSongClick(content.releases[0].songs[0])
+    } else {
+      setPlaying(true)
+    }
   }
 
   const pause = () => {
@@ -71,5 +75,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     realPlaybackProgress,
     setRealPlaybackProgress,
     onSongClick,
+    nextSongPlayable: !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) + 1],
+    prevSongPlayable: !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) - 1],
   }
 }
