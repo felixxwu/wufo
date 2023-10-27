@@ -43,7 +43,7 @@ export function Profile() {
       }}
     >
       <Backdrop style={open ? { opacity: 1, pointerEvents: 'all' } : {}} />
-      <Avatar src={content.avatar} style={{ opacity: showAvatar ? 1 : 0 }} />
+      <Avatar src={content.avatar} style={{ opacity: showAvatar ? 1 : 0 }} alt='WUFO Avatar' />
       <Links style={{ opacity: open ? 1 : 0, pointerEvents: open ? 'all' : 'none' }}>
         {content.socials.map(social => {
           const Icon = social.Icon
