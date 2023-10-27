@@ -27,9 +27,9 @@ export function Player({
   useEffect(() => {
     ;(async () => {
       setShowPlayer(false)
-      await sleep(100)
+      await sleep(0)
       setShowPlayer(true)
-      await sleep(100)
+      await sleep(0)
       if (!iframe.current) return
 
       window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.PAUSE, () => {
