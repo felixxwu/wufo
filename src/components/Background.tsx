@@ -98,5 +98,5 @@ const Container: CSSProperties = {
 }
 
 const Grain: CSSProperties = {
-  opacity: '0.4',
+  opacity: '0.2',
 }
