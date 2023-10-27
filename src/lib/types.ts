@@ -29,6 +29,7 @@ export interface IRelease {
   title: string
   color: [number, number, number]
   cover: string
+  coverSmall: string
   soundcloud?: string
   spotify?: string
   apple?: string

@@ -9,7 +9,7 @@ import { Content } from './types'
 
 export const content: Content = {
   bio: 'London based Drum & Bass producer, also known as Noxive',
-  avatar: 'https://i1.sndcdn.com/avatars-HZXtNsgyyiU6yoGW-cpRyvQ-t500x500.jpg',
+  avatar: 'https://i1.sndcdn.com/avatars-HZXtNsgyyiU6yoGW-cpRyvQ-t200x200.jpg',
   socials: [
     {
       link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY',
@@ -38,6 +38,7 @@ export const content: Content = {
       slug: 'threaded',
       color: [70, 30, 10],
       cover: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t200x200.jpg',
       spotify: 'https://open.spotify.com/album/4nbsKxedMA6bDQRtFJuKq5',
       youtube: 'https://youtube.com/playlist?list=PL-BYmIN56P18apP6__5MoElht0S1NvuD7',
       soundcloud: 'https://soundcloud.com/wufo/sets/threaded-ep',
@@ -70,6 +71,7 @@ export const content: Content = {
       slug: 'deadlock',
       color: [70, 20, 90],
       cover: 'https://i1.sndcdn.com/artworks-Or0tFk53aj7IM3Rl-I7w5Vg-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-Or0tFk53aj7IM3Rl-I7w5Vg-t200x200.jpg',
       spotify: 'https://open.spotify.com/track/1e9vJE6znQoBf8ayHexqDY',
       apple: 'https://music.apple.com/us/album/deadlock/1705651021?i=1705651022',
       soundcloud: 'https://soundcloud.com/blackprintuk/wufo-deadlock-free-download',
@@ -86,7 +88,8 @@ export const content: Content = {
       title: 'Defiant (ft. Taylor B-W)',
       slug: 'defiant',
       color: [82, 20, 27],
-      cover: 'https://i.scdn.co/image/ab67616d00001e02fd33e759a068cea3ddffe7f7',
+      cover: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t200x200.jpg',
       spotify: 'https://open.spotify.com/track/2w4uaAV0k9ILj1BXXSOk2Y',
       apple: 'https://music.apple.com/us/album/defiant/1687242000',
       soundcloud: 'https://soundcloud.com/wufo/defiant',
@@ -98,6 +101,7 @@ export const content: Content = {
       slug: 'blockbuster-love',
       color: [125, 98, 83],
       cover: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t200x200.jpg',
       soundcloud: 'https://soundcloud.com/wufo/sets/blockbuster-love',
       spotify: 'https://open.spotify.com/track/1gh4Tb7OtKeHOXm643ALIL',
       apple: 'https://music.apple.com/us/album/blockbuster-love/1677552561?i=1677552562',
@@ -115,6 +119,7 @@ export const content: Content = {
       slug: 'night-and-day',
       color: [148, 91, 56],
       cover: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t200x200.jpg',
       soundcloud: 'https://soundcloud.com/soul-deep-recordings/sets/wufo-night-day',
       spotify: 'https://open.spotify.com/album/5hBYTI38j7NqTt9qKsg8n8',
       apple: 'https://music.apple.com/us/album/night-day-ep/1672463499',
@@ -147,6 +152,7 @@ export const content: Content = {
       slug: 'hyde-park',
       color: [161, 139, 69],
       cover: 'https://i1.sndcdn.com/artworks-80gYiY5bOUD9UvpU-3jg2yQ-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-80gYiY5bOUD9UvpU-3jg2yQ-t200x200.jpg',
       soundcloud: 'https://soundcloud.com/argofox/wufo-hyde-park',
       spotify: 'https://open.spotify.com/album/4zQZHSrLIMp7MVcKLzuB27',
       apple: 'https://music.apple.com/us/album/hyde-park/1643758822',

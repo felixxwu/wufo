@@ -36,7 +36,10 @@ export function Release({
           : {}),
       }}
     >
-      <Image style={index === 0 ? { width: '100%', margin: 'auto' } : {}} src={release.cover} />
+      <Image
+        style={index === 0 ? { width: '100%', margin: 'auto' } : {}}
+        src={index === 0 ? release.cover : release.coverSmall}
+      />
       <TitleAndLinks>
         <Title onClick={() => onSongClick(release.songs[0])}>
           <PlayPause playing={false} color={release.color} />
