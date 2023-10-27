@@ -41,12 +41,12 @@ export function Background({ color }: { color: Color }) {
           <feTurbulence
             type='fractalNoise'
             result='cloudbase'
-            baseFrequency='0.0015'
+            baseFrequency='0.002'
             numOctaves='2'
             seed={seed}
           />
           <feColorMatrix in='cloudbase' type='hueRotate' values='0' result='cloud'>
-            <animate attributeName='values' from='0' to='360' dur='6s' repeatCount='indefinite' />
+            <animate attributeName='values' from='0' to='360' dur='5s' repeatCount='indefinite' />
           </feColorMatrix>
           <feColorMatrix
             in='cloud'

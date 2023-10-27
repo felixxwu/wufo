@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks'
 import { Color, ISong } from './types'
 import { content } from './content'
+import { isMobile } from './isMobile'
 
 const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
@@ -27,10 +28,13 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     }
 
     setSongPlaying(song)
-    setPlaying(true)
     setAutoplay(true)
-    setRealPlaybackProgress(0)
-    setLoadedProgress(0)
+
+    if (!isMobile()) {
+      setPlaying(true)
+    } else {
+      setPlaying(false)
+    }
   }
 
   const play = () => {

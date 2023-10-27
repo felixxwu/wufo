@@ -11,6 +11,12 @@ import { Profile } from './Profile'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
+  useEffect(() => {
+    if (progressOverride !== 0) {
+      play()
+    }
+  }, [progressOverride])
+
   const {
     songPlaying,
     playing,
