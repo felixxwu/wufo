@@ -4,6 +4,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+:root {
+    overflow-x: hidden;
+}
+
 @keyframes pop-in-out {
     0% {
         filter: blur(0px);
