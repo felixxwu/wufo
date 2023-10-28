@@ -33,6 +33,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
     setLoadedProgress,
     nextSongPlayable,
     prevSongPlayable,
+    onTrackEnd,
   } = usePlayerController(setColor)
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         playbackProgress={progressOverride}
         onPlaybackProgress={progress => setRealPlaybackProgress(progress)}
         onLoadProgress={progress => setLoadedProgress(progress)}
-        onTrackEnd={next}
+        onTrackEnd={onTrackEnd}
       />
       <PlayerControls
         songName={songPlaying.title}

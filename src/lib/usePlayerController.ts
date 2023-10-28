@@ -65,6 +65,19 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     }
   }
 
+  const onTrackEnd = () => {
+    if (nextSongPlayable) {
+      next()
+    } else {
+      pause()
+    }
+  }
+
+  const nextSongPlayable =
+    !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) + 1]
+  const prevSongPlayable =
+    !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) - 1]
+
   return {
     songPlaying,
     playing,
@@ -79,7 +92,8 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     realPlaybackProgress,
     setRealPlaybackProgress,
     onSongClick,
-    nextSongPlayable: !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) + 1],
-    prevSongPlayable: !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) - 1],
+    nextSongPlayable,
+    prevSongPlayable,
+    onTrackEnd,
   }
 }
