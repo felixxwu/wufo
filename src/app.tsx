@@ -5,6 +5,7 @@ import { Logos } from './components/Logo'
 import { UI } from './components/UI'
 import { useState } from 'preact/hooks'
 import { Color } from './lib/types'
+import { content } from './lib/content'
 
 export function App() {
   const [color, setColor] = useState<Color>([50, 50, 50])
@@ -12,7 +13,7 @@ export function App() {
   return (
     <Container>
       <Background color={color} />
-      <Logos />
+      {content.releases.length > 1 && <Logos />}
       <Opacity>
         <UI setColor={setColor} />
       </Opacity>
@@ -28,5 +29,5 @@ const Container = styled('div', {
 })
 
 const Opacity = styled('div', {
-  opacity: '0.85',
+  opacity: '0.95',
 })

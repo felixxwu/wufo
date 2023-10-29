@@ -32,8 +32,6 @@ const Container = styled(
     alignItems: 'center',
     gap: '8px',
     padding: '5px 10px',
-    marginLeft: '-10px',
-    marginRight: '10px',
     borderRadius: `${BORDER_RADIUS}px`,
     cursor: 'pointer',
     textDecoration: 'none',

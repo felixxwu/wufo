@@ -28,7 +28,7 @@ export type Color = [number, number, number]
 
 export interface IRelease {
   title: string
-  color: [number, number, number]
+  color: Color
   cover: string
   coverSmall: string
   soundcloud?: string

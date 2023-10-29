@@ -5,7 +5,14 @@ import { SoundCloud } from '../icons/soundcloud'
 import { Spotify } from '../icons/spotify'
 import { Twitter } from '../icons/twitter'
 import { YouTube } from '../icons/youtube'
-import { Content } from './types'
+import { Content, IRelease } from './types'
+
+const slug = window.location.pathname.split('/')[1]
+
+function processReleases(releases: IRelease[]) {
+  const singleRelease = releases.find(release => release.slug === slug)
+  return singleRelease ? [singleRelease] : releases
+}
 
 export const content: Content = {
   bio: 'London based Drum & Bass producer, also known as Noxive',
@@ -16,13 +23,13 @@ export const content: Content = {
       label: 'Spotify',
       Icon: Spotify,
     },
+    { link: 'https://soundcloud.com/wufo', label: 'SoundCloud', Icon: SoundCloud },
+    { link: 'https://www.youtube.com/@wufodnb', label: 'YouTube', Icon: YouTube },
     {
       link: 'https://music.apple.com/us/artist/wufo/1643758828',
       label: 'Apple Music',
       Icon: Apple,
     },
-    { link: 'https://soundcloud.com/wufo', label: 'SoundCloud', Icon: SoundCloud },
-    { link: 'https://www.youtube.com/@wufodnb', label: 'YouTube', Icon: YouTube },
     { link: 'https://www.instagram.com/wufodnb', label: 'Instagram', Icon: Instagram },
     {
       link: 'https://www.facebook.com/profile.php?id=100088831532494',
@@ -32,7 +39,7 @@ export const content: Content = {
     { link: 'https://twitter.com/wufodnb', label: 'Twitter', Icon: Twitter },
   ],
   email: 'wufodnb@gmail.com',
-  releases: [
+  releases: processReleases([
     {
       title: 'Threaded EP',
       slug: 'threaded',
@@ -165,5 +172,5 @@ export const content: Content = {
         },
       ],
     },
-  ],
+  ]),
 }

@@ -10,9 +10,11 @@ import { Apple } from '../icons/apple'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { css } from '@emotion/css'
+import { content } from '../lib/content'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
+export const ANIMATION_DELAY = content.releases.length === 1 ? 0 : 2
 
 export function Release({
   release,
@@ -30,7 +32,7 @@ export function Release({
   return (
     <Container
       style={{
-        animationDelay: `${2 + index * ANIMATION_INTERVAL}s`,
+        animationDelay: `${ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
         ...(index === 0
           ? { gridTemplateAreas: `'image' 'title' 'divider' 'songs'`, gridTemplateColumns: '1fr' }
           : {}),
@@ -130,11 +132,20 @@ const Title = styled(
   `
 )
 
-const Links = styled('div', {
-  display: 'flex',
-  flexWrap: 'wrap',
-  opacity: '0.9',
-})
+const Links = styled(
+  'div',
+  {
+    display: 'flex',
+    flexWrap: 'wrap',
+    opacity: '0.9',
+  },
+  css`
+    & > * {
+      margin-left: -10px;
+      margin-right: 10px;
+    }
+  `
+)
 
 const Divider = styled('div', {
   gridArea: 'divider',

@@ -1,13 +1,13 @@
 import { content } from '../lib/content'
 import { styled } from '../lib/styled'
 import { Player } from './Player'
-import { ANIMATION_INTERVAL, Release } from './Release'
+import { ANIMATION_DELAY, ANIMATION_INTERVAL, Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
 import { useEffect, useState } from 'preact/hooks'
 import { Color } from '../lib/types'
 import { TEXT_COLOR } from '../lib/consts'
-import { Profile } from './Profile'
+import { Header } from './Header'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -56,6 +56,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
 
   return (
     <Container>
+      {content.releases.length > 1 && <Header />}
       {content.releases.map((release, i) => (
         <Release
           release={release}
@@ -88,7 +89,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         nextSongPlayable={nextSongPlayable}
         prevSongPlayable={prevSongPlayable}
       />
-      <Profile />
+      {/* <Profile /> */}
       <CopyRight>&copy; WUFO 2023</CopyRight>
     </Container>
   )
@@ -99,6 +100,8 @@ const Container = styled('div', {
   flexDirection: 'column',
   gap: '80px',
   padding: '80px 0',
+  width: '100vw',
+  maxWidth: '560px',
 })
 
 const CopyRight = styled('span', {
@@ -109,7 +112,7 @@ const CopyRight = styled('span', {
 
   opacity: '0',
   animationName: 'fade-in',
-  animationDelay: `${ANIMATION_INTERVAL * content.releases.length + 2}s`,
+  animationDelay: `${ANIMATION_INTERVAL * content.releases.length + ANIMATION_DELAY}s`,
   animationDuration: '1s',
   animationFillMode: 'forwards',
 })
