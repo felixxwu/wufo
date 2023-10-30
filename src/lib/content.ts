@@ -16,7 +16,7 @@ function processReleases(releases: IRelease[]) {
 
 export const content: Content = {
   bio: 'London based Drum & Bass producer, also known as Noxive',
-  avatar: 'https://i1.sndcdn.com/avatars-HZXtNsgyyiU6yoGW-cpRyvQ-t200x200.jpg',
+  avatar: 'https://i1.sndcdn.com/avatars-HZXtNsgyyiU6yoGW-cpRyvQ-t50x50.jpg',
   socials: [
     {
       link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY',
