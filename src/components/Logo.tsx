@@ -27,7 +27,7 @@ const Logo = styled('div', {
   margin: '-0.75ch 0 0 -50px',
   color: TEXT_COLOR,
   fontWeight: 'bold',
-  letterSpacing: '-0.19ch',
+  letterSpacing: '-0.2ch',
   fontStyle: 'italic',
   opacity: '0',
   animationName: 'pop-in-out',

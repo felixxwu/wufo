@@ -4,25 +4,23 @@ import { styled } from '../lib/styled'
 import { BORDER_RADIUS, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { css } from '@emotion/css'
 
-const ICON_SIZE = 14
+const ICON_SIZE = 16
 
-export function Link({
-  name,
+export function Button({
+  label,
   Icon,
+  onClick,
   href,
-  newWindow,
 }: {
-  name: string
+  label: string
   Icon: (props: IconProps) => VNode
+  onClick?: () => void
   href?: string
-  newWindow?: boolean
 }) {
-  if (!href) return null
-
   return (
-    <Container href={href} {...(newWindow ? { target: '_blank' } : {})}>
+    <Container {...(onClick ? { onClick, role: 'button' } : {})} {...(href ? { href } : {})}>
       <Icon color={TEXT_COLOR} style={{ width: ICON_SIZE, height: ICON_SIZE }} />
-      <Name>{name}</Name>
+      <Label>{label}</Label>
     </Container>
   )
 }
@@ -33,12 +31,15 @@ const Container = styled(
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '5px 10px',
+    padding: '10px 15px',
     borderRadius: `${BORDER_RADIUS}px`,
     cursor: 'pointer',
     textDecoration: 'none',
     color: TEXT_COLOR,
     transition: QUICK_TRANSITION,
+    margin: 'auto',
+    fontWeight: '500',
+    role: 'button',
   },
   css`
     &:hover {
@@ -47,6 +48,7 @@ const Container = styled(
   `
 )
 
-const Name = styled('div', {
+const Label = styled('div', {
   fontSize: `${ICON_SIZE}px`,
+  textDecoration: 'underline',
 })

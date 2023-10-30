@@ -11,6 +11,7 @@ import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { css } from '@emotion/css'
 import { content } from '../lib/content'
+import { Share } from '../icons/share'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
@@ -49,10 +50,11 @@ export function Release({
           {release.title}
         </Title>
         <Links>
-          <Link name='Spotify' Icon={Spotify} href={release.spotify} />
-          <Link name='SoundCloud' Icon={SoundCloud} href={release.soundcloud} />
-          <Link name='YouTube' Icon={YouTube} href={release.youtube} />
-          <Link name='Apple' Icon={Apple} href={release.apple} />
+          <Link name='Spotify' Icon={Spotify} href={release.spotify} newWindow />
+          <Link name='SoundCloud' Icon={SoundCloud} href={release.soundcloud} newWindow />
+          <Link name='YouTube' Icon={YouTube} href={release.youtube} newWindow />
+          <Link name='Apple' Icon={Apple} href={release.apple} newWindow />
+          <Link name='Share' Icon={Share} href={`/${release.slug}`} />
         </Links>
       </TitleAndLinks>
       <Divider />

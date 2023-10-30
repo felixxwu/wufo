@@ -8,6 +8,10 @@ import { useEffect, useState } from 'preact/hooks'
 import { Color } from '../lib/types'
 import { TEXT_COLOR } from '../lib/consts'
 import { Header } from './Header'
+import { Button } from './Button'
+import { Copy } from '../icons/copy'
+import { CopyLink } from './CopyList'
+import { Back } from '../icons/back'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -89,8 +93,14 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         nextSongPlayable={nextSongPlayable}
         prevSongPlayable={prevSongPlayable}
       />
-      {/* <Profile /> */}
-      <CopyRight>&copy; WUFO 2023</CopyRight>
+      {content.releases.length === 1 ? (
+        <Buttons>
+          <CopyLink release={content.releases[0]} />
+          <Button label='All songs' href='/' Icon={Back} />
+        </Buttons>
+      ) : (
+        <CopyRight>&copy; WUFO 2023</CopyRight>
+      )}
     </Container>
   )
 }
@@ -115,4 +125,10 @@ const CopyRight = styled('span', {
   animationDelay: `${ANIMATION_INTERVAL * content.releases.length + ANIMATION_DELAY}s`,
   animationDuration: '1s',
   animationFillMode: 'forwards',
+})
+
+const Buttons = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
 })
