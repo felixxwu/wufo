@@ -43,7 +43,9 @@ export function Release({
     >
       <Image
         style={index === 0 ? { width: '100%', margin: 'auto' } : {}}
-        src={index === 0 ? release.cover : release.coverSmall}
+        className='blurry-load'
+        src={release.coverTiny}
+        data-large={index === 0 ? release.cover : release.coverSmall}
         alt={release.title}
         onclick={onCoverClick}
       />

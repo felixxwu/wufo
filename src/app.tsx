@@ -3,12 +3,18 @@ import './styles.css'
 import { styled } from './lib/styled'
 import { Logos } from './components/Logo'
 import { UI } from './components/UI'
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { Color } from './lib/types'
 import { content } from './lib/content'
+import { BlurryImageLoad } from './lib/blurryLoad'
 
 export function App() {
   const [color, setColor] = useState<Color>([50, 50, 50])
+
+  useEffect(() => {
+    const blurryImageLoad = new BlurryImageLoad()
+    blurryImageLoad.load()
+  }, [])
 
   return (
     <Container>
