@@ -22,11 +22,13 @@ export function Release({
   index,
   songLinkPlaying,
   onSongClick,
+  onCoverClick,
 }: {
   release: IRelease
   index: number
   songLinkPlaying: string | null
   onSongClick: (song: ISong) => void
+  onCoverClick: () => void
 }) {
   const [hovering, setHovering] = useState<number | null>(null)
 
@@ -43,6 +45,7 @@ export function Release({
         style={index === 0 ? { width: '100%', margin: 'auto' } : {}}
         src={index === 0 ? release.cover : release.coverSmall}
         alt={release.title}
+        onclick={onCoverClick}
       />
       <TitleAndLinks>
         <Title onClick={() => onSongClick(release.songs[0])}>
@@ -54,7 +57,9 @@ export function Release({
           <Link name='SoundCloud' Icon={SoundCloud} href={release.soundcloud} newWindow />
           <Link name='YouTube' Icon={YouTube} href={release.youtube} newWindow />
           <Link name='Apple' Icon={Apple} href={release.apple} newWindow />
-          <Link name='Share' Icon={Share} href={`/${release.slug}`} />
+          {content.releases.length > 1 && (
+            <Link name='Share' Icon={Share} href={`/${release.slug}`} />
+          )}
         </Links>
       </TitleAndLinks>
       <Divider />
@@ -107,6 +112,7 @@ const Image = styled('img', {
   objectFit: 'cover',
   borderRadius: `${BORDER_RADIUS}px`,
   boxShadow: BOX_SHADOW,
+  cursor: 'pointer',
 })
 
 const TitleAndLinks = styled('div', {

@@ -5,15 +5,18 @@ import { ANIMATION_DELAY, ANIMATION_INTERVAL, Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
 import { useEffect, useState } from 'preact/hooks'
-import { Color } from '../lib/types'
+import { Color, IRelease } from '../lib/types'
 import { TEXT_COLOR } from '../lib/consts'
 import { Header } from './Header'
 import { Button } from './Button'
 import { CopyLink } from './CopyList'
 import { Back } from '../icons/back'
+import { CoverPreview } from './CoverPreview'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
+  const [coverPreview, setCoverPreview] = useState<IRelease | null>(null)
+
   useEffect(() => {
     if (progressOverride !== 0) {
       play()
@@ -66,8 +69,18 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
           index={i}
           onSongClick={onSongClick}
           songLinkPlaying={playing ? songPlaying.link : null}
+          onCoverClick={() => setCoverPreview(release)}
         />
       ))}
+      {content.releases.length === 1 ? (
+        <Buttons>
+          <CopyLink release={content.releases[0]} />
+          <Button label='All songs' href='/' Icon={Back} />
+        </Buttons>
+      ) : (
+        <CopyRight>&copy; WUFO 2023</CopyRight>
+      )}
+
       <Player
         songLink={songPlaying.link}
         playing={playing}
@@ -92,14 +105,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         nextSongPlayable={nextSongPlayable}
         prevSongPlayable={prevSongPlayable}
       />
-      {content.releases.length === 1 ? (
-        <Buttons>
-          <CopyLink release={content.releases[0]} />
-          <Button label='All songs' href='/' Icon={Back} />
-        </Buttons>
-      ) : (
-        <CopyRight>&copy; WUFO 2023</CopyRight>
-      )}
+      <CoverPreview release={coverPreview} onClose={() => setCoverPreview(null)} />
     </Container>
   )
 }
