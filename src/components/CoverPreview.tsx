@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { styled } from '../lib/styled'
 import { IRelease } from '../lib/types'
+import { BORDER_RADIUS_LARGE, BOX_SHADOW } from '../lib/consts'
 
 export function CoverPreview({
   release,
@@ -10,12 +11,22 @@ export function CoverPreview({
   onClose: () => void
 }) {
   const [oldCover, setOldCover] = useState<IRelease | null>(null)
+  const timeout = useRef<number | null>(null)
 
   useEffect(() => {
     if (release) {
       setOldCover(release)
+      clearTimeout(timeout.current!)
+    } else {
+      timeout.current = setTimeout(() => {
+        setOldCover(null)
+      }, TRANSITION)
     }
   }, [release])
+
+  useEffect(() => {
+    document.body.parentElement!.style.overflowY = oldCover ? 'hidden' : 'auto'
+  }, [oldCover])
 
   const handleClick = (e: MouseEvent) => {
     e.preventDefault()
@@ -25,13 +36,18 @@ export function CoverPreview({
 
   return (
     <Container
-      style={release ? { opacity: 1, pointerEvents: 'all', filter: 'blur(0px)' } : {}}
+      style={{
+        ...(release ? { opacity: 1, pointerEvents: 'all', filter: 'blur(0px)' } : {}),
+        backgroundColor: `rgb(${release?.color.join(', ')})`,
+      }}
       onclick={handleClick}
     >
       <Cover src={oldCover?.cover} />
     </Container>
   )
 }
+
+const TRANSITION = 500
 
 const Container = styled('div', {
   display: 'flex',
@@ -46,13 +62,14 @@ const Container = styled('div', {
   filter: 'blur(50px)',
   pointerEvents: 'none',
   cursor: 'pointer',
-  backgroundColor: 'rgba(0, 0, 0)',
-  transition: '500ms',
+  transition: `${TRANSITION}ms`,
 })
 
 const Cover = styled('img', {
-  width: '100vw',
-  maxWidth: '100vh',
-  height: '100vh',
-  maxHeight: '100vw',
+  width: '90vw',
+  maxWidth: '90vh',
+  height: '90vh',
+  maxHeight: '90vw',
+  borderRadius: BORDER_RADIUS_LARGE,
+  boxShadow: BOX_SHADOW,
 })
