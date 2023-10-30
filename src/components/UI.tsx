@@ -9,7 +9,6 @@ import { Color } from '../lib/types'
 import { TEXT_COLOR } from '../lib/consts'
 import { Header } from './Header'
 import { Button } from './Button'
-import { Copy } from '../icons/copy'
 import { CopyLink } from './CopyList'
 import { Back } from '../icons/back'
 
