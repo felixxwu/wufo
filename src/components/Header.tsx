@@ -54,8 +54,7 @@ const Avatar = styled('img', {
 const Name = styled('div', {
   fontSize: '40px',
   fontWeight: '700',
-  letterSpacing: '-0.18ch',
-  fontStyle: 'italic',
+  letterSpacing: '-0.17ch',
 })
 
 const BottomRow = styled('div', {
