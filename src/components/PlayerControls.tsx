@@ -8,6 +8,7 @@ import { styled } from '../lib/styled'
 import { css } from '@emotion/css'
 import { Color } from '../lib/types'
 import { DARKEN } from './Background'
+import { isMobile } from '../lib/isMobile'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
@@ -88,6 +89,13 @@ export function PlayerControls({
     onSeek(clampedPercent)
   }
 
+  function handleClick(e: MouseEvent) {
+    e.stopPropagation()
+    if (showTapToPlay) {
+      onPlay()
+    }
+  }
+
   const handlePlayPrev = () => {
     if (progressIsNearStart) {
       onPrev()
@@ -100,56 +108,67 @@ export function PlayerControls({
 
   const colorValue = `rgb(${color.map(c => c / DARKEN).join(', ')})`
 
+  const showTapToPlay = isMobile() && !playing && playbackProgress === 0
+
   return (
     <Container>
-      <Card
-        ref={controls}
-        onClick={(e: any) => e.stopPropagation()}
-        style={{ backgroundColor: colorValue }}
-      >
-        <Title>{songName}</Title>
-        <Slider ref={slider} onClick={() => {}}>
-          <SliderBarBG />
-          <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
-          <SliderBarProgress style={{ width: `${playbackProgress * 100}%` }} />
-          <SliderThumb style={{ left: `${playbackProgress * 100}%` }} />
-        </Slider>
-        <Buttons ref={buttons}>
-          <div
-            onClick={handlePlayPrev}
-            style={{
-              pointerEvents: showPrevButton ? 'auto' : 'none',
-            }}
-          >
-            <Prev
-              color={TEXT_COLOR}
-              style={{
-                width: `${smallIconSize}px`,
-                opacity: showPrevButton ? 1 : 0.2,
-              }}
-            />
-          </div>
-          <PlayPauseButton
-            onClick={() => {
-              playing ? onPause() : onPlay()
-            }}
-          >
-            {playing ? (
-              <Pause color={colorValue} style={{ width: `${largeIconSize}px` }} />
-            ) : (
-              <Play color={colorValue} style={{ width: `${largeIconSize}px` }} />
-            )}
-          </PlayPauseButton>
-          <div onClick={onNext} style={{ pointerEvents: nextSongPlayable ? 'auto' : 'none' }}>
-            <Next
-              color={TEXT_COLOR}
-              style={{
-                width: `${smallIconSize}px`,
-                opacity: nextSongPlayable ? 1 : 0.2,
-              }}
-            />
-          </div>
-        </Buttons>
+      <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
+        {showTapToPlay ? (
+          <TapToPlay>
+            <Play color={TEXT_COLOR} style={{ width: `${smallIconSize}px` }} />
+            Play "{songName}"
+          </TapToPlay>
+        ) : (
+          <>
+            <Title>{songName}</Title>
+            <Slider ref={slider} onClick={() => {}}>
+              <SliderBarBG />
+              <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
+              <SliderBarProgress style={{ width: `${playbackProgress * 100}%` }} />
+              <SliderThumb style={{ left: `${playbackProgress * 100}%` }} />
+            </Slider>
+            <Buttons ref={buttons}>
+              {!isMobile() && (
+                <div
+                  onClick={handlePlayPrev}
+                  style={{
+                    pointerEvents: showPrevButton ? 'auto' : 'none',
+                  }}
+                >
+                  <Prev
+                    color={TEXT_COLOR}
+                    style={{
+                      width: `${smallIconSize}px`,
+                      opacity: showPrevButton ? 1 : 0.2,
+                    }}
+                  />
+                </div>
+              )}
+              <PlayPauseButton
+                onClick={() => {
+                  playing ? onPause() : onPlay()
+                }}
+              >
+                {playing ? (
+                  <Pause color={colorValue} style={{ width: `${largeIconSize}px` }} />
+                ) : (
+                  <Play color={colorValue} style={{ width: `${largeIconSize}px` }} />
+                )}
+              </PlayPauseButton>
+              {!isMobile() && (
+                <div onClick={onNext} style={{ pointerEvents: nextSongPlayable ? 'auto' : 'none' }}>
+                  <Next
+                    color={TEXT_COLOR}
+                    style={{
+                      width: `${smallIconSize}px`,
+                      opacity: nextSongPlayable ? 1 : 0.2,
+                    }}
+                  />
+                </div>
+              )}
+            </Buttons>
+          </>
+        )}
       </Card>
     </Container>
   )
@@ -258,4 +277,13 @@ const PlayPauseButton = styled('div', {
   height: '40px',
   borderRadius: '50%',
   backgroundColor: TEXT_COLOR,
+})
+
+const TapToPlay = styled('div', {
+  color: TEXT_COLOR,
+  textAlign: 'center',
+  display: 'flex',
+  gap: '10px',
+  alignItems: 'center',
+  padding: '10px',
 })

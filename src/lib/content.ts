@@ -119,7 +119,7 @@ export const content: Content = {
       youtube: 'https://www.youtube.com/watch?v=NZZ6DxkbzEU',
       songs: [
         {
-          title: 'Blockbuster Love (ft. Taylor B-W)',
+          title: 'Blockbuster Love',
           link: 'https://soundcloud.com/celsiusrecordings/wufo-taylor-b-w-blockbuster',
           length: '3:09',
         },
