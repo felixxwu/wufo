@@ -18,7 +18,7 @@ const OPACITY_DROPOFF = 1 / (NUM_LOGOS + 1)
 export function Logos2() {
   const [lettersShown, setLettersShown] = useState(1)
   const [logosTransformed, setLogosTransformed] = useState(0)
-  const [opacity, setOpacity] = useState(1)
+  const [logosFadedOut, setLogosFadedOut] = useState(0)
 
   useEffect(() => {
     ;(async () => {
@@ -28,23 +28,22 @@ export function Logos2() {
       }
       for (let i = 0; i < NUM_LOGOS; i++) {
         setLogosTransformed(i)
+        setTimeout(() => {
+          setLogosFadedOut(i)
+        }, TRANSLATION_ANIMATION_DURATION)
         await sleep(TRANSLATION_STEP_DELAY)
       }
-      await sleep(TRANSLATION_ANIMATION_DURATION)
-      setOpacity(0)
     })()
   }, [])
 
   return (
-    <Container
-      style={{
-        opacity,
-        filter: `blur(${opacity ? 0 : 50}px)`,
-        transform: `scale(${opacity ? 1 : 1.4})`,
-      }}
-    >
+    <Container>
       <WufoSerif
-        style={{ width: `${LOGO_WIDTH}px` }}
+        style={{
+          width: `${LOGO_WIDTH}px`,
+          opacity: logosFadedOut > 0 ? 0 : 1,
+          transition: `${TRANSLATION_ANIMATION_DURATION - 100}ms ease-in-out`,
+        }}
         color={TEXT_COLOR}
         lettersShown={lettersShown}
       />
@@ -69,10 +68,22 @@ export function Logos2() {
               : 'translateX(0)',
           transition: `${TRANSLATION_ANIMATION_DURATION}ms ease-in-out`,
           width: `${LOGO_WIDTH}px`,
-          opacity: 0 < logosTransformed ? 1 - OPACITY_DROPOFF * (i + 3) : 0,
+          opacity: getLogoOpacity(i),
         }}
       />
     )
+  }
+
+  function getLogoOpacity(i: number) {
+    if (logosTransformed > 0) {
+      if (logosFadedOut > i) {
+        return 0
+      } else {
+        return 1 - OPACITY_DROPOFF * (i + 3)
+      }
+    } else {
+      return 0
+    }
   }
 }
 
