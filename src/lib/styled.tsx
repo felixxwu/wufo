@@ -20,3 +20,17 @@ export function styled<T extends keyof HTMLElementTagNameMap>(
     )
   }
 }
+
+export function styledSVG<T extends keyof SVGElementTagNameMap>(tag: T, styles?: CSSProperties) {
+  return (props: SVGElementTagNameMap[T] | { [key: string]: any }) => {
+    return h(
+      // @ts-ignore
+      tag,
+      {
+        ...(props ?? {}),
+        style: { ...(styles ?? {}), ...(props.style ?? {}) },
+      },
+      ...(Array.isArray(props.children) ? props.children ?? [] : [props.children])
+    )
+  }
+}

@@ -17,6 +17,15 @@
   }
 }
 
+@keyframes pop-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes pop-in-out {
   0% {
     filter: blur(0px);

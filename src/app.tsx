@@ -20,9 +20,7 @@ export function App() {
     <Container>
       <Background color={color} />
       {content.releases.length > 1 && <Logos2 />}
-      <Opacity>
-        <UI setColor={setColor} />
-      </Opacity>
+      <UI setColor={setColor} />
     </Container>
   )
 }
@@ -32,8 +30,4 @@ const Container = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
-})
-
-const Opacity = styled('div', {
-  opacity: '0.95',
 })
