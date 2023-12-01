@@ -3,7 +3,7 @@ import { styled } from '../lib/styled'
 
 const ANIMATION_START_DELAY = 700
 const ANIMATION_DURATION = 1500
-const ROWS = 14
+const ROWS = 17
 const REPEATS = 5
 const ROW_BY_ROW_OFFSET = -70
 const LEFT_OFFSET = 500
