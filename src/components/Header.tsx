@@ -33,15 +33,16 @@ const Container = styled('div', {
 
   opacity: '0',
   animationName: 'fade-in',
-  animationDelay: '1.5s',
-  animationDuration: '1s',
+  animationDelay: '0.5s',
+  animationDuration: '2s',
   animationFillMode: 'forwards',
 })
 
 const TopRow = styled('div', {
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
-  gap: '20px',
+  gap: '10px',
 })
 
 const Avatar = styled('img', {
@@ -52,9 +53,10 @@ const Avatar = styled('img', {
 })
 
 const Name = styled('div', {
-  fontSize: '40px',
-  fontWeight: '700',
-  letterSpacing: '-0.17ch',
+  fontSize: '30px',
+  letterSpacing: '2ch',
+  marginLeft: '2ch',
+  textAlign: 'center',
 })
 
 const BottomRow = styled('div', {

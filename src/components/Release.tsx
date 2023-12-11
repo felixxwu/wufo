@@ -15,7 +15,7 @@ import { Share } from '../icons/share'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
-export const ANIMATION_DELAY = content.releases.length === 1 ? 0 : 2
+export const ANIMATION_DELAY = content.releases.length === 1 ? 0 : 1
 
 export function Release({
   release,
@@ -92,7 +92,7 @@ const Container = styled(
 
     opacity: '0',
     animationName: 'fade-in',
-    animationDuration: '1s',
+    animationDuration: '2s',
     animationFillMode: 'forwards',
   },
   css`

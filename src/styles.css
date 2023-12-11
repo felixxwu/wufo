@@ -39,7 +39,6 @@
 
 @keyframes fade-in {
   0% {
-    filter: blur(20px);
     opacity: 0;
   }
   100% {

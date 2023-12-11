@@ -3,7 +3,7 @@ import { Facebook } from '../icons/facebook'
 import { Instagram } from '../icons/instagram'
 import { SoundCloud } from '../icons/soundcloud'
 import { Spotify } from '../icons/spotify'
-import { Twitter } from '../icons/twitter'
+// import { Twitter } from '../icons/twitter'
 import { YouTube } from '../icons/youtube'
 import { Content, IRelease } from './types'
 
@@ -36,7 +36,7 @@ export const content: Content = {
       label: 'Facebook',
       Icon: Facebook,
     },
-    { link: 'https://twitter.com/wufodnb', label: 'Twitter', Icon: Twitter },
+    // { link: 'https://twitter.com/wufodnb', label: 'Twitter', Icon: Twitter },
   ],
   email: 'wufodnb@gmail.com',
   releases: processReleases([
