@@ -41,6 +41,30 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Pulse EP',
+      slug: 'pulse',
+      color: [40, 40, 40],
+      cover: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t50x50.jpg',
+      spotify: 'https://open.spotify.com/album/43YxJFpXv4b3u3raxYkiNU',
+      youtube: 'https://www.youtube.com/playlist?list=PL-BYmIN56P1_-rBvpthecPOpkynUKPByV',
+      soundcloud: 'https://soundcloud.com/wufo/sets/pulse',
+      apple: 'https://music.apple.com/us/album/pulse-single/1719663301',
+      songs: [
+        {
+          title: 'Pulse',
+          link: 'https://soundcloud.com/wufo/pulse',
+          length: '4:08',
+        },
+        {
+          title: 'Banana Bread',
+          link: 'https://soundcloud.com/wufo/banana-bread',
+          length: '4:02',
+        },
+      ],
+    },
+    {
       title: 'Threaded EP',
       slug: 'threaded',
       color: [70, 30, 10],
