@@ -13,11 +13,11 @@ export function Background({ color }: { color: Color }) {
 
   useEffect(() => {
     setTimeout(() => {
-      setHeight(document.body.clientHeight + 200)
+      setHeight(document.body.clientHeight + 100)
     }, 200)
     window.addEventListener('resize', () => {
       setWidth(window.innerWidth)
-      setHeight(document.body.clientHeight + 200)
+      setHeight(document.body.clientHeight + 100)
     })
     SVG.current!.animate([{ opacity: '0' }, { opacity: '1' }], { fill: 'forwards', duration: 1000 })
   }, [])
@@ -96,7 +96,7 @@ export function Background({ color }: { color: Color }) {
 
 const Container: CSSProperties = {
   position: 'absolute',
-  zIndex: '0',
+  zIndex: '-1',
   opacity: '0',
 }
 
