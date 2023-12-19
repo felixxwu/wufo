@@ -7,7 +7,7 @@ export function styled<T extends keyof HTMLElementTagNameMap>(
   className?: string
 ) {
   return (props: HTMLElementTagNameMap[T] | { [key: string]: any }) => {
-    const classNames = `${className} ${props.className ?? ''}`
+    const classNames = `${className ?? ''} ${props.className ?? ''}`
     return h(
       // @ts-ignore
       tag,

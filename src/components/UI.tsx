@@ -75,7 +75,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
       {content.releases.length === 1 ? (
         <Buttons>
           <CopyLink release={content.releases[0]} />
-          <Button label='All songs' href='/' Icon={Back} />
+          <Button label='Other WUFO songs' href='/' Icon={Back} />
         </Buttons>
       ) : (
         <CopyRight>&copy; WUFO 2023</CopyRight>

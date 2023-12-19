@@ -1,7 +1,7 @@
+import { useEffect } from 'preact/hooks'
 import { styled } from '../lib/styled'
 
-const ANIMATION_START_DELAY = 200
-const FADE_IN_DURATION = 500
+const ANIMATION_START_DELAY = 1000
 const ANIMATION_DURATION = 5000
 const ROWS = 22
 const REPEATS = 12
@@ -12,6 +12,19 @@ const FONT_SIZE = 60
 const LETTER_SPACING = 40
 
 export function Logos2() {
+  useEffect(() => {
+    const letters = document.querySelectorAll('.letter')
+    const screenMiddleX = window.innerWidth / 2
+    const screenMiddleY = window.innerHeight / 2
+    for (const letter of letters as NodeListOf<HTMLElement>) {
+      const rect = letter.getBoundingClientRect()
+      const distanceToMiddle = Math.sqrt(
+        Math.pow(screenMiddleX - rect.x, 2) + Math.pow(screenMiddleY - rect.y, 2)
+      )
+      letter.style.animationDelay = `${distanceToMiddle}ms`
+    }
+  }, [])
+
   return (
     <Container>
       {Array.from({ length: ROWS }).map((_, i) => (
@@ -19,10 +32,18 @@ export function Logos2() {
           {Array.from({ length: REPEATS }).map(() => {
             return (
               <>
-                <Letter style={{ animationDelay: getRandomDelay() }}>W</Letter>
-                <Letter style={{ animationDelay: getRandomDelay() }}>U</Letter>
-                <Letter style={{ animationDelay: getRandomDelay() }}>F</Letter>
-                <Letter style={{ animationDelay: getRandomDelay() }}>O</Letter>
+                <LetterWrapper className='letter'>
+                  <Letter style={{ animationDelay: getRandomDelay() }}>W</Letter>
+                </LetterWrapper>
+                <LetterWrapper className='letter'>
+                  <Letter style={{ animationDelay: getRandomDelay() }}>U</Letter>
+                </LetterWrapper>
+                <LetterWrapper className='letter'>
+                  <Letter style={{ animationDelay: getRandomDelay() }}>F</Letter>
+                </LetterWrapper>
+                <LetterWrapper className='letter'>
+                  <Letter style={{ animationDelay: getRandomDelay() }}>O</Letter>
+                </LetterWrapper>
               </>
             )
           })}
@@ -48,8 +69,6 @@ const Container = styled('div', {
   pointerEvents: 'none',
   flexDirection: 'column',
   transform: `rotate(${ROTATION}deg)`,
-  opacity: '0',
-  animation: `pop-in ${FADE_IN_DURATION}ms ease-in forwards`,
 })
 
 const Row = styled('div', {
@@ -62,4 +81,9 @@ const Row = styled('div', {
 
 const Letter = styled('span', {
   animation: `pop-out ${ANIMATION_START_DELAY}ms forwards`,
+})
+
+const LetterWrapper = styled('span', {
+  opacity: '0',
+  animation: 'fade-in 500ms ease-in forwards',
 })
