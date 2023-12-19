@@ -141,12 +141,11 @@ export function PlayerControls({
         {showTapToPlay ? (
           <TapToPlay>
             <TapToPlayPrompt>
-              <PlayPauseButton>
-                <Play color={colorValue} style={{ width: `${smallIconSize}px` }} />
-              </PlayPauseButton>
-              Play "{songPlaying.title}" in the browser, or:
+              <Play color={TEXT_COLOR} style={{ width: `${smallIconSize}px` }} />
+              <b>Play "{songPlaying.title}" now</b>
             </TapToPlayPrompt>
-            <Links onclick={e => e.stopPropagation()}>
+            <span>or</span>
+            <Links onclick={e => e.stopPropagation()} style={{ flexWrap: 'wrap' }}>
               <Link Icon={Spotify} href={release?.spotify} newWindow />
               <Link Icon={SoundCloud} href={songPlaying.link} newWindow />
               <Link Icon={YouTube} href={release?.youtube} newWindow />
@@ -270,7 +269,7 @@ const Title = styled('div', {
 const TapToPlayPrompt = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: '10px',
+  gap: '20px',
 })
 
 const Links = styled('div', {

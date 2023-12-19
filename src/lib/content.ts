@@ -167,7 +167,7 @@ export const content: Content = {
           length: '3:50',
         },
         {
-          title: "You Don't Know (ft. Jitsu)",
+          title: "You Don't Know",
           link: 'https://soundcloud.com/soul-deep-recordings/wufo-jitsu-you-dont-know',
           length: '3:45',
         },
