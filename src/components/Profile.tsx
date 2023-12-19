@@ -49,7 +49,7 @@ export function Profile() {
           const Icon = social.Icon
           return (
             <Link href={social.link} target='_blank' ariaLabel={social.label}>
-              <Icon color='white' style={{ width: 20, height: 20 }} />
+              <Icon color={TEXT_COLOR} style={{ width: 20, height: 20 }} />
               {social.label}
             </Link>
           )

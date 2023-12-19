@@ -18,7 +18,7 @@ export function App() {
     blurryImageLoad.load()
 
     document.body.parentElement!.style.overflowY = 'hidden'
-    sleep(UI_FADE_IN_DELAY * 1000).then(() => {
+    sleep(content.releases.length > 1 ? UI_FADE_IN_DELAY * 1000 : 0).then(() => {
       document.body.parentElement!.style.overflowY = 'auto'
     })
   }, [])

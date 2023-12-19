@@ -2,18 +2,25 @@ import { Pause } from '../icons/pause'
 import { Play } from '../icons/play'
 import { Prev } from '../icons/prev'
 import { Next } from '../icons/next'
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
 import { styled } from '../lib/styled'
 import { css } from '@emotion/css'
-import { Color } from '../lib/types'
+import { Color, ISong } from '../lib/types'
 import { DARKEN } from './Background'
 import { isMobile } from '../lib/isMobile'
+import { Spotify } from '../icons/spotify'
+import { Link } from './Link'
+import { content } from '../lib/content'
+import { SoundCloud } from '../icons/soundcloud'
+import { YouTube } from '../icons/youtube'
+import { Apple } from '../icons/apple'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
-  songName,
+  songPlaying,
+  songLength,
   playing,
   playbackProgress,
   loadedProgress,
@@ -27,7 +34,8 @@ export function PlayerControls({
   nextSongPlayable,
   prevSongPlayable,
 }: {
-  songName: string
+  songPlaying: ISong
+  songLength: number
   playing: boolean
   playbackProgress: number
   loadedProgress: number
@@ -53,6 +61,7 @@ export function PlayerControls({
     function handlePointerDown(e: PointerEvent) {
       if (!e.composedPath().includes(controls.current!.base)) return
       if (e.composedPath().includes(buttons.current!.base)) return
+      if (e.composedPath().includes(document.getElementById('player-links')!)) return
 
       setIsDragging(true)
       handlePointerSeek(e)
@@ -104,6 +113,22 @@ export function PlayerControls({
     }
   }
 
+  function convertSongLengthToString(length: number) {
+    if (length === 0) return ''
+    const seconds = Math.floor(length / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+  }
+
+  const release = useMemo(
+    () =>
+      content.releases.find(release =>
+        release.songs.find(song => song.title === songPlaying.title)
+      ),
+    [songPlaying]
+  )
+
   if (!show) return null
 
   const colorValue = `rgb(${color.map(c => c / DARKEN).join(', ')})`
@@ -115,13 +140,35 @@ export function PlayerControls({
       <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
         {showTapToPlay ? (
           <TapToPlay>
-            <Play color={TEXT_COLOR} style={{ width: `${smallIconSize}px` }} />
-            Play "{songName}"
+            <TapToPlayPrompt>
+              <PlayPauseButton>
+                <Play color={colorValue} style={{ width: `${smallIconSize}px` }} />
+              </PlayPauseButton>
+              Play "{songPlaying.title}" in the browser, or:
+            </TapToPlayPrompt>
+            <Links onclick={e => e.stopPropagation()}>
+              <Link Icon={Spotify} href={release?.spotify} newWindow />
+              <Link Icon={SoundCloud} href={songPlaying.link} newWindow />
+              <Link Icon={YouTube} href={release?.youtube} newWindow />
+              <Link Icon={Apple} href={release?.apple} newWindow />
+            </Links>
           </TapToPlay>
         ) : (
           <>
-            <Title>{songName}</Title>
+            <TitleAndLinks>
+              <Title>{loadedProgress === 0 ? 'Loading...' : songPlaying.title}</Title>
+              <Links id='player-links'>
+                <Link Icon={Spotify} href={release?.spotify} newWindow />
+                <Link Icon={SoundCloud} href={songPlaying.link} newWindow />
+                <Link Icon={YouTube} href={release?.youtube} newWindow />
+                <Link Icon={Apple} href={release?.apple} newWindow />
+              </Links>
+            </TitleAndLinks>
             <Slider ref={slider} onClick={() => {}}>
+              <SliderLeftNumber>
+                {convertSongLengthToString(songLength * playbackProgress)}
+              </SliderLeftNumber>
+              <SliderRightNumber>{convertSongLengthToString(songLength)}</SliderRightNumber>
               <SliderBarBG />
               <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
               <SliderBarProgress style={{ width: `${playbackProgress * 100}%` }} />
@@ -208,10 +255,28 @@ const Card = styled('div', {
   touchAction: 'none',
 })
 
+const TitleAndLinks = styled('div', {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+})
+
 const Title = styled('div', {
   color: TEXT_COLOR,
   width: '100%',
-  textAlign: 'center',
+})
+
+const TapToPlayPrompt = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+})
+
+const Links = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 })
 
 const Slider = styled('div', {
@@ -254,6 +319,22 @@ const SliderBarBG = styled('div', {
   backgroundColor: `rgba(255,255,255,0.2)`,
 })
 
+const SliderLeftNumber = styled('div', {
+  position: 'absolute',
+  color: TEXT_COLOR,
+  left: '0',
+  top: '30px',
+  opacity: 0.8,
+})
+
+const SliderRightNumber = styled('div', {
+  position: 'absolute',
+  color: TEXT_COLOR,
+  right: '0',
+  top: '30px',
+  opacity: 0.8,
+})
+
 const Buttons = styled(
   'div',
   {
@@ -275,6 +356,8 @@ const PlayPauseButton = styled('div', {
   justifyContent: 'center',
   width: '40px',
   height: '40px',
+  minWidth: '40px',
+  miHeight: '40px',
   borderRadius: '50%',
   backgroundColor: TEXT_COLOR,
 })
@@ -283,6 +366,7 @@ const TapToPlay = styled('div', {
   color: TEXT_COLOR,
   textAlign: 'center',
   display: 'flex',
+  flexDirection: 'column',
   gap: '10px',
   alignItems: 'center',
   padding: '10px',

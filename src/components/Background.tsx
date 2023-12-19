@@ -1,6 +1,7 @@
 import { CSSProperties, useEffect, useRef, useState } from 'preact/compat'
 import { Color } from '../lib/types'
 import { isMobile } from '../lib/isMobile'
+import { END_PADDING } from '../lib/consts'
 
 export const DARKEN = 1.5
 
@@ -13,11 +14,11 @@ export function Background({ color }: { color: Color }) {
 
   useEffect(() => {
     setTimeout(() => {
-      setHeight(document.body.clientHeight + 100)
+      setHeight(document.body.clientHeight + END_PADDING)
     }, 200)
     window.addEventListener('resize', () => {
       setWidth(window.innerWidth)
-      setHeight(document.body.clientHeight + 100)
+      setHeight(document.body.clientHeight + END_PADDING)
     })
     SVG.current!.animate([{ opacity: '0' }, { opacity: '1' }], { fill: 'forwards', duration: 1000 })
   }, [])

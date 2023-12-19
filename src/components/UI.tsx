@@ -25,6 +25,8 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
 
   const {
     songPlaying,
+    songLength,
+    setSongLength,
     playing,
     play,
     pause,
@@ -86,12 +88,16 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         playing={playing}
         autoplay={autoplay}
         playbackProgress={progressOverride}
-        onPlaybackProgress={progress => setRealPlaybackProgress(progress)}
+        onPlaybackProgress={(progress, length) => {
+          setRealPlaybackProgress(progress)
+          setSongLength(length)
+        }}
         onLoadProgress={progress => setLoadedProgress(progress)}
         onTrackEnd={onTrackEnd}
       />
       <PlayerControls
-        songName={songPlaying.title}
+        songPlaying={songPlaying}
+        songLength={songLength}
         playing={playing}
         show={showControls}
         color={content.releases.find(release => release.songs.includes(songPlaying))!.color}

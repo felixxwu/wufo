@@ -18,7 +18,7 @@ export function Player({
   onPlayChange?: (playing: boolean) => void
   onTrackEnd?: () => void
   playbackProgress?: number // percentage
-  onPlaybackProgress?: (progress: number) => void // percentage
+  onPlaybackProgress?: (progress: number, length: number) => void // percentage
   onLoadProgress?: (progress: number) => void
 }) {
   const iframe = useRef<HTMLIFrameElement>(null)
@@ -30,7 +30,7 @@ export function Player({
       await sleep(0)
       setShowPlayer(true)
       await sleep(0)
-      onPlaybackProgress?.(0)
+      onPlaybackProgress?.(0, 0)
       onLoadProgress?.(0)
       if (!iframe.current) return
 
@@ -38,8 +38,10 @@ export function Player({
         onPlayChange?.(false)
       })
       window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.PLAY_PROGRESS, e => {
-        onPlaybackProgress?.(e.relativePosition)
-        onLoadProgress?.(e.loadedProgress)
+        window.SC.Widget(iframe.current!).getDuration(length => {
+          onPlaybackProgress?.(e.relativePosition, length)
+          onLoadProgress?.(e.loadedProgress)
+        })
       })
       window.SC.Widget(iframe.current).bind(window.SC.Widget.Events.FINISH, () => {
         onTrackEnd?.()

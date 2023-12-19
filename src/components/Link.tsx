@@ -12,7 +12,7 @@ export function Link({
   href,
   newWindow,
 }: {
-  name: string
+  name?: string
   Icon: (props: IconProps) => VNode
   href?: string
   newWindow?: boolean
@@ -22,7 +22,7 @@ export function Link({
   return (
     <Container href={href} {...(newWindow ? { target: '_blank' } : {})}>
       <Icon color={TEXT_COLOR} style={{ width: ICON_SIZE, height: ICON_SIZE }} />
-      <Name>{name}</Name>
+      {name && <Name>{name}</Name>}
     </Container>
   )
 }

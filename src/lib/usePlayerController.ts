@@ -12,6 +12,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
   const [autoplay, setAutoplay] = useState(false)
   const [playing, setPlaying] = useState(false)
   const [realPlaybackProgress, setRealPlaybackProgress] = useState<number>(0)
+  const [songLength, setSongLength] = useState<number>(0)
   const [loadedProgress, setLoadedProgress] = useState<number>(0)
   const [showControls, setShowControls] = useState(false)
 
@@ -80,6 +81,8 @@ export function usePlayerController(setColor: (colors: Color) => void) {
 
   return {
     songPlaying,
+    songLength,
+    setSongLength,
     playing,
     play,
     pause,

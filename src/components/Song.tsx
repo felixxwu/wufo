@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { Play } from '../icons/play'
-import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION } from '../lib/consts'
+import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { pointerHelper } from '../lib/pointerHelper'
 import { styled } from '../lib/styled'
 import { ISong } from '../lib/types'
@@ -34,9 +34,9 @@ export function Song({
       <NumberOrPlay>
         {hovering || playing ? (
           playing ? (
-            <Pause color='white' style={{ width: PLAY_ICON_SIZE, height: PLAY_ICON_SIZE }} />
+            <Pause color={TEXT_COLOR} style={{ width: PLAY_ICON_SIZE, height: PLAY_ICON_SIZE }} />
           ) : (
-            <Play color='white' style={{ width: PLAY_ICON_SIZE, height: PLAY_ICON_SIZE }} />
+            <Play color={TEXT_COLOR} style={{ width: PLAY_ICON_SIZE, height: PLAY_ICON_SIZE }} />
           )
         ) : (
           <div>{index + 1}.</div>
