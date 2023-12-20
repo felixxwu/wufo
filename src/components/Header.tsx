@@ -1,13 +1,18 @@
 import { BOX_SHADOW, TEXT_COLOR, UI_FADE_IN_DELAY } from '../lib/consts'
 import { content } from '../lib/content'
 import { styled } from '../lib/styled'
+import { Color } from '../lib/types'
 import { Link } from './Link'
 
-export function Header() {
+export function Header({ setColor }: { setColor: (colors: Color) => void }) {
   return (
     <Container>
       <TopRow>
-        <Avatar src={content.avatar} alt='WUFO Avatar' />
+        <Avatar
+          src={content.avatar}
+          alt='WUFO Avatar'
+          onclick={() => setColor([Math.random() * 150, Math.random() * 150, Math.random() * 150])}
+        />
         <Name>WUFO</Name>
       </TopRow>
       <BottomRow>

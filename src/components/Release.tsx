@@ -22,8 +22,8 @@ export function Release({
   index,
   songLinkPlaying,
   onSongClick,
-  onCoverClick,
-}: {
+}: // onCoverClick,
+{
   release: IRelease
   index: number
   songLinkPlaying: string | null
@@ -47,7 +47,7 @@ export function Release({
         src={release.coverTiny}
         data-large={index === 0 ? release.cover : release.coverSmall}
         alt={release.title}
-        onclick={onCoverClick}
+        onclick={() => onSongClick(release.songs[0])}
       />
       <TitleAndLinks>
         <Title onClick={() => onSongClick(release.songs[0])}>

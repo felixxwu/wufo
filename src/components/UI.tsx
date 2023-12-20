@@ -64,7 +64,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
 
   return (
     <Container>
-      {content.releases.length > 1 && <Header />}
+      {content.releases.length > 1 && <Header setColor={setColor} />}
       {content.releases.map((release, i) => (
         <Release
           release={release}
