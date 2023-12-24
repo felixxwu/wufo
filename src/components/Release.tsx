@@ -20,13 +20,13 @@ export const ANIMATION_DELAY = content.releases.length === 1 ? 0 : UI_FADE_IN_DE
 export function Release({
   release,
   index,
-  songLinkPlaying,
+  songPlaying,
   onSongClick,
 }: // onCoverClick,
 {
   release: IRelease
   index: number
-  songLinkPlaying: string | null
+  songPlaying: string | null
   onSongClick: (song: ISong) => void
   onCoverClick: () => void
 }) {
@@ -71,7 +71,7 @@ export function Release({
             song={song}
             index={i}
             hovering={hovering === i}
-            playing={songLinkPlaying === song.link}
+            playing={songPlaying === song.fileName}
             pointerenter={() => setHovering(i)}
             pointerleave={() => setHovering(null)}
             onclick={() => onSongClick(song)}

@@ -8,7 +8,6 @@ import { styled } from '../lib/styled'
 import { css } from '@emotion/css'
 import { Color, ISong } from '../lib/types'
 import { DARKEN } from './Background'
-import { isMobile } from '../lib/isMobile'
 import { Spotify } from '../icons/spotify'
 import { Link } from './Link'
 import { content } from '../lib/content'
@@ -100,9 +99,6 @@ export function PlayerControls({
 
   function handleClick(e: MouseEvent) {
     e.stopPropagation()
-    if (showTapToPlay) {
-      onPlay()
-    }
   }
 
   const handlePlayPrev = () => {
@@ -133,88 +129,64 @@ export function PlayerControls({
 
   const colorValue = `rgb(${color.map(c => c / DARKEN).join(', ')})`
 
-  const showTapToPlay = isMobile() && !playing && playbackProgress === 0
-
   return (
     <Container>
       <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
-        {showTapToPlay ? (
-          <TapToPlay>
-            <TapToPlayPrompt>
-              <Play color={TEXT_COLOR} style={{ width: `${smallIconSize}px` }} />
-              <b>Play "{songPlaying.title}" now</b>
-            </TapToPlayPrompt>
-            <span>or</span>
-            <Links onclick={e => e.stopPropagation()} style={{ flexWrap: 'wrap' }}>
-              <Link Icon={Spotify} href={release?.spotify} newWindow />
-              <Link Icon={SoundCloud} href={songPlaying.link} newWindow />
-              <Link Icon={YouTube} href={release?.youtube} newWindow />
-              <Link Icon={Apple} href={release?.apple} newWindow />
-            </Links>
-          </TapToPlay>
-        ) : (
-          <>
-            <TitleAndLinks>
-              <Title>{loadedProgress === 0 ? 'Loading...' : songPlaying.title}</Title>
-              <Links id='player-links'>
-                <Link Icon={Spotify} href={release?.spotify} newWindow />
-                <Link Icon={SoundCloud} href={songPlaying.link} newWindow />
-                <Link Icon={YouTube} href={release?.youtube} newWindow />
-                <Link Icon={Apple} href={release?.apple} newWindow />
-              </Links>
-            </TitleAndLinks>
-            <Slider ref={slider} onClick={() => {}}>
-              <SliderLeftNumber>
-                {convertSongLengthToString(songLength * playbackProgress)}
-              </SliderLeftNumber>
-              <SliderRightNumber>{convertSongLengthToString(songLength)}</SliderRightNumber>
-              <SliderBarBG />
-              <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
-              <SliderBarProgress style={{ width: `${playbackProgress * 100}%` }} />
-              <SliderThumb style={{ left: `${playbackProgress * 100}%` }} />
-            </Slider>
-            <Buttons ref={buttons}>
-              {!isMobile() && (
-                <div
-                  onClick={handlePlayPrev}
-                  style={{
-                    pointerEvents: showPrevButton ? 'auto' : 'none',
-                  }}
-                >
-                  <Prev
-                    color={TEXT_COLOR}
-                    style={{
-                      width: `${smallIconSize}px`,
-                      opacity: showPrevButton ? 1 : 0.2,
-                    }}
-                  />
-                </div>
-              )}
-              <PlayPauseButton
-                onClick={() => {
-                  playing ? onPause() : onPlay()
-                }}
-              >
-                {playing ? (
-                  <Pause color={colorValue} style={{ width: `${largeIconSize}px` }} />
-                ) : (
-                  <Play color={colorValue} style={{ width: `${largeIconSize}px` }} />
-                )}
-              </PlayPauseButton>
-              {!isMobile() && (
-                <div onClick={onNext} style={{ pointerEvents: nextSongPlayable ? 'auto' : 'none' }}>
-                  <Next
-                    color={TEXT_COLOR}
-                    style={{
-                      width: `${smallIconSize}px`,
-                      opacity: nextSongPlayable ? 1 : 0.2,
-                    }}
-                  />
-                </div>
-              )}
-            </Buttons>
-          </>
-        )}
+        <TitleAndLinks>
+          <Title>{loadedProgress === 0 ? 'Loading...' : songPlaying.title}</Title>
+          <Links id='player-links'>
+            <Link Icon={Spotify} href={release?.spotify} newWindow />
+            <Link Icon={SoundCloud} href={release?.soundcloud} newWindow />
+            <Link Icon={YouTube} href={release?.youtube} newWindow />
+            <Link Icon={Apple} href={release?.apple} newWindow />
+          </Links>
+        </TitleAndLinks>
+        <Slider ref={slider} onClick={() => {}}>
+          <SliderLeftNumber>
+            {convertSongLengthToString(songLength * playbackProgress)}
+          </SliderLeftNumber>
+          <SliderRightNumber>{convertSongLengthToString(songLength)}</SliderRightNumber>
+          <SliderBarBG />
+          <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
+          <SliderBarProgress style={{ width: `${playbackProgress * 100}%` }} />
+          <SliderThumb style={{ left: `${playbackProgress * 100}%` }} />
+        </Slider>
+        <Buttons ref={buttons}>
+          <div
+            onClick={handlePlayPrev}
+            style={{
+              pointerEvents: showPrevButton ? 'auto' : 'none',
+            }}
+          >
+            <Prev
+              color={TEXT_COLOR}
+              style={{
+                width: `${smallIconSize}px`,
+                opacity: showPrevButton ? 1 : 0.2,
+              }}
+            />
+          </div>
+          <PlayPauseButton
+            onClick={() => {
+              playing ? onPause() : onPlay()
+            }}
+          >
+            {playing ? (
+              <Pause color={colorValue} style={{ width: `${largeIconSize}px` }} />
+            ) : (
+              <Play color={colorValue} style={{ width: `${largeIconSize}px` }} />
+            )}
+          </PlayPauseButton>
+          <div onClick={onNext} style={{ pointerEvents: nextSongPlayable ? 'auto' : 'none' }}>
+            <Next
+              color={TEXT_COLOR}
+              style={{
+                width: `${smallIconSize}px`,
+                opacity: nextSongPlayable ? 1 : 0.2,
+              }}
+            />
+          </div>
+        </Buttons>
       </Card>
     </Container>
   )
@@ -264,12 +236,6 @@ const TitleAndLinks = styled('div', {
 const Title = styled('div', {
   color: TEXT_COLOR,
   width: '100%',
-})
-
-const TapToPlayPrompt = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '20px',
 })
 
 const Links = styled('div', {
@@ -359,14 +325,4 @@ const PlayPauseButton = styled('div', {
   miHeight: '40px',
   borderRadius: '50%',
   backgroundColor: TEXT_COLOR,
-})
-
-const TapToPlay = styled('div', {
-  color: TEXT_COLOR,
-  textAlign: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-  alignItems: 'center',
-  padding: '10px',
 })

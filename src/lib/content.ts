@@ -54,12 +54,12 @@ export const content: Content = {
       songs: [
         {
           title: 'Pulse',
-          link: 'https://soundcloud.com/wufo/pulse',
+          fileName: 'pulse.mp3',
           length: '4:08',
         },
         {
           title: 'Banana Bread',
-          link: 'https://soundcloud.com/wufo/banana-bread',
+          fileName: 'bananabread.mp3',
           length: '4:02',
         },
       ],
@@ -78,22 +78,22 @@ export const content: Content = {
       songs: [
         {
           title: 'Call Back',
-          link: 'https://soundcloud.com/fokuzrecordings/wufo-call-back',
+          fileName: 'callback.mp3',
           length: '3:35',
         },
         {
           title: 'Threaded',
-          link: 'https://soundcloud.com/fokuzrecordings/wufo-threaded',
+          fileName: 'threaded.mp3',
           length: '3:32',
         },
         {
           title: 'Control Flow',
-          link: 'https://soundcloud.com/fokuzrecordings/wufo-control-flow',
+          fileName: 'controlflow.mp3',
           length: '3:46',
         },
         {
           title: 'The Day',
-          link: 'https://soundcloud.com/fokuzrecordings/wufo-the-day',
+          fileName: 'theday.mp3',
           length: '3:36',
         },
       ],
@@ -112,7 +112,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Deadlock',
-          link: 'https://soundcloud.com/blackprintuk/wufo-deadlock-free-download',
+          fileName: 'deadlock.mp3',
           length: '3:57',
         },
       ],
@@ -128,7 +128,7 @@ export const content: Content = {
       apple: 'https://music.apple.com/us/album/defiant/1687242000',
       soundcloud: 'https://soundcloud.com/wufo/defiant',
       youtube: 'https://www.youtube.com/watch?v=AY3axDZug2w',
-      songs: [{ title: 'Defiant', link: 'https://soundcloud.com/wufo/defiant', length: '3:35' }],
+      songs: [{ title: 'Defiant', fileName: 'defiant.mp3', length: '3:35' }],
     },
     {
       title: 'Blockbuster Love (ft. Taylor B-W)',
@@ -144,7 +144,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Blockbuster Love',
-          link: 'https://soundcloud.com/celsiusrecordings/wufo-taylor-b-w-blockbuster',
+          fileName: 'blockbusterlove.mp3',
           length: '3:09',
         },
       ],
@@ -163,22 +163,23 @@ export const content: Content = {
       songs: [
         {
           title: 'Night & Day',
-          link: 'https://soundcloud.com/soul-deep-recordings/wufo-night-day',
+          fileName: 'nightandday.mp3',
           length: '3:50',
         },
         {
           title: "You Don't Know",
-          link: 'https://soundcloud.com/soul-deep-recordings/wufo-jitsu-you-dont-know',
+          fileName: 'youdontknow.mp3',
           length: '3:45',
         },
         {
           title: 'Sunday Secrets',
-          link: 'https://soundcloud.com/soul-deep-recordings/wufo-sunday-secrets',
+          fileName: 'sundaysecrets.mp3',
           length: '4:02',
         },
+
         {
           title: 'Endpoint',
-          link: 'https://soundcloud.com/soul-deep-recordings/wufo-endpoint',
+          fileName: 'endpoint.mp3',
           length: '4:04',
         },
       ],
@@ -197,7 +198,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Hyde Park',
-          link: 'https://soundcloud.com/argofox/wufo-hyde-park',
+          fileName: 'hydepark.mp3',
           length: '4:55',
         },
       ],

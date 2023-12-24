@@ -1,6 +1,5 @@
 import { content } from '../lib/content'
 import { styled } from '../lib/styled'
-import { Player } from './Player'
 import { ANIMATION_DELAY, ANIMATION_INTERVAL, Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
@@ -12,7 +11,7 @@ import { Button } from './Button'
 import { CopyLink } from './CopyList'
 import { Back } from '../icons/back'
 import { CoverPreview } from './CoverPreview'
-// import { Test } from './Test'
+import { AudioPlayer } from './AudioPlayer'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -66,14 +65,12 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   return (
     <Container>
       {content.releases.length > 1 && <Header setColor={setColor} />}
-      {/* <Test /> */}
-
       {content.releases.map((release, i) => (
         <Release
           release={release}
           index={i}
           onSongClick={onSongClick}
-          songLinkPlaying={playing ? songPlaying.link : null}
+          songPlaying={playing ? songPlaying.fileName : null}
           onCoverClick={() => setCoverPreview(release)}
         />
       ))}
@@ -86,8 +83,8 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         <CopyRight>&copy; WUFO 2023</CopyRight>
       )}
 
-      <Player
-        songLink={songPlaying.link}
+      <AudioPlayer
+        fileName={songPlaying.fileName}
         playing={playing}
         autoplay={autoplay}
         playbackProgress={progressOverride}

@@ -43,7 +43,7 @@ export interface IRelease {
 
 export interface ISong {
   title: string
-  link: string
+  fileName: string
   length: string
 }
 

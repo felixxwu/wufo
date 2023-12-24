@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks'
 import { Color, ISong } from './types'
 import { content } from './content'
-import { isMobile } from './isMobile'
 
 const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
@@ -23,7 +22,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
       setColor(release.color)
     }
 
-    if (songPlaying.link === song.link) {
+    if (songPlaying.fileName === song.fileName) {
       setPlaying(!playing)
       return
     }
@@ -31,11 +30,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     setSongPlaying(song)
     setAutoplay(true)
 
-    if (!isMobile()) {
-      setPlaying(true)
-    } else {
-      setPlaying(false)
-    }
+    setPlaying(true)
   }
 
   const play = () => {
@@ -51,7 +46,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
   }
 
   const next = () => {
-    const songIndex = flatSongs.findIndex(song => song.link === songPlaying.link)
+    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.fileName)
     const nextSong = flatSongs[songIndex + 1]
     if (nextSong) {
       onSongClick(nextSong)
@@ -59,7 +54,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
   }
 
   const prev = () => {
-    const songIndex = flatSongs.findIndex(song => song.link === songPlaying.link)
+    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.fileName)
     const prevSong = flatSongs[songIndex - 1]
     if (prevSong) {
       onSongClick(prevSong)
@@ -75,9 +70,9 @@ export function usePlayerController(setColor: (colors: Color) => void) {
   }
 
   const nextSongPlayable =
-    !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) + 1]
+    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.fileName) + 1]
   const prevSongPlayable =
-    !!flatSongs[flatSongs.findIndex(song => song.link === songPlaying.link) - 1]
+    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.fileName) - 1]
 
   return {
     songPlaying,
@@ -90,7 +85,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     prev,
     autoplay,
     showControls,
-    loadedProgress,
+    loadedProgress: Math.min(loadedProgress, 1),
     setLoadedProgress,
     realPlaybackProgress,
     setRealPlaybackProgress,
