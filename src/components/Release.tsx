@@ -51,7 +51,10 @@ export function Release({
       />
       <TitleAndLinks>
         <Title onClick={() => onSongClick(release.songs[0])}>
-          <PlayPause playing={false} color={release.color} />
+          <PlayPause
+            playing={!!release.songs.find(s => s.fileName === songPlaying)}
+            color={release.color}
+          />
           {release.title}
         </Title>
         <Links>

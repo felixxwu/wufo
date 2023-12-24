@@ -57,6 +57,7 @@ export function AudioPlayer({
         onTimeUpdate={() => setTime(audio.current!.currentTime)}
         onProgress={() => {
           if (!audio.current) return
+          if (audio.current.buffered.length === 0) return
           setBuffered(Math.floor(audio.current.buffered.end(audio.current.buffered.length - 1)))
         }}
         onEnded={onTrackEnd}

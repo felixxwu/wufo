@@ -58,8 +58,8 @@ export function PlayerControls({
 
   useEffect(() => {
     function handlePointerDown(e: PointerEvent) {
-      if (!e.composedPath().includes(controls.current!.base)) return
-      if (e.composedPath().includes(buttons.current!.base)) return
+      if (controls.current && !e.composedPath().includes(controls.current.base)) return
+      if (buttons.current && e.composedPath().includes(buttons.current.base)) return
       if (e.composedPath().includes(document.getElementById('player-links')!)) return
 
       setIsDragging(true)
@@ -91,7 +91,8 @@ export function PlayerControls({
   }, [isDragging])
 
   function handlePointerSeek(e: PointerEvent) {
-    const sliderRect = slider.current!.base.getBoundingClientRect()
+    if (!slider.current) return
+    const sliderRect = slider.current.base.getBoundingClientRect()
     const percent = (e.clientX - sliderRect.left) / sliderRect.width
     const clampedPercent = Math.max(0, Math.min(1, percent))
     onSeek(clampedPercent)
@@ -110,7 +111,7 @@ export function PlayerControls({
   }
 
   function convertSongLengthToString(length: number) {
-    if (length === 0) return ''
+    if (length === 0) return '-:--'
     const seconds = Math.floor(length / 1000)
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
