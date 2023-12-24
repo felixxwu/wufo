@@ -12,6 +12,7 @@ import { Button } from './Button'
 import { CopyLink } from './CopyList'
 import { Back } from '../icons/back'
 import { CoverPreview } from './CoverPreview'
+import { Test } from './Test'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -65,6 +66,8 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   return (
     <Container>
       {content.releases.length > 1 && <Header setColor={setColor} />}
+      <Test />
+
       {content.releases.map((release, i) => (
         <Release
           release={release}
