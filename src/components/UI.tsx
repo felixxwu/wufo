@@ -1,17 +1,17 @@
 import { content } from '../lib/content'
 import { styled } from '../lib/styled'
-import { ANIMATION_DELAY, ANIMATION_INTERVAL, Release } from './Release'
+import { Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
 import { useEffect, useState } from 'preact/hooks'
 import { Color, IRelease } from '../lib/types'
-import { TEXT_COLOR } from '../lib/consts'
 import { Header } from './Header'
 import { Button } from './Button'
 import { CopyLink } from './CopyList'
 import { Back } from '../icons/back'
 import { CoverPreview } from './CoverPreview'
 import { AudioPlayer } from './AudioPlayer'
+import { CopyRightFooter } from './Copyright'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -64,7 +64,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
 
   return (
     <Container>
-      {content.releases.length > 1 && <Header setColor={setColor} />}
+      <Header setColor={setColor} />
       {content.releases.map((release, i) => (
         <Release
           release={release}
@@ -74,14 +74,14 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
           onCoverClick={() => setCoverPreview(release)}
         />
       ))}
-      {content.releases.length === 1 ? (
+      {content.releases.length === 1 && (
         <Buttons>
           <CopyLink release={content.releases[0]} />
           <Button label='All WUFO Releases' href='/' Icon={Back} />
         </Buttons>
-      ) : (
-        <CopyRight>&copy; WUFO 2023</CopyRight>
       )}
+
+      <CopyRightFooter />
 
       <AudioPlayer
         fileName={songPlaying.fileName}
@@ -95,6 +95,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         onLoadProgress={progress => setLoadedProgress(progress)}
         onTrackEnd={onTrackEnd}
       />
+
       <PlayerControls
         songPlaying={songPlaying}
         songLength={songLength}
@@ -111,6 +112,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
         nextSongPlayable={nextSongPlayable}
         prevSongPlayable={prevSongPlayable}
       />
+
       <CoverPreview release={coverPreview} onClose={() => setCoverPreview(null)} />
     </Container>
   )
@@ -123,19 +125,6 @@ const Container = styled('div', {
   padding: '80px 0',
   width: '100vw',
   maxWidth: '560px',
-})
-
-const CopyRight = styled('span', {
-  width: '100%',
-  textAlign: 'center',
-  color: TEXT_COLOR,
-  zIndex: -1,
-
-  opacity: '0',
-  animationName: 'fade-in',
-  animationDelay: `${ANIMATION_INTERVAL * content.releases.length + ANIMATION_DELAY}s`,
-  animationDuration: '1s',
-  animationFillMode: 'forwards',
 })
 
 const Buttons = styled('div', {

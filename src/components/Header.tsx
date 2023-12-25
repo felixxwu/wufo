@@ -5,6 +5,8 @@ import { Color } from '../lib/types'
 import { Link } from './Link'
 
 export function Header({ setColor }: { setColor: (colors: Color) => void }) {
+  if (content.releases.length === 1) return null
+
   return (
     <Container>
       <TopRow>
