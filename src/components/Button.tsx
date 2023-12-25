@@ -31,24 +31,23 @@ const Container = styled(
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '10px 15px',
+    padding: '10px 20px',
     borderRadius: `${BORDER_RADIUS}px`,
     cursor: 'pointer',
-    textDecoration: 'none',
     color: TEXT_COLOR,
     transition: QUICK_TRANSITION,
-    margin: 'auto',
     fontWeight: '500',
     role: 'button',
   },
   css`
+    text-decoration: none;
     &:hover {
       background-color: rgba(0, 0, 0, 0.2);
+      text-decoration: underline;
     }
   `
 )
 
 const Label = styled('div', {
   fontSize: `${ICON_SIZE}px`,
-  textDecoration: 'underline',
 })

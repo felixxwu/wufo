@@ -79,7 +79,7 @@ export const content: Content = {
         {
           title: 'Call Back',
           fileName: 'callback.mp3',
-          length: '3:35',
+          length: '3:34',
         },
         {
           title: 'Threaded',
@@ -113,7 +113,7 @@ export const content: Content = {
         {
           title: 'Deadlock',
           fileName: 'deadlock.mp3',
-          length: '3:57',
+          length: '3:55',
         },
       ],
     },
@@ -169,7 +169,7 @@ export const content: Content = {
         {
           title: "You Don't Know",
           fileName: 'youdontknow.mp3',
-          length: '3:45',
+          length: '3:46',
         },
         {
           title: 'Sunday Secrets',

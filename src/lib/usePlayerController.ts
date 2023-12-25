@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { Color, ISong } from './types'
 import { content } from './content'
+import { singleSongMode } from './singleSongMode'
 
 const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
@@ -19,7 +20,7 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     if (playing) {
       document.title = `▶ WUFO - ${songPlaying.title}`
     } else {
-      if (content.releases.length === 1) {
+      if (singleSongMode()) {
         document.title = `WUFO - ${content.releases[0].title}`
       } else {
         document.title = 'WUFO - Official Website'

@@ -4,7 +4,6 @@ import { styled } from '../lib/styled'
 import { ANIMATION_DELAY, ANIMATION_INTERVAL } from './Release'
 
 export function CopyRightFooter() {
-  if (content.releases.length === 1) return null
   return <CopyRight>&copy; WUFO 2023</CopyRight>
 }
 

@@ -6,12 +6,11 @@ import { PlayerControls } from './PlayerControls'
 import { useEffect, useState } from 'preact/hooks'
 import { Color, IRelease } from '../lib/types'
 import { Header } from './Header'
-import { Button } from './Button'
-import { CopyLink } from './CopyList'
-import { Back } from '../icons/back'
 import { CoverPreview } from './CoverPreview'
 import { AudioPlayer } from './AudioPlayer'
 import { CopyRightFooter } from './Copyright'
+import { singleSongMode } from '../lib/singleSongMode'
+import { ReleaseTopBar } from './ReleaseTopBar'
 
 export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -65,6 +64,9 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
   return (
     <Container>
       <Header setColor={setColor} />
+
+      <ReleaseTopBar />
+
       {content.releases.map((release, i) => (
         <Release
           release={release}
@@ -74,12 +76,6 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
           onCoverClick={() => setCoverPreview(release)}
         />
       ))}
-      {content.releases.length === 1 && (
-        <Buttons>
-          <CopyLink release={content.releases[0]} />
-          <Button label='All WUFO Releases' href='/' Icon={Back} />
-        </Buttons>
-      )}
 
       <CopyRightFooter />
 
@@ -121,14 +117,8 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
 const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: '80px',
+  gap: singleSongMode() ? '30px' : '80px',
   padding: '80px 0',
   width: '100vw',
   maxWidth: '560px',
-})
-
-const Buttons = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '20px',
 })

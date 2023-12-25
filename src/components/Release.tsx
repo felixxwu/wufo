@@ -10,12 +10,12 @@ import { Apple } from '../icons/apple'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { css } from '@emotion/css'
-import { content } from '../lib/content'
 import { Share } from '../icons/share'
+import { singleSongMode } from '../lib/singleSongMode'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
-export const ANIMATION_DELAY = content.releases.length === 1 ? 0 : UI_FADE_IN_DELAY
+export const ANIMATION_DELAY = singleSongMode() ? 0 : UI_FADE_IN_DELAY
 
 export function Release({
   release,
@@ -64,9 +64,7 @@ export function Release({
           <Link name='SoundCloud' Icon={SoundCloud} href={release.soundcloud} newWindow />
           <Link name='YouTube' Icon={YouTube} href={release.youtube} newWindow />
           <Link name='Apple' Icon={Apple} href={release.apple} newWindow />
-          {content.releases.length > 1 && (
-            <Link name='Share' Icon={Share} href={`/${release.slug}`} />
-          )}
+          {!singleSongMode() && <Link name='Share' Icon={Share} href={`/${release.slug}`} />}
         </Links>
       </TitleAndLinks>
       <Divider />

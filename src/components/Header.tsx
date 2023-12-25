@@ -1,11 +1,12 @@
 import { BOX_SHADOW, TEXT_COLOR, UI_FADE_IN_DELAY } from '../lib/consts'
 import { content } from '../lib/content'
+import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from '../lib/styled'
 import { Color } from '../lib/types'
 import { Link } from './Link'
 
 export function Header({ setColor }: { setColor: (colors: Color) => void }) {
-  if (content.releases.length === 1) return null
+  if (singleSongMode()) return null
 
   return (
     <Container>
