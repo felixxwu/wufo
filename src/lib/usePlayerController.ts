@@ -19,7 +19,11 @@ export function usePlayerController(setColor: (colors: Color) => void) {
     if (playing) {
       document.title = `▶ WUFO - ${songPlaying.title}`
     } else {
-      document.title = 'WUFO - Official Website'
+      if (content.releases.length === 1) {
+        document.title = `WUFO - ${content.releases[0].title}`
+      } else {
+        document.title = 'WUFO - Official Website'
+      }
     }
   }, [songPlaying, playing])
 
