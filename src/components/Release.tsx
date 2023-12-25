@@ -50,13 +50,15 @@ export function Release({
         onclick={() => onSongClick(release.songs[0])}
       />
       <TitleAndLinks>
-        <Title onClick={() => onSongClick(release.songs[0])}>
-          <PlayPause
-            playing={!!release.songs.find(s => s.fileName === songPlaying)}
-            color={release.color}
-          />
-          {release.title}
-        </Title>
+        <TitleAndPlayButton>
+          <div onClick={() => onSongClick(release.songs[0])}>
+            <PlayPause
+              playing={!!release.songs.find(s => s.fileName === songPlaying)}
+              color={release.color}
+            />
+          </div>
+          <Title href={`/${release.slug}`}>{release.title}</Title>
+        </TitleAndPlayButton>
         <Links>
           <Link name='Spotify' Icon={Spotify} href={release.spotify} newWindow />
           <Link name='SoundCloud' Icon={SoundCloud} href={release.soundcloud} newWindow />
@@ -127,18 +129,23 @@ const TitleAndLinks = styled('div', {
   gap: '10px',
 })
 
+const TitleAndPlayButton = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+  cursor: 'pointer',
+})
+
 const Title = styled(
-  'div',
+  'a',
   {
     fontSize: '30px',
     letterSpacing: '-1px',
     fontWeight: '500',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    cursor: 'pointer',
+    color: TEXT_COLOR,
   },
   css`
+    text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
