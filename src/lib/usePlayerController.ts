@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import { Color, ISong } from './types'
 import { content } from './content'
 
@@ -14,6 +14,14 @@ export function usePlayerController(setColor: (colors: Color) => void) {
   const [songLength, setSongLength] = useState<number>(0)
   const [loadedProgress, setLoadedProgress] = useState<number>(0)
   const [showControls, setShowControls] = useState(false)
+
+  useEffect(() => {
+    if (playing) {
+      document.title = `▶ WUFO - ${songPlaying.title}`
+    } else {
+      document.title = 'WUFO - Official Website'
+    }
+  }, [songPlaying, playing])
 
   const onSongClick = (song: ISong) => {
     setShowControls(true)
