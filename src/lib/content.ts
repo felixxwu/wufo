@@ -41,6 +41,24 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Echo Chamber',
+      slug: 'echo-chamber',
+      color: [12, 67, 86],
+      cover: 'https://i1.sndcdn.com/artworks-TTdnTKGcGnV045aQ-EYsCRQ-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-TTdnTKGcGnV045aQ-EYsCRQ-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-TTdnTKGcGnV045aQ-EYsCRQ-t50x50.jpg',
+      spotify: 'https://open.spotify.com/track/4VWF5gT68ucW0nNIrOPhBX',
+      youtube: 'https://www.youtube.com/watch?v=liE3DCRahp0',
+      soundcloud: 'https://soundcloud.com/celsiusrecordings/wufo-echo-chamber',
+      songs: [
+        {
+          title: 'Echo Chamber',
+          fileName: 'echochamber.mp3',
+          length: '4:17',
+        },
+      ],
+    },
+    {
       title: 'Pulse EP',
       slug: 'pulse',
       color: [40, 40, 40],
