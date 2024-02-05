@@ -11,7 +11,7 @@ import { AudioPlayer } from './AudioPlayer'
 import { CopyRightFooter } from './Copyright'
 import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
-import { playing, realPlaybackProgress, songPlaying } from '../lib/signals'
+import { playing, realPlaybackProgress, songLength, songPlaying } from '../lib/signals'
 
 export function UI() {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -24,8 +24,6 @@ export function UI() {
   }, [progressOverride])
 
   const {
-    songLength,
-    setSongLength,
     play,
     pause,
     next,
@@ -79,14 +77,13 @@ export function UI() {
         playbackProgress={progressOverride}
         onPlaybackProgress={(progress, length) => {
           realPlaybackProgress.value = progress
-          setSongLength(length)
+          songLength.value = length
         }}
         onLoadProgress={progress => setLoadedProgress(progress)}
         onTrackEnd={onTrackEnd}
       />
 
       <PlayerControls
-        songLength={songLength}
         show={showControls}
         color={content.releases.find(release => release.songs.includes(songPlaying.value))!.color}
         loadedProgress={loadedProgress}

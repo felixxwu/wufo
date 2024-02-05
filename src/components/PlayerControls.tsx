@@ -14,12 +14,11 @@ import { content } from '../lib/content'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
-import { playing, realPlaybackProgress, songPlaying } from '../lib/signals'
+import { playing, realPlaybackProgress, songLength, songPlaying } from '../lib/signals'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
-  songLength,
   loadedProgress,
   show,
   color,
@@ -31,7 +30,6 @@ export function PlayerControls({
   nextSongPlayable,
   prevSongPlayable,
 }: {
-  songLength: number
   loadedProgress: number
   show: boolean
   color: Color
@@ -139,9 +137,9 @@ export function PlayerControls({
         </TitleAndLinks>
         <Slider ref={slider} onClick={() => {}}>
           <SliderLeftNumber>
-            {convertSongLengthToString(songLength * realPlaybackProgress.value)}
+            {convertSongLengthToString(songLength.value * realPlaybackProgress.value)}
           </SliderLeftNumber>
-          <SliderRightNumber>{convertSongLengthToString(songLength)}</SliderRightNumber>
+          <SliderRightNumber>{convertSongLengthToString(songLength.value)}</SliderRightNumber>
           <SliderBarBG />
           <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
           <SliderBarProgress style={{ width: `${realPlaybackProgress.value * 100}%` }} />

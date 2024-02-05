@@ -9,7 +9,6 @@ const flatSongs = content.releases.reduce((acc, release) => {
 }, [] as ISong[])
 
 export function usePlayerController() {
-  const [songLength, setSongLength] = useState<number>(0)
   const [loadedProgress, setLoadedProgress] = useState<number>(0)
   const [showControls, setShowControls] = useState(false)
 
@@ -81,8 +80,6 @@ export function usePlayerController() {
     !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName) - 1]
 
   return {
-    songLength,
-    setSongLength,
     play,
     pause,
     next,
