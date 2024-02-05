@@ -47,13 +47,14 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-TTdnTKGcGnV045aQ-EYsCRQ-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-TTdnTKGcGnV045aQ-EYsCRQ-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-TTdnTKGcGnV045aQ-EYsCRQ-t50x50.jpg',
+      background: '/backgrounds/echochamber.jpg',
       spotify: 'https://open.spotify.com/track/4VWF5gT68ucW0nNIrOPhBX',
       youtube: 'https://www.youtube.com/watch?v=liE3DCRahp0',
       soundcloud: 'https://soundcloud.com/celsiusrecordings/wufo-echo-chamber',
       songs: [
         {
           title: 'Echo Chamber',
-          fileName: 'audio/echochamber.mp3',
+          fileName: '/audio/echochamber.mp3',
           length: '4:17',
         },
       ],
@@ -65,6 +66,7 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t50x50.jpg',
+      background: '/backgrounds/pulse.jpg',
       spotify: 'https://open.spotify.com/album/43YxJFpXv4b3u3raxYkiNU',
       youtube: 'https://www.youtube.com/playlist?list=PL-BYmIN56P1_-rBvpthecPOpkynUKPByV',
       soundcloud: 'https://soundcloud.com/wufo/sets/pulse',
@@ -72,12 +74,12 @@ export const content: Content = {
       songs: [
         {
           title: 'Pulse',
-          fileName: 'audio/pulse.mp3',
+          fileName: '/audio/pulse.mp3',
           length: '4:08',
         },
         {
           title: 'Banana Bread',
-          fileName: 'audio/bananabread.mp3',
+          fileName: '/audio/bananabread.mp3',
           length: '4:02',
         },
       ],
@@ -89,6 +91,7 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t50x50.jpg',
+      background: '/backgrounds/threaded.jpg',
       spotify: 'https://open.spotify.com/album/4nbsKxedMA6bDQRtFJuKq5',
       youtube: 'https://youtube.com/playlist?list=PL-BYmIN56P18apP6__5MoElht0S1NvuD7',
       soundcloud: 'https://soundcloud.com/wufo/sets/threaded-ep',
@@ -96,22 +99,22 @@ export const content: Content = {
       songs: [
         {
           title: 'Call Back',
-          fileName: 'audio/callback.mp3',
+          fileName: '/audio/callback.mp3',
           length: '3:34',
         },
         {
           title: 'Threaded',
-          fileName: 'audio/threaded.mp3',
+          fileName: '/audio/threaded.mp3',
           length: '3:32',
         },
         {
           title: 'Control Flow',
-          fileName: 'audio/controlflow.mp3',
+          fileName: '/audio/controlflow.mp3',
           length: '3:46',
         },
         {
           title: 'The Day',
-          fileName: 'audio/theday.mp3',
+          fileName: '/audio/theday.mp3',
           length: '3:36',
         },
       ],
@@ -123,6 +126,7 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-Or0tFk53aj7IM3Rl-I7w5Vg-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-Or0tFk53aj7IM3Rl-I7w5Vg-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-Or0tFk53aj7IM3Rl-I7w5Vg-t50x50.jpg',
+      background: '/backgrounds/deadlock.jpg',
       spotify: 'https://open.spotify.com/track/1e9vJE6znQoBf8ayHexqDY',
       apple: 'https://music.apple.com/us/album/deadlock/1705651021?i=1705651022',
       soundcloud: 'https://soundcloud.com/blackprintuk/wufo-deadlock-free-download',
@@ -130,7 +134,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Deadlock',
-          fileName: 'audio/deadlock.mp3',
+          fileName: '/audio/deadlock.mp3',
           length: '3:55',
         },
       ],
@@ -142,11 +146,12 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t50x50.jpg',
+      background: '/backgrounds/defiant.jpg',
       spotify: 'https://open.spotify.com/track/2w4uaAV0k9ILj1BXXSOk2Y',
       apple: 'https://music.apple.com/us/album/defiant/1687242000',
       soundcloud: 'https://soundcloud.com/wufo/defiant',
       youtube: 'https://www.youtube.com/watch?v=AY3axDZug2w',
-      songs: [{ title: 'Defiant', fileName: 'audio/defiant.mp3', length: '3:35' }],
+      songs: [{ title: 'Defiant', fileName: '/audio/defiant.mp3', length: '3:35' }],
     },
     {
       title: 'Blockbuster Love (ft. Taylor B-W)',
@@ -155,6 +160,7 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-ofaH272bjVphos4i-xs2Iuw-t50x50.jpg',
+      background: '/backgrounds/blockbuster.jpg',
       soundcloud: 'https://soundcloud.com/wufo/sets/blockbuster-love',
       spotify: 'https://open.spotify.com/track/1gh4Tb7OtKeHOXm643ALIL',
       apple: 'https://music.apple.com/us/album/blockbuster-love/1677552561?i=1677552562',
@@ -162,7 +168,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Blockbuster Love',
-          fileName: 'audio/blockbusterlove.mp3',
+          fileName: '/audio/blockbusterlove.mp3',
           length: '3:09',
         },
       ],
@@ -174,6 +180,7 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t50x50.jpg',
+      background: '/backgrounds/nightandday.jpg',
       soundcloud: 'https://soundcloud.com/soul-deep-recordings/sets/wufo-night-day',
       spotify: 'https://open.spotify.com/album/5hBYTI38j7NqTt9qKsg8n8',
       apple: 'https://music.apple.com/us/album/night-day-ep/1672463499',
@@ -181,23 +188,23 @@ export const content: Content = {
       songs: [
         {
           title: 'Night & Day',
-          fileName: 'audio/nightandday.mp3',
+          fileName: '/audio/nightandday.mp3',
           length: '3:50',
         },
         {
           title: "You Don't Know",
-          fileName: 'audio/youdontknow.mp3',
+          fileName: '/audio/youdontknow.mp3',
           length: '3:46',
         },
         {
           title: 'Sunday Secrets',
-          fileName: 'audio/sundaysecrets.mp3',
+          fileName: '/audio/sundaysecrets.mp3',
           length: '4:02',
         },
 
         {
           title: 'Endpoint',
-          fileName: 'audio/endpoint.mp3',
+          fileName: '/audio/endpoint.mp3',
           length: '4:04',
         },
       ],
@@ -209,6 +216,7 @@ export const content: Content = {
       cover: 'https://i1.sndcdn.com/artworks-80gYiY5bOUD9UvpU-3jg2yQ-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-80gYiY5bOUD9UvpU-3jg2yQ-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-80gYiY5bOUD9UvpU-3jg2yQ-t50x50.jpg',
+      background: '/backgrounds/hydepark.jpg',
       soundcloud: 'https://soundcloud.com/argofox/wufo-hyde-park',
       spotify: 'https://open.spotify.com/album/4zQZHSrLIMp7MVcKLzuB27',
       apple: 'https://music.apple.com/us/album/hyde-park/1643758822',
@@ -216,7 +224,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Hyde Park',
-          fileName: 'audio/hydepark.mp3',
+          fileName: '/audio/hydepark.mp3',
           length: '4:55',
         },
       ],

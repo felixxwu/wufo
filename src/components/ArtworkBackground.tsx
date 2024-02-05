@@ -1,4 +1,5 @@
-import { background, scrollTop } from '../lib/signals'
+import { findReleaseFromSong } from '../lib/findReleaseFromSong'
+import { scrollTop, songPlaying } from '../lib/signals'
 import { styled } from '../lib/styled'
 
 export function ArtworkBackground() {
@@ -8,7 +9,7 @@ export function ArtworkBackground() {
   return (
     <Container>
       <Image
-        src={background}
+        src={findReleaseFromSong(songPlaying.value)?.background}
         style={{ transform: `translateY(calc(min(0px, ${scrollPercentage} * (100vh - 100vw))))` }}
       />
     </Container>

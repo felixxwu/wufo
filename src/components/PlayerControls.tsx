@@ -10,7 +10,6 @@ import { Color } from '../lib/types'
 import { DARKEN } from './Background'
 import { Spotify } from '../icons/spotify'
 import { Link } from './Link'
-import { content } from '../lib/content'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
@@ -23,6 +22,7 @@ import {
   songLength,
   songPlaying,
 } from '../lib/signals'
+import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
@@ -113,13 +113,7 @@ export function PlayerControls({
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
   }
 
-  const release = useMemo(
-    () =>
-      content.releases.find(release =>
-        release.songs.find(song => song.title === songPlaying.value.title)
-      ),
-    [songPlaying.value]
-  )
+  const release = useMemo(() => findReleaseFromSong(songPlaying.value), [songPlaying.value])
 
   if (!showControls.value) return null
 
