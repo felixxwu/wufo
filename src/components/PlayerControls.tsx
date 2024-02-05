@@ -14,12 +14,17 @@ import { content } from '../lib/content'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
-import { playing, realPlaybackProgress, songLength, songPlaying } from '../lib/signals'
+import {
+  loadedProgress,
+  playing,
+  realPlaybackProgress,
+  songLength,
+  songPlaying,
+} from '../lib/signals'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
-  loadedProgress,
   show,
   color,
   onSeek,
@@ -30,7 +35,6 @@ export function PlayerControls({
   nextSongPlayable,
   prevSongPlayable,
 }: {
-  loadedProgress: number
   show: boolean
   color: Color
   onSeek: (percent: number) => void
@@ -127,7 +131,7 @@ export function PlayerControls({
     <Container>
       <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
         <TitleAndLinks>
-          <Title>{loadedProgress === 0 ? 'Loading...' : songPlaying.value.title}</Title>
+          <Title>{loadedProgress.value === 0 ? 'Loading...' : songPlaying.value.title}</Title>
           <Links id='player-links'>
             <Link Icon={Spotify} href={release?.spotify} newWindow />
             <Link Icon={SoundCloud} href={release?.soundcloud} newWindow />
@@ -141,7 +145,7 @@ export function PlayerControls({
           </SliderLeftNumber>
           <SliderRightNumber>{convertSongLengthToString(songLength.value)}</SliderRightNumber>
           <SliderBarBG />
-          <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
+          <SliderBarLoaded style={{ width: `${loadedProgress.value * 100}%` }} />
           <SliderBarProgress style={{ width: `${realPlaybackProgress.value * 100}%` }} />
           <SliderThumb style={{ left: `${realPlaybackProgress.value * 100}%` }} />
         </Slider>

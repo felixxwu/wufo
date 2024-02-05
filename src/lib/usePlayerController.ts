@@ -9,7 +9,6 @@ const flatSongs = content.releases.reduce((acc, release) => {
 }, [] as ISong[])
 
 export function usePlayerController() {
-  const [loadedProgress, setLoadedProgress] = useState<number>(0)
   const [showControls, setShowControls] = useState(false)
 
   useEffect(() => {
@@ -85,8 +84,6 @@ export function usePlayerController() {
     next,
     prev,
     showControls,
-    loadedProgress: Math.min(loadedProgress, 1),
-    setLoadedProgress,
     onSongClick,
     nextSongPlayable,
     prevSongPlayable,
