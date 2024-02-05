@@ -2,6 +2,8 @@ import { signal } from '@preact/signals'
 import { ISong } from './types'
 import { content } from './content'
 
+export const screenHeight = signal(window.innerHeight)
+export const screenWidth = signal(window.innerWidth)
 export const background = signal('/artwork/echochamber.jpg')
 export const scrollTop = signal(0)
 export const songPlaying = signal<ISong>(content.releases[0].songs[0])

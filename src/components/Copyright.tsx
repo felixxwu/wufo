@@ -11,6 +11,7 @@ const CopyRight = styled('span', {
   width: '100%',
   textAlign: 'center',
   color: TEXT_COLOR,
+  marginBottom: '300px',
   zIndex: -1,
 
   opacity: '0',

@@ -1,16 +1,18 @@
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
-import { scrollTop, songPlaying } from '../lib/signals'
+import { screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
 import { styled } from '../lib/styled'
 
 export function ArtworkBackground() {
-  const screenHeight = window.innerHeight
   const contentHeight = window.document.body.scrollHeight
-  const scrollPercentage = scrollTop.value / (contentHeight - screenHeight)
+  const scrollPercentage = scrollTop.value / (contentHeight - screenHeight.value)
   return (
     <Container>
       <Image
         src={findReleaseFromSong(songPlaying.value)?.background}
-        style={{ transform: `translateY(calc(min(0px, ${scrollPercentage} * (100vh - 100vw))))` }}
+        style={{
+          translate: `calc(min(0px, 0.5 * (100vw - 100vh))) calc(min(0px, ${scrollPercentage} * (100vh - 100vw)))`,
+          opacity: screenWidth.value > screenHeight.value ? 0.25 : 0,
+        }}
       />
     </Container>
   )
@@ -34,5 +36,5 @@ const Image = styled('img', {
   height: '100%',
   minWidth: '100vh',
   minHeight: '100vw',
-  opacity: 0.25,
+  transition: 'opacity 0.5s',
 })

@@ -1,26 +1,18 @@
-import { CSSProperties, useEffect, useRef, useState } from 'preact/compat'
+import { CSSProperties, useRef } from 'preact/compat'
+import { screenHeight, screenWidth } from '../lib/signals'
 
 export const DARKEN = 1.5
 
 export function Grain() {
-  const [width, setWidth] = useState(window.innerWidth)
-  const [height, setHeight] = useState(window.innerHeight)
   const SVG = useRef<SVGSVGElement>(null)
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWidth(window.innerWidth)
-      setHeight(window.innerHeight)
-    })
-  }, [])
 
   return (
     <svg
       ref={SVG}
       style={Container}
-      width={`${width}px`}
-      height={`${height}px`}
-      viewBox={`0 0 ${width} ${height}`}
+      width={`${screenWidth.value}px`}
+      height={`${screenHeight.value}px`}
+      viewBox={`0 0 ${screenWidth.value} ${screenHeight.value}`}
     >
       <defs>
         <filter id='grain' x='0%' y='0%' height='100%' width='100%'>
@@ -46,8 +38,8 @@ export function Grain() {
         style={GrainStyles}
         fill='white'
         filter='url(#grain)'
-        width={`${width}`}
-        height={`${height}`}
+        width={`${screenWidth.value}`}
+        height={`${screenHeight.value}`}
       ></rect>
     </svg>
   )
@@ -57,12 +49,7 @@ const Container: CSSProperties = {
   position: 'fixed',
   top: '0',
   zIndex: '-1',
-  // height: 0,
   overflow: 'visible',
-  // opacity: '0.8',
-  // animationName: 'fade-in',
-  // animationDuration: '5s',
-  // animationFillMode: 'forwards',
 }
 
 const GrainStyles: CSSProperties = {
