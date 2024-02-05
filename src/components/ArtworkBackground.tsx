@@ -34,5 +34,5 @@ const Image = styled('img', {
   height: '100%',
   minWidth: '100vh',
   minHeight: '100vw',
-  opacity: 0.2,
+  opacity: 0.25,
 })

@@ -5,6 +5,7 @@ import { useEffect } from 'preact/hooks'
 import { BlurryImageLoad } from './lib/blurryLoad'
 import { ArtworkBackground } from './components/ArtworkBackground'
 import { scrollTop } from './lib/signals'
+import { Grain } from './components/Grain'
 
 export function App() {
   useEffect(() => {
@@ -20,6 +21,7 @@ export function App() {
   return (
     <Container>
       <ArtworkBackground />
+      <Grain />
       <UI />
     </Container>
   )
