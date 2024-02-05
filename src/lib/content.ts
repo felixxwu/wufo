@@ -53,7 +53,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Echo Chamber',
-          fileName: 'echochamber.mp3',
+          fileName: 'audio/echochamber.mp3',
           length: '4:17',
         },
       ],
@@ -72,12 +72,12 @@ export const content: Content = {
       songs: [
         {
           title: 'Pulse',
-          fileName: 'pulse.mp3',
+          fileName: 'audio/pulse.mp3',
           length: '4:08',
         },
         {
           title: 'Banana Bread',
-          fileName: 'bananabread.mp3',
+          fileName: 'audio/bananabread.mp3',
           length: '4:02',
         },
       ],
@@ -96,22 +96,22 @@ export const content: Content = {
       songs: [
         {
           title: 'Call Back',
-          fileName: 'callback.mp3',
+          fileName: 'audio/callback.mp3',
           length: '3:34',
         },
         {
           title: 'Threaded',
-          fileName: 'threaded.mp3',
+          fileName: 'audio/threaded.mp3',
           length: '3:32',
         },
         {
           title: 'Control Flow',
-          fileName: 'controlflow.mp3',
+          fileName: 'audio/controlflow.mp3',
           length: '3:46',
         },
         {
           title: 'The Day',
-          fileName: 'theday.mp3',
+          fileName: 'audio/theday.mp3',
           length: '3:36',
         },
       ],
@@ -130,7 +130,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Deadlock',
-          fileName: 'deadlock.mp3',
+          fileName: 'audio/deadlock.mp3',
           length: '3:55',
         },
       ],
@@ -146,7 +146,7 @@ export const content: Content = {
       apple: 'https://music.apple.com/us/album/defiant/1687242000',
       soundcloud: 'https://soundcloud.com/wufo/defiant',
       youtube: 'https://www.youtube.com/watch?v=AY3axDZug2w',
-      songs: [{ title: 'Defiant', fileName: 'defiant.mp3', length: '3:35' }],
+      songs: [{ title: 'Defiant', fileName: 'audio/defiant.mp3', length: '3:35' }],
     },
     {
       title: 'Blockbuster Love (ft. Taylor B-W)',
@@ -162,7 +162,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Blockbuster Love',
-          fileName: 'blockbusterlove.mp3',
+          fileName: 'audio/blockbusterlove.mp3',
           length: '3:09',
         },
       ],
@@ -181,23 +181,23 @@ export const content: Content = {
       songs: [
         {
           title: 'Night & Day',
-          fileName: 'nightandday.mp3',
+          fileName: 'audio/nightandday.mp3',
           length: '3:50',
         },
         {
           title: "You Don't Know",
-          fileName: 'youdontknow.mp3',
+          fileName: 'audio/youdontknow.mp3',
           length: '3:46',
         },
         {
           title: 'Sunday Secrets',
-          fileName: 'sundaysecrets.mp3',
+          fileName: 'audio/sundaysecrets.mp3',
           length: '4:02',
         },
 
         {
           title: 'Endpoint',
-          fileName: 'endpoint.mp3',
+          fileName: 'audio/endpoint.mp3',
           length: '4:04',
         },
       ],
@@ -216,7 +216,7 @@ export const content: Content = {
       songs: [
         {
           title: 'Hyde Park',
-          fileName: 'hydepark.mp3',
+          fileName: 'audio/hydepark.mp3',
           length: '4:55',
         },
       ],
