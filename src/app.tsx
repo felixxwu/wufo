@@ -3,27 +3,23 @@ import { styled } from './lib/styled'
 import { UI } from './components/UI'
 import { useEffect } from 'preact/hooks'
 import { BlurryImageLoad } from './lib/blurryLoad'
-import { Logos2 } from './components/Logo2'
-import { sleep } from './lib/sleep'
-import { UI_FADE_IN_DELAY } from './lib/consts'
-import { singleSongMode } from './lib/singleSongMode'
-// import { ArtworkBackground } from './components/ArtworkBackground'
+import { ArtworkBackground } from './components/ArtworkBackground'
+import { scrollTop } from './lib/signals'
 
 export function App() {
   useEffect(() => {
     const blurryImageLoad = new BlurryImageLoad()
     blurryImageLoad.load()
 
-    document.body.parentElement!.style.overflowY = 'hidden'
-    sleep(singleSongMode() ? 0 : UI_FADE_IN_DELAY * 1000).then(() => {
-      document.body.parentElement!.style.overflowY = 'auto'
-    })
+    window.onscroll = () => {
+      console.log('scroll')
+      scrollTop.value = window.scrollY
+    }
   }, [])
 
   return (
     <Container>
-      {/* <ArtworkBackground /> */}
-      {!singleSongMode() && <Logos2 />}
+      <ArtworkBackground />
       <UI />
     </Container>
   )

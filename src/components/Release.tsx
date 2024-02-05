@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import { BORDER_RADIUS, BOX_SHADOW, TEXT_COLOR, UI_FADE_IN_DELAY } from '../lib/consts'
+import { BORDER_RADIUS, BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
 import { styled } from '../lib/styled'
 import { IRelease, ISong } from '../lib/types'
 import { PlayPause } from './PlayPause'
@@ -15,7 +15,7 @@ import { singleSongMode } from '../lib/singleSongMode'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
-export const ANIMATION_DELAY = singleSongMode() ? 0 : UI_FADE_IN_DELAY
+export const ANIMATION_DELAY = 0
 
 export function Release({
   release,

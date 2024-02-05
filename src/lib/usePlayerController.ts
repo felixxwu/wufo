@@ -2,23 +2,21 @@ import { useEffect, useState } from 'preact/hooks'
 import { ISong } from './types'
 import { content } from './content'
 import { singleSongMode } from './singleSongMode'
+import { autoPlay, playing, songPlaying } from './signals'
 
 const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
 }, [] as ISong[])
 
 export function usePlayerController() {
-  const [songPlaying, setSongPlaying] = useState<ISong>(content.releases[0].songs[0])
-  const [autoplay, setAutoplay] = useState(false)
-  const [playing, setPlaying] = useState(false)
   const [realPlaybackProgress, setRealPlaybackProgress] = useState<number>(0)
   const [songLength, setSongLength] = useState<number>(0)
   const [loadedProgress, setLoadedProgress] = useState<number>(0)
   const [showControls, setShowControls] = useState(false)
 
   useEffect(() => {
-    if (playing) {
-      document.title = `▶ WUFO - ${songPlaying.title}`
+    if (playing.value) {
+      document.title = `▶ WUFO - ${songPlaying.value.title}`
     } else {
       if (singleSongMode()) {
         document.title = `WUFO - ${content.releases[0].title}`
@@ -26,36 +24,36 @@ export function usePlayerController() {
         document.title = 'WUFO - Official Website'
       }
     }
-  }, [songPlaying, playing])
+  }, [songPlaying.value, playing.value])
 
   const onSongClick = (song: ISong) => {
     setShowControls(true)
 
-    if (songPlaying.fileName === song.fileName) {
-      setPlaying(!playing)
+    if (songPlaying.value.fileName === song.fileName) {
+      playing.value = !playing.value
       return
     }
 
-    setSongPlaying(song)
-    setAutoplay(true)
+    songPlaying.value = song
+    autoPlay.value = true
 
-    setPlaying(true)
+    playing.value = true
   }
 
   const play = () => {
     if (!showControls) {
       onSongClick(content.releases[0].songs[0])
     } else {
-      setPlaying(true)
+      playing.value = true
     }
   }
 
   const pause = () => {
-    setPlaying(false)
+    playing.value = false
   }
 
   const next = () => {
-    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.fileName)
+    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName)
     const nextSong = flatSongs[songIndex + 1]
     if (nextSong) {
       onSongClick(nextSong)
@@ -63,7 +61,7 @@ export function usePlayerController() {
   }
 
   const prev = () => {
-    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.fileName)
+    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName)
     const prevSong = flatSongs[songIndex - 1]
     if (prevSong) {
       onSongClick(prevSong)
@@ -79,20 +77,17 @@ export function usePlayerController() {
   }
 
   const nextSongPlayable =
-    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.fileName) + 1]
+    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName) + 1]
   const prevSongPlayable =
-    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.fileName) - 1]
+    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName) - 1]
 
   return {
-    songPlaying,
     songLength,
     setSongLength,
-    playing,
     play,
     pause,
     next,
     prev,
-    autoplay,
     showControls,
     loadedProgress: Math.min(loadedProgress, 1),
     setLoadedProgress,

@@ -1,4 +1,4 @@
-import { BOX_SHADOW, TEXT_COLOR, UI_FADE_IN_DELAY } from '../lib/consts'
+import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from '../lib/styled'
@@ -36,7 +36,7 @@ const Container = styled('div', {
 
   opacity: '0',
   animationName: 'fade-in',
-  animationDelay: `${UI_FADE_IN_DELAY - 0.5}s`,
+  animationDelay: `0.2s`,
   animationDuration: '2s',
   animationFillMode: 'forwards',
 })

@@ -11,6 +11,7 @@ import { AudioPlayer } from './AudioPlayer'
 import { CopyRightFooter } from './Copyright'
 import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
+import { playing, songPlaying } from '../lib/signals'
 
 export function UI() {
   const [progressOverride, setProgressOverride] = useState<number>(0)
@@ -23,15 +24,12 @@ export function UI() {
   }, [progressOverride])
 
   const {
-    songPlaying,
     songLength,
     setSongLength,
-    playing,
     play,
     pause,
     next,
     prev,
-    autoplay,
     showControls,
     realPlaybackProgress,
     onSongClick,
@@ -46,7 +44,7 @@ export function UI() {
   useEffect(() => {
     const onkeydown = (e: KeyboardEvent) => {
       if (e.key === ' ') {
-        playing ? pause() : play()
+        playing.value ? pause() : play()
         e.preventDefault()
       }
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -59,7 +57,7 @@ export function UI() {
       }
     }
     window.onkeydown = onkeydown
-  }, [playing, songPlaying])
+  }, [playing.value, songPlaying.value])
 
   return (
     <Container>
@@ -72,7 +70,7 @@ export function UI() {
           release={release}
           index={i}
           onSongClick={onSongClick}
-          songPlaying={playing ? songPlaying.fileName : null}
+          songPlaying={playing.value ? songPlaying.value.fileName : null}
           onCoverClick={() => setCoverPreview(release)}
         />
       ))}
@@ -80,9 +78,6 @@ export function UI() {
       <CopyRightFooter />
 
       <AudioPlayer
-        fileName={songPlaying.fileName}
-        playing={playing}
-        autoplay={autoplay}
         playbackProgress={progressOverride}
         onPlaybackProgress={(progress, length) => {
           setRealPlaybackProgress(progress)
@@ -93,11 +88,9 @@ export function UI() {
       />
 
       <PlayerControls
-        songPlaying={songPlaying}
         songLength={songLength}
-        playing={playing}
         show={showControls}
-        color={content.releases.find(release => release.songs.includes(songPlaying))!.color}
+        color={content.releases.find(release => release.songs.includes(songPlaying.value))!.color}
         playbackProgress={realPlaybackProgress}
         loadedProgress={loadedProgress}
         onSeek={progress => setProgressOverride(progress)}

@@ -1,19 +1,14 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { styled } from '../lib/styled'
+import { autoPlay, playing, songPlaying } from '../lib/signals'
 
 export function AudioPlayer({
-  fileName,
-  playing,
-  autoplay,
   onPlayChange,
   onTrackEnd,
   playbackProgress,
   onPlaybackProgress,
   onLoadProgress,
 }: {
-  fileName: string
-  playing: boolean
-  autoplay: boolean
   onPlayChange?: (playing: boolean) => void
   onTrackEnd?: () => void
   playbackProgress?: number // percentage
@@ -26,12 +21,12 @@ export function AudioPlayer({
   const [buffered, setBuffered] = useState<number>(0)
 
   useEffect(() => {
-    if (playing) {
+    if (playing.value) {
       audio.current?.play()
     } else {
       audio.current?.pause()
     }
-  }, [playing])
+  }, [playing.value])
 
   useEffect(() => {
     onPlaybackProgress?.(time / duration, duration * 1000)
@@ -49,8 +44,8 @@ export function AudioPlayer({
   return (
     <Container>
       <audio
-        src={fileName}
-        autoplay={autoplay}
+        src={songPlaying.value.fileName}
+        autoplay={autoPlay.value}
         type='audio/mp3'
         ref={audio}
         onLoadedMetadata={() => setDuration(audio.current!.duration)}

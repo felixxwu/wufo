@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
 import { styled } from '../lib/styled'
 import { css } from '@emotion/css'
-import { Color, ISong } from '../lib/types'
+import { Color } from '../lib/types'
 import { DARKEN } from './Background'
 import { Spotify } from '../icons/spotify'
 import { Link } from './Link'
@@ -14,13 +14,12 @@ import { content } from '../lib/content'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
+import { playing, songPlaying } from '../lib/signals'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
-  songPlaying,
   songLength,
-  playing,
   playbackProgress,
   loadedProgress,
   show,
@@ -33,9 +32,7 @@ export function PlayerControls({
   nextSongPlayable,
   prevSongPlayable,
 }: {
-  songPlaying: ISong
   songLength: number
-  playing: boolean
   playbackProgress: number
   loadedProgress: number
   show: boolean
@@ -121,9 +118,9 @@ export function PlayerControls({
   const release = useMemo(
     () =>
       content.releases.find(release =>
-        release.songs.find(song => song.title === songPlaying.title)
+        release.songs.find(song => song.title === songPlaying.value.title)
       ),
-    [songPlaying]
+    [songPlaying.value]
   )
 
   if (!show) return null
@@ -134,7 +131,7 @@ export function PlayerControls({
     <Container>
       <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
         <TitleAndLinks>
-          <Title>{loadedProgress === 0 ? 'Loading...' : songPlaying.title}</Title>
+          <Title>{loadedProgress === 0 ? 'Loading...' : songPlaying.value.title}</Title>
           <Links id='player-links'>
             <Link Icon={Spotify} href={release?.spotify} newWindow />
             <Link Icon={SoundCloud} href={release?.soundcloud} newWindow />
@@ -169,10 +166,10 @@ export function PlayerControls({
           </div>
           <PlayPauseButton
             onClick={() => {
-              playing ? onPause() : onPlay()
+              playing.value ? onPause() : onPlay()
             }}
           >
-            {playing ? (
+            {playing.value ? (
               <Pause color={colorValue} style={{ width: `${largeIconSize}px` }} />
             ) : (
               <Play color={colorValue} style={{ width: `${largeIconSize}px` }} />

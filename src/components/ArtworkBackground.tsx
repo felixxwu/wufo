@@ -1,10 +1,16 @@
-import { background } from '../lib/signals'
+import { background, scrollTop } from '../lib/signals'
 import { styled } from '../lib/styled'
 
 export function ArtworkBackground() {
+  const screenHeight = window.innerHeight
+  const contentHeight = window.document.body.scrollHeight
+  const scrollPercentage = scrollTop.value / (contentHeight - screenHeight)
   return (
     <Container>
-      <Image src={background} />
+      <Image
+        src={background}
+        style={{ transform: `translateY(calc(min(0px, ${scrollPercentage} * (100vh - 100vw))))` }}
+      />
     </Container>
   )
 }
@@ -15,6 +21,11 @@ const Container = styled('div', {
   position: 'fixed',
   top: 0,
   left: 0,
+
+  opacity: '0',
+  animationName: 'fade-in',
+  animationDuration: '5s',
+  animationFillMode: 'forwards',
 })
 
 const Image = styled('img', {
@@ -22,7 +33,5 @@ const Image = styled('img', {
   height: '100%',
   minWidth: '100vh',
   minHeight: '100vw',
-  objectFit: 'cover',
-  opacity: 0.5,
-  filter: 'blur(10px)',
+  opacity: 0.3,
 })
