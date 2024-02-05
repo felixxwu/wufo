@@ -14,13 +14,12 @@ import { content } from '../lib/content'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
-import { playing, songPlaying } from '../lib/signals'
+import { playing, realPlaybackProgress, songPlaying } from '../lib/signals'
 
 const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
   songLength,
-  playbackProgress,
   loadedProgress,
   show,
   color,
@@ -33,7 +32,6 @@ export function PlayerControls({
   prevSongPlayable,
 }: {
   songLength: number
-  playbackProgress: number
   loadedProgress: number
   show: boolean
   color: Color
@@ -50,7 +48,7 @@ export function PlayerControls({
   const buttons = useRef<{ base: HTMLDivElement }>(null)
   const [isDragging, setIsDragging] = useState(false)
 
-  const progressIsNearStart = playbackProgress < START_OF_SONG_THRESHOLD
+  const progressIsNearStart = realPlaybackProgress.value < START_OF_SONG_THRESHOLD
   const showPrevButton = prevSongPlayable || !progressIsNearStart
 
   useEffect(() => {
@@ -141,13 +139,13 @@ export function PlayerControls({
         </TitleAndLinks>
         <Slider ref={slider} onClick={() => {}}>
           <SliderLeftNumber>
-            {convertSongLengthToString(songLength * playbackProgress)}
+            {convertSongLengthToString(songLength * realPlaybackProgress.value)}
           </SliderLeftNumber>
           <SliderRightNumber>{convertSongLengthToString(songLength)}</SliderRightNumber>
           <SliderBarBG />
           <SliderBarLoaded style={{ width: `${loadedProgress * 100}%` }} />
-          <SliderBarProgress style={{ width: `${playbackProgress * 100}%` }} />
-          <SliderThumb style={{ left: `${playbackProgress * 100}%` }} />
+          <SliderBarProgress style={{ width: `${realPlaybackProgress.value * 100}%` }} />
+          <SliderThumb style={{ left: `${realPlaybackProgress.value * 100}%` }} />
         </Slider>
         <Buttons ref={buttons}>
           <div
