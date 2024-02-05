@@ -3,10 +3,8 @@ import { styled } from '../lib/styled'
 import { Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
-import { useEffect, useState } from 'preact/hooks'
-import { IRelease } from '../lib/types'
+import { useEffect } from 'preact/hooks'
 import { Header } from './Header'
-import { CoverPreview } from './CoverPreview'
 import { AudioPlayer } from './AudioPlayer'
 import { CopyRightFooter } from './Copyright'
 import { singleSongMode } from '../lib/singleSongMode'
@@ -14,8 +12,6 @@ import { ReleaseTopBar } from './ReleaseTopBar'
 import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
 
 export function UI() {
-  const [coverPreview, setCoverPreview] = useState<IRelease | null>(null)
-
   useEffect(() => {
     if (progressOverride.value !== 0) {
       play()
@@ -55,7 +51,6 @@ export function UI() {
           index={i}
           onSongClick={onSongClick}
           songPlaying={playing.value ? songPlaying.value.fileName : null}
-          onCoverClick={() => setCoverPreview(release)}
         />
       ))}
 
@@ -75,8 +70,6 @@ export function UI() {
         nextSongPlayable={nextSongPlayable}
         prevSongPlayable={prevSongPlayable}
       />
-
-      <CoverPreview release={coverPreview} onClose={() => setCoverPreview(null)} />
     </Container>
   )
 }

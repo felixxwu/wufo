@@ -22,13 +22,11 @@ export function Release({
   index,
   songPlaying,
   onSongClick,
-}: // onCoverClick,
-{
+}: {
   release: IRelease
   index: number
   songPlaying: string | null
   onSongClick: (song: ISong) => void
-  onCoverClick: () => void
 }) {
   const [hovering, setHovering] = useState<number | null>(null)
 
