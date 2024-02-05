@@ -17,6 +17,7 @@ import { Apple } from '../icons/apple'
 import {
   loadedProgress,
   playing,
+  progressOverride,
   realPlaybackProgress,
   showControls,
   songLength,
@@ -27,7 +28,6 @@ const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
   color,
-  onSeek,
   onPlay,
   onPause,
   onNext,
@@ -36,7 +36,6 @@ export function PlayerControls({
   prevSongPlayable,
 }: {
   color: Color
-  onSeek: (percent: number) => void
   onPlay: () => void
   onPause: () => void
   onNext: () => void
@@ -91,7 +90,7 @@ export function PlayerControls({
     const sliderRect = slider.current.base.getBoundingClientRect()
     const percent = (e.clientX - sliderRect.left) / sliderRect.width
     const clampedPercent = Math.max(0, Math.min(1, percent))
-    onSeek(clampedPercent)
+    progressOverride.value = clampedPercent
   }
 
   function handleClick(e: MouseEvent) {
@@ -102,7 +101,7 @@ export function PlayerControls({
     if (progressIsNearStart) {
       onPrev()
     } else {
-      onSeek(0)
+      progressOverride.value = 0
     }
   }
 

@@ -1,18 +1,21 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { styled } from '../lib/styled'
-import { autoPlay, playing, songPlaying } from '../lib/signals'
+import {
+  autoPlay,
+  playing,
+  progressOverride,
+  realPlaybackProgress,
+  songLength,
+  songPlaying,
+} from '../lib/signals'
 
 export function AudioPlayer({
   onPlayChange,
   onTrackEnd,
-  playbackProgress,
-  onPlaybackProgress,
   onLoadProgress,
 }: {
   onPlayChange?: (playing: boolean) => void
   onTrackEnd?: () => void
-  playbackProgress?: number // percentage
-  onPlaybackProgress?: (progress: number, length: number) => void // percentage
   onLoadProgress?: (progress: number) => void
 }) {
   const audio = useRef<HTMLAudioElement>(null)
@@ -29,13 +32,16 @@ export function AudioPlayer({
   }, [playing.value])
 
   useEffect(() => {
-    onPlaybackProgress?.(time / duration, duration * 1000)
+    const newPlaybackProgress = time / duration
+    const newLength = duration * 1000
+    realPlaybackProgress.value = newPlaybackProgress
+    songLength.value = newLength
   }, [duration, time])
 
   useEffect(() => {
     if (!audio.current) return
-    audio.current!.currentTime = playbackProgress! * duration
-  }, [playbackProgress])
+    audio.current!.currentTime = progressOverride.value! * duration
+  }, [progressOverride.value])
 
   useEffect(() => {
     onLoadProgress?.(buffered / duration)
