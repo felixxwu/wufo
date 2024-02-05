@@ -2,20 +2,15 @@ import { BOX_SHADOW, TEXT_COLOR, UI_FADE_IN_DELAY } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from '../lib/styled'
-import { Color } from '../lib/types'
 import { Link } from './Link'
 
-export function Header({ setColor }: { setColor: (colors: Color) => void }) {
+export function Header() {
   if (singleSongMode()) return null
 
   return (
     <Container>
       <TopRow>
-        <Avatar
-          src={content.avatar}
-          alt='WUFO Avatar'
-          onclick={() => setColor([Math.random() * 150, Math.random() * 150, Math.random() * 150])}
-        />
+        <Avatar src={content.avatar} alt='WUFO Avatar' />
         <Name>WUFO</Name>
       </TopRow>
       <BottomRow>

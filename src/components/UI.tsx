@@ -4,7 +4,7 @@ import { Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
 import { useEffect, useState } from 'preact/hooks'
-import { Color, IRelease } from '../lib/types'
+import { IRelease } from '../lib/types'
 import { Header } from './Header'
 import { CoverPreview } from './CoverPreview'
 import { AudioPlayer } from './AudioPlayer'
@@ -12,7 +12,7 @@ import { CopyRightFooter } from './Copyright'
 import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
 
-export function UI({ setColor }: { setColor: (colors: Color) => void }) {
+export function UI() {
   const [progressOverride, setProgressOverride] = useState<number>(0)
   const [coverPreview, setCoverPreview] = useState<IRelease | null>(null)
 
@@ -41,7 +41,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
     nextSongPlayable,
     prevSongPlayable,
     onTrackEnd,
-  } = usePlayerController(setColor)
+  } = usePlayerController()
 
   useEffect(() => {
     const onkeydown = (e: KeyboardEvent) => {
@@ -63,7 +63,7 @@ export function UI({ setColor }: { setColor: (colors: Color) => void }) {
 
   return (
     <Container>
-      <Header setColor={setColor} />
+      <Header />
 
       <ReleaseTopBar />
 

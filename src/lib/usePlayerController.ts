@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks'
-import { Color, ISong } from './types'
+import { ISong } from './types'
 import { content } from './content'
 import { singleSongMode } from './singleSongMode'
 
@@ -7,7 +7,7 @@ const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
 }, [] as ISong[])
 
-export function usePlayerController(setColor: (colors: Color) => void) {
+export function usePlayerController() {
   const [songPlaying, setSongPlaying] = useState<ISong>(content.releases[0].songs[0])
   const [autoplay, setAutoplay] = useState(false)
   const [playing, setPlaying] = useState(false)
@@ -30,10 +30,6 @@ export function usePlayerController(setColor: (colors: Color) => void) {
 
   const onSongClick = (song: ISong) => {
     setShowControls(true)
-    const release = content.releases.find(release => release.songs.includes(song))
-    if (release) {
-      setColor(release.color)
-    }
 
     if (songPlaying.fileName === song.fileName) {
       setPlaying(!playing)
