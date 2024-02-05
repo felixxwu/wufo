@@ -29,17 +29,8 @@ export function UI() {
     }
   }, [progressOverride])
 
-  const {
-    play,
-    pause,
-    next,
-    prev,
-    showControls,
-    onSongClick,
-    nextSongPlayable,
-    prevSongPlayable,
-    onTrackEnd,
-  } = usePlayerController()
+  const { play, pause, next, prev, onSongClick, nextSongPlayable, prevSongPlayable, onTrackEnd } =
+    usePlayerController()
 
   useEffect(() => {
     const onkeydown = (e: KeyboardEvent) => {
@@ -88,7 +79,6 @@ export function UI() {
       />
 
       <PlayerControls
-        show={showControls}
         color={content.releases.find(release => release.songs.includes(songPlaying.value))!.color}
         onSeek={progress => setProgressOverride(progress)}
         onPlay={play}

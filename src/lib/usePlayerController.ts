@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect } from 'preact/hooks'
 import { ISong } from './types'
 import { content } from './content'
 import { singleSongMode } from './singleSongMode'
-import { autoPlay, playing, songPlaying } from './signals'
+import { autoPlay, playing, showControls, songPlaying } from './signals'
 
 const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
 }, [] as ISong[])
 
 export function usePlayerController() {
-  const [showControls, setShowControls] = useState(false)
-
   useEffect(() => {
     if (playing.value) {
       document.title = `▶ WUFO - ${songPlaying.value.title}`
@@ -24,7 +22,7 @@ export function usePlayerController() {
   }, [songPlaying.value, playing.value])
 
   const onSongClick = (song: ISong) => {
-    setShowControls(true)
+    showControls.value = true
 
     if (songPlaying.value.fileName === song.fileName) {
       playing.value = !playing.value
@@ -38,7 +36,7 @@ export function usePlayerController() {
   }
 
   const play = () => {
-    if (!showControls) {
+    if (!showControls.value) {
       onSongClick(content.releases[0].songs[0])
     } else {
       playing.value = true
@@ -83,7 +81,6 @@ export function usePlayerController() {
     pause,
     next,
     prev,
-    showControls,
     onSongClick,
     nextSongPlayable,
     prevSongPlayable,

@@ -18,6 +18,7 @@ import {
   loadedProgress,
   playing,
   realPlaybackProgress,
+  showControls,
   songLength,
   songPlaying,
 } from '../lib/signals'
@@ -25,7 +26,6 @@ import {
 const START_OF_SONG_THRESHOLD = 0.05
 
 export function PlayerControls({
-  show,
   color,
   onSeek,
   onPlay,
@@ -35,7 +35,6 @@ export function PlayerControls({
   nextSongPlayable,
   prevSongPlayable,
 }: {
-  show: boolean
   color: Color
   onSeek: (percent: number) => void
   onPlay: () => void
@@ -123,7 +122,7 @@ export function PlayerControls({
     [songPlaying.value]
   )
 
-  if (!show) return null
+  if (!showControls.value) return null
 
   const colorValue = `rgb(${color.map(c => c / DARKEN).join(', ')})`
 
