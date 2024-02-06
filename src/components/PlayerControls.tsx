@@ -117,7 +117,7 @@ export function PlayerControls({
 
   if (!showControls.value) return null
 
-  const colorValue = `rgb(${color.map(c => c / DARKEN).join(', ')})`
+  const colorValue = `rgba(${color.map(c => c / DARKEN).join(', ')}, 0.75)`
 
   return (
     <Container>
@@ -214,6 +214,7 @@ const Card = styled('div', {
   borderRadius: '10px',
   boxShadow: BOX_SHADOW,
   touchAction: 'none',
+  backdropFilter: 'blur(15px)',
 })
 
 const TitleAndLinks = styled('div', {
