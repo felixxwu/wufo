@@ -15,7 +15,7 @@ export function Grain() {
       viewBox={`0 0 ${screenWidth.value} ${screenHeight.value}`}
     >
       <defs>
-        <filter id='grain' x='0%' y='0%' height='100%' width='100%'>
+        <filter id='grain' x='0%' y='0%' height='150%' width='100%'>
           <feTurbulence
             type='fractalNoise'
             result='cloudbase'
