@@ -12,7 +12,6 @@ const CopyRight = styled('span', {
   textAlign: 'center',
   color: TEXT_COLOR,
   marginBottom: '50vh',
-  zIndex: -1,
 
   opacity: '0',
   animationName: 'fade-in',
