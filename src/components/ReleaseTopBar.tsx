@@ -36,6 +36,7 @@ const Buttons = styled('div', {
   display: 'flex',
   width: '100%',
   justifyContent: 'space-between',
+  paddingTop: '80px',
 
   opacity: '0',
   animationName: 'fade-in',

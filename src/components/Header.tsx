@@ -1,3 +1,5 @@
+import { Down } from '../icons/down'
+import { FadeInDelay } from '../lib/FadeInDelay'
 import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
@@ -10,14 +12,34 @@ export function Header() {
   return (
     <Container>
       <TopRow>
-        <Avatar src={content.avatar} alt='WUFO Avatar' />
-        <Name>WUFO</Name>
+        <FadeInDelay delay={1000}>
+          <Avatar src={content.avatar} alt='WUFO Avatar' />
+        </FadeInDelay>
+        <NameRow>
+          <FadeInDelay delay={200}>
+            <Name>W</Name>
+          </FadeInDelay>
+          <FadeInDelay delay={400}>
+            <Name>U</Name>
+          </FadeInDelay>
+          <FadeInDelay delay={600}>
+            <Name>F</Name>
+          </FadeInDelay>
+          <FadeInDelay delay={800}>
+            <Name>O</Name>
+          </FadeInDelay>
+        </NameRow>
       </TopRow>
-      <BottomRow>
-        {content.socials.map(social => (
-          <Link name={social.label} Icon={social.Icon} href={social.link} />
-        ))}
-      </BottomRow>
+      <FadeInDelay delay={1500}>
+        <BottomRow>
+          {content.socials.map(social => (
+            <Link name={social.label} Icon={social.Icon} href={social.link} />
+          ))}
+        </BottomRow>
+      </FadeInDelay>
+      <FadeInDelay delay={2000}>
+        <Down color={TEXT_COLOR} style={{ width: '14px' }} />
+      </FadeInDelay>
     </Container>
   )
 }
@@ -33,6 +55,7 @@ const Container = styled('div', {
   color: TEXT_COLOR,
   maxWidth: '500px',
   margin: 'auto',
+  height: '100vh',
 
   opacity: '0',
   animationName: 'fade-in',
@@ -55,10 +78,13 @@ const Avatar = styled('img', {
   boxShadow: BOX_SHADOW,
 })
 
+const NameRow = styled('div', {
+  display: 'flex',
+  gap: '40px',
+})
+
 const Name = styled('div', {
   fontSize: '30px',
-  letterSpacing: '2ch',
-  marginLeft: '2ch',
   textAlign: 'center',
 })
 

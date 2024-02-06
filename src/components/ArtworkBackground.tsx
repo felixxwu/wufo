@@ -13,6 +13,7 @@ export function ArtworkBackground() {
           translate: `calc(min(0px, 0.5 * (100vw - 100vh))) calc(min(0px, ${scrollPercentage} * (100vh - 100vw)))`,
           opacity: screenWidth.value > screenHeight.value ? 0.25 : 0,
         }}
+        alt={songPlaying.value?.title || 'WUFO'}
       />
     </Container>
   )
@@ -36,5 +37,5 @@ const Image = styled('img', {
   height: '100%',
   minWidth: '100vh',
   minHeight: '100vw',
-  transition: 'opacity 0.5s',
+  transition: 'opacity 1s',
 })

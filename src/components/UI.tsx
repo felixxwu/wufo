@@ -78,7 +78,6 @@ const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: singleSongMode() ? '30px' : '80px',
-  padding: '80px 0',
   width: '100vw',
   maxWidth: '560px',
 })
