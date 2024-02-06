@@ -1,18 +1,53 @@
+import { useEffect, useState } from 'preact/hooks'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
 import { styled } from '../lib/styled'
 
+const MAX_OPACITY = 0.25
+const ANIMATION_DURATION = 1500
+
 export function ArtworkBackground() {
+  const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
+  const [opacity, setOpacity] = useState(MAX_OPACITY)
+  const [imageLoaded, setImageLoaded] = useState(true)
   const contentHeight = Math.max(3000, window.document.body.scrollHeight)
   const scrollPercentage = scrollTop.value / (contentHeight - screenHeight.value)
+
+  useEffect(() => {
+    setInterval(() => {
+      const imageLoaded = (document.getElementById('artwork-background') as HTMLImageElement)
+        .complete
+      setImageLoaded(imageLoaded)
+    }, 1000)
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      if (songPlaying.value !== displayedSong) {
+        setOpacity(0)
+        await new Promise(resolve => setTimeout(resolve, ANIMATION_DURATION))
+        setDisplayedSong(songPlaying.value)
+        setOpacity(MAX_OPACITY)
+      }
+    })()
+  }, [songPlaying.value])
+
+  const imageOpacity = screenWidth.value > screenHeight.value && imageLoaded ? opacity : 0
+
   return (
     <Container>
       <Image
-        src={findReleaseFromSong(songPlaying.value)?.background}
+        src={findReleaseFromSong(displayedSong)?.background}
         style={{
           translate: `calc(min(0px, 0.5 * (100vw - 100vh))) calc(min(0px, ${scrollPercentage} * (100vh - 100vw)))`,
-          opacity: screenWidth.value > screenHeight.value ? 0.25 : 0,
+          opacity: imageOpacity,
+          filter: `blur(${imageOpacity === 0 ? 50 : 0}px)`,
         }}
+        alt={songPlaying.value?.title || 'WUFO'}
+      />
+      <ImagePreload
+        id='artwork-background'
+        src={findReleaseFromSong(songPlaying.value)?.background}
         alt={songPlaying.value?.title || 'WUFO'}
       />
     </Container>
@@ -37,5 +72,10 @@ const Image = styled('img', {
   height: '100%',
   minWidth: '100vh',
   minHeight: '100vw',
-  transition: 'opacity 1s',
+  transition: `opacity ${ANIMATION_DURATION}ms, filter ${ANIMATION_DURATION}ms`,
+})
+
+const ImagePreload = styled('img', {
+  display: 'none',
+  position: 'absolute',
 })
