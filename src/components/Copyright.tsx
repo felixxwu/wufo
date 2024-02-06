@@ -4,7 +4,7 @@ import { styled } from '../lib/styled'
 import { ANIMATION_DELAY, ANIMATION_INTERVAL } from './Release'
 
 export function CopyRightFooter() {
-  return <CopyRight>&copy; WUFO 2023</CopyRight>
+  return <CopyRight>&copy; WUFO 2024</CopyRight>
 }
 
 const CopyRight = styled('span', {
