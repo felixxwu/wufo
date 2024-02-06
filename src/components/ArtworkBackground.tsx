@@ -3,7 +3,7 @@ import { screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signal
 import { styled } from '../lib/styled'
 
 export function ArtworkBackground() {
-  const contentHeight = window.document.body.scrollHeight
+  const contentHeight = Math.max(3000, window.document.body.scrollHeight)
   const scrollPercentage = scrollTop.value / (contentHeight - screenHeight.value)
   return (
     <Container>
