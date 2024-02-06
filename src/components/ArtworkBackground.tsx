@@ -13,6 +13,9 @@ export function ArtworkBackground() {
   const contentHeight = Math.max(3000, window.document.body.scrollHeight)
   const scrollPercentage = scrollTop.value / (contentHeight - screenHeight.value)
 
+  const displayedRelease = findReleaseFromSong(displayedSong)
+  const playingRelease = findReleaseFromSong(songPlaying.value)
+
   useEffect(() => {
     setInterval(() => {
       const imageLoaded = (document.getElementById('artwork-background') as HTMLImageElement)
@@ -23,7 +26,7 @@ export function ArtworkBackground() {
 
   useEffect(() => {
     ;(async () => {
-      if (songPlaying.value !== displayedSong) {
+      if (displayedRelease?.title !== playingRelease?.title) {
         setOpacity(0)
         await new Promise(resolve => setTimeout(resolve, ANIMATION_DURATION))
         setDisplayedSong(songPlaying.value)
@@ -37,7 +40,7 @@ export function ArtworkBackground() {
   return (
     <Container>
       <Image
-        src={findReleaseFromSong(displayedSong)?.background}
+        src={displayedRelease?.background}
         style={{
           translate: `calc(min(0px, 0.5 * (100vw - 100vh))) calc(min(0px, ${scrollPercentage} * (100vh - 100vw)))`,
           opacity: imageOpacity,
@@ -47,7 +50,7 @@ export function ArtworkBackground() {
       />
       <ImagePreload
         id='artwork-background'
-        src={findReleaseFromSong(songPlaying.value)?.background}
+        src={playingRelease?.background}
         alt={songPlaying.value?.title || 'WUFO'}
       />
     </Container>
