@@ -10,8 +10,12 @@ export function ArtworkBackground() {
   const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
   const [opacity, setOpacity] = useState(MAX_OPACITY)
   const [imageLoaded, setImageLoaded] = useState(true)
-  const contentHeight = Math.max(window.innerWidth * 1.5, window.document.body.scrollHeight)
-  const scrollPercentage = scrollTop.value / (contentHeight - screenHeight.value)
+  const realContentHeight = window.document.body.scrollHeight
+  const minContentHeight = screenWidth.value * 1.5
+  const contentHeight = Math.max(minContentHeight, realContentHeight)
+  const smallContentOffset = Math.max(0, minContentHeight - realContentHeight) / 2
+  const scrollBottom = contentHeight - screenHeight.value
+  const scrollPercentage = (scrollTop.value + smallContentOffset) / scrollBottom
 
   const displayedRelease = findReleaseFromSong(displayedSong)
   const playingRelease = findReleaseFromSong(songPlaying.value)

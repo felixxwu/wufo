@@ -1,5 +1,11 @@
 import { useState } from 'preact/hooks'
-import { BORDER_RADIUS, BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
+import {
+  BORDER_RADIUS,
+  BOX_SHADOW,
+  BOX_SHADOW_LARGE,
+  QUICK_TRANSITION,
+  TEXT_COLOR,
+} from '../lib/consts'
 import { styled } from '../lib/styled'
 import { IRelease, ISong } from '../lib/types'
 import { PlayPause } from './PlayPause'
@@ -109,16 +115,25 @@ const Container = styled(
   `
 )
 
-const Image = styled('img', {
-  gridArea: 'image',
-  width: `${IMAGE_SIZE}px`,
-  maxWidth: '100%',
-  aspectRatio: '1/1',
-  objectFit: 'cover',
-  borderRadius: `${BORDER_RADIUS}px`,
-  boxShadow: BOX_SHADOW,
-  cursor: 'pointer',
-})
+const Image = styled(
+  'img',
+  {
+    gridArea: 'image',
+    width: `${IMAGE_SIZE}px`,
+    maxWidth: '100%',
+    aspectRatio: '1/1',
+    objectFit: 'cover',
+    borderRadius: `${BORDER_RADIUS}px`,
+    cursor: 'pointer',
+    transition: `box-shadow ${QUICK_TRANSITION}`,
+  },
+  css`
+    box-shadow: ${BOX_SHADOW};
+    &:hover {
+      box-shadow: ${BOX_SHADOW_LARGE};
+    }
+  `
+)
 
 const TitleAndLinks = styled('div', {
   gridArea: 'title',
