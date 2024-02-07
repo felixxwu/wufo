@@ -22,6 +22,7 @@ import {
 } from '../lib/signals'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { PlayPause } from './PlayPause'
+import { Close } from '../icons/close'
 
 const START_OF_SONG_THRESHOLD = 0.05
 const PLAY_PAUSE_SIZE = 40
@@ -104,6 +105,10 @@ export function PlayerControls({
       progressOverride.value = 0
     }
   }
+  const handleClose = () => {
+    showControls.value = false
+    playing.value = false
+  }
 
   function convertSongLengthToString(length: number) {
     if (length === 0) return '-:--'
@@ -129,6 +134,7 @@ export function PlayerControls({
             <Link Icon={SoundCloud} href={release?.soundcloud} newWindow />
             <Link Icon={YouTube} href={release?.youtube} newWindow />
             <Link Icon={Apple} href={release?.apple} newWindow />
+            <Link Icon={Close} onclick={handleClose} />
           </Links>
         </TitleAndLinks>
         <Slider ref={slider} onClick={() => {}}>

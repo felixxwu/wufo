@@ -51,6 +51,7 @@ export const content: Content = {
       spotify: 'https://open.spotify.com/track/4VWF5gT68ucW0nNIrOPhBX',
       youtube: 'https://www.youtube.com/watch?v=liE3DCRahp0',
       soundcloud: 'https://soundcloud.com/celsiusrecordings/wufo-echo-chamber',
+      apple: 'https://music.apple.com/us/album/echo-chamber/1716576833',
       songs: [
         {
           title: 'Echo Chamber',

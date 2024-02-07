@@ -10,17 +10,19 @@ export function Link({
   name,
   Icon,
   href,
+  onclick,
   newWindow,
 }: {
   name?: string
   Icon: (props: IconProps) => VNode
   href?: string
+  onclick?: () => void
   newWindow?: boolean
 }) {
-  if (!href) return null
+  if (!href && !onclick) return null
 
   return (
-    <Container href={href} {...(newWindow ? { target: '_blank' } : {})}>
+    <Container href={href} {...(newWindow ? { target: '_blank' } : {})} onclick={onclick}>
       <Icon color={TEXT_COLOR} style={{ width: ICON_SIZE, height: ICON_SIZE }} />
       {name && <Name>{name}</Name>}
     </Container>
