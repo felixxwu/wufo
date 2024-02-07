@@ -1,5 +1,3 @@
-import { Pause } from '../icons/pause'
-import { Play } from '../icons/play'
 import { Prev } from '../icons/prev'
 import { Next } from '../icons/next'
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
@@ -23,8 +21,10 @@ import {
   songPlaying,
 } from '../lib/signals'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
+import { PlayPause } from './PlayPause'
 
 const START_OF_SONG_THRESHOLD = 0.05
+const PLAY_PAUSE_SIZE = 40
 
 export function PlayerControls({
   color,
@@ -161,11 +161,7 @@ export function PlayerControls({
               playing.value ? onPause() : onPlay()
             }}
           >
-            {playing.value ? (
-              <Pause color={colorValue} style={{ width: `${largeIconSize}px` }} />
-            ) : (
-              <Play color={colorValue} style={{ width: `${largeIconSize}px` }} />
-            )}
+            <PlayPause playing={playing.value} size={PLAY_PAUSE_SIZE} />
           </PlayPauseButton>
           <div onClick={onNext} style={{ pointerEvents: nextSongPlayable ? 'auto' : 'none' }}>
             <Next
@@ -188,7 +184,6 @@ const sliderHeight = 25
 const barPositionFromTop = 12
 const thumbTopOffset = 6
 const barHeight = 3
-const largeIconSize = 20
 const smallIconSize = 15
 
 const Container = styled('div', {
@@ -310,10 +305,8 @@ const PlayPauseButton = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '40px',
-  height: '40px',
-  minWidth: '40px',
-  miHeight: '40px',
-  borderRadius: '50%',
-  backgroundColor: TEXT_COLOR,
+  width: `${PLAY_PAUSE_SIZE}px`,
+  height: `${PLAY_PAUSE_SIZE}px`,
+  minWidth: `${PLAY_PAUSE_SIZE}px`,
+  miHeight: `${PLAY_PAUSE_SIZE}px`,
 })

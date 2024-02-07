@@ -50,12 +50,14 @@ export function Release({
       <TitleAndLinks>
         <TitleAndPlayButton>
           <div onClick={() => onSongClick(release.songs[0])}>
-            <PlayPause
-              playing={!!release.songs.find(s => s.fileName === songPlaying)}
-              color={release.color}
-            />
+            <PlayPause playing={!!release.songs.find(s => s.fileName === songPlaying)} size={30} />
           </div>
-          <Title href={`/${release.slug}`}>{release.title}</Title>
+          <Title
+            href={singleSongMode() ? null : `/${release.slug}`}
+            onClick={singleSongMode() ? () => onSongClick(release.songs[0]) : null}
+          >
+            {release.title}
+          </Title>
         </TitleAndPlayButton>
         <Links>
           <Link name='Spotify' Icon={Spotify} href={release.spotify} newWindow />

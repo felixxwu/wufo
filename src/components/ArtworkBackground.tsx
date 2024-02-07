@@ -10,7 +10,7 @@ export function ArtworkBackground() {
   const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
   const [opacity, setOpacity] = useState(MAX_OPACITY)
   const [imageLoaded, setImageLoaded] = useState(true)
-  const contentHeight = Math.max(3000, window.document.body.scrollHeight)
+  const contentHeight = Math.max(window.innerWidth * 1.5, window.document.body.scrollHeight)
   const scrollPercentage = scrollTop.value / (contentHeight - screenHeight.value)
 
   const displayedRelease = findReleaseFromSong(displayedSong)
@@ -44,7 +44,7 @@ export function ArtworkBackground() {
         style={{
           translate: `calc(min(0px, 0.5 * (100vw - 100vh))) calc(min(0px, ${scrollPercentage} * (100vh - 100vw)))`,
           opacity: imageOpacity,
-          filter: `blur(${imageOpacity === 0 ? 50 : 0}px)`,
+          filter: `blur(${imageOpacity === 0 ? 20 : 0}px)`,
         }}
         alt={songPlaying.value?.title || 'WUFO'}
       />
