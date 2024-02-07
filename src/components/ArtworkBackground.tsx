@@ -3,7 +3,7 @@ import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
 import { styled } from '../lib/styled'
 
-const MAX_OPACITY = 0.25
+const MAX_OPACITY = 0.2
 const ANIMATION_DURATION = 1500
 const MIN_SCROLL_AMOUNT = 20
 
