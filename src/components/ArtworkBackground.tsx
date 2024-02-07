@@ -5,13 +5,14 @@ import { styled } from '../lib/styled'
 
 const MAX_OPACITY = 0.25
 const ANIMATION_DURATION = 1500
+const MIN_SCROLL_AMOUNT = 20
 
 export function ArtworkBackground() {
   const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
   const [opacity, setOpacity] = useState(MAX_OPACITY)
   const [imageLoaded, setImageLoaded] = useState(true)
   const realContentHeight = window.document.body.scrollHeight
-  const minContentHeight = screenWidth.value * 1.5
+  const minContentHeight = screenWidth.value * 2
   const contentHeight = Math.max(minContentHeight, realContentHeight)
   const smallContentOffset = Math.max(0, minContentHeight - realContentHeight) / 2
   const scrollBottom = contentHeight - screenHeight.value
@@ -39,14 +40,18 @@ export function ArtworkBackground() {
     })()
   }, [songPlaying.value])
 
-  const imageOpacity = screenWidth.value > screenHeight.value && imageLoaded ? opacity : 0
+  const imageOpacity = imageLoaded ? opacity : 0
+  const minTranslate = `${MIN_SCROLL_AMOUNT / 2}vh - (${scrollPercentage * MIN_SCROLL_AMOUNT}vh))`
+  const translateY = `calc(min(0px, ${scrollPercentage} * (100vh - 100vw)) + ${minTranslate}`
+  const XYDiff = `(${100 + MIN_SCROLL_AMOUNT}vw - ${100 + MIN_SCROLL_AMOUNT}vh)`
+  const translateX = `calc(min(0px, 0.5 * ${XYDiff}))`
 
   return (
     <Container>
       <Image
         src={displayedRelease?.background}
         style={{
-          translate: `calc(min(0px, 0.5 * (100vw - 100vh))) calc(min(0px, ${scrollPercentage} * (100vh - 100vw)))`,
+          translate: `${translateX} ${translateY}`,
           opacity: imageOpacity,
           filter: `blur(${imageOpacity === 0 ? 20 : 0}px)`,
         }}
@@ -62,11 +67,11 @@ export function ArtworkBackground() {
 }
 
 const Container = styled('div', {
-  width: '100vw',
-  height: '100vh',
+  width: `${100 + MIN_SCROLL_AMOUNT}vw`,
+  height: `${100 + MIN_SCROLL_AMOUNT}vh`,
   position: 'fixed',
-  top: 0,
-  left: 0,
+  top: `-${MIN_SCROLL_AMOUNT / 2}vh`,
+  left: `-${MIN_SCROLL_AMOUNT / 2}vw`,
 
   opacity: '0',
   animationName: 'fade-in',
@@ -77,8 +82,8 @@ const Container = styled('div', {
 const Image = styled('img', {
   width: '100%',
   height: '100%',
-  minWidth: '100vh',
-  minHeight: '100vw',
+  minWidth: `${100 + MIN_SCROLL_AMOUNT}vh`,
+  minHeight: `${100 + MIN_SCROLL_AMOUNT}vw`,
   transition: `opacity ${ANIMATION_DURATION}ms, filter ${ANIMATION_DURATION}ms`,
 })
 
