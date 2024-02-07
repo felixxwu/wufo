@@ -4,7 +4,7 @@ import { UI } from './components/UI'
 import { useEffect, useState } from 'preact/hooks'
 import { BlurryImageLoad } from './lib/blurryLoad'
 import { ArtworkBackground } from './components/ArtworkBackground'
-import { screenHeight, screenWidth, scrollTop } from './lib/signals'
+import { appElement, screenHeight, screenWidth, scrollTop } from './lib/signals'
 import { Grain } from './components/Grain'
 
 export function App() {
@@ -15,8 +15,8 @@ export function App() {
     const blurryImageLoad = new BlurryImageLoad()
     blurryImageLoad.load()
 
-    window.onscroll = () => {
-      scrollTop.value = window.scrollY
+    appElement.value.onscroll = () => {
+      scrollTop.value = appElement.value.scrollTop
     }
 
     window.addEventListener('resize', () => {

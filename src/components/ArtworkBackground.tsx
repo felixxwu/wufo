@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
-import { screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
+import { appElement, screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
 import { styled } from '../lib/styled'
 
 const MAX_OPACITY = 0.2
@@ -11,7 +11,7 @@ export function ArtworkBackground() {
   const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
   const [opacity, setOpacity] = useState(MAX_OPACITY)
   const [imageLoaded, setImageLoaded] = useState(true)
-  const realContentHeight = window.document.body.scrollHeight
+  const realContentHeight = appElement.value.scrollHeight
   const minContentHeight = screenWidth.value * 2
   const contentHeight = Math.max(minContentHeight, realContentHeight)
   const smallContentOffset = Math.max(0, minContentHeight - realContentHeight) / 2
@@ -41,8 +41,8 @@ export function ArtworkBackground() {
   }, [songPlaying.value])
 
   const imageOpacity = imageLoaded ? opacity : 0
-  const minTranslate = `${MIN_SCROLL_AMOUNT / 2}vh - (${scrollPercentage * MIN_SCROLL_AMOUNT}vh))`
-  const translateY = `calc(min(0px, ${scrollPercentage} * (100vh - 100vw)) + ${minTranslate}`
+  const minTranslate = `${MIN_SCROLL_AMOUNT / 2}vh - (${scrollPercentage * MIN_SCROLL_AMOUNT}vh)`
+  const translateY = `calc(min(0px, ${scrollPercentage} * (100vh - 100vw)) + ${minTranslate})`
   const XYDiff = `(${100 + MIN_SCROLL_AMOUNT}vw - ${100 + MIN_SCROLL_AMOUNT}vh)`
   const translateX = `calc(min(0px, 0.5 * ${XYDiff}))`
 
@@ -72,6 +72,7 @@ const Container = styled('div', {
   position: 'fixed',
   top: `-${MIN_SCROLL_AMOUNT / 2}vh`,
   left: `-${MIN_SCROLL_AMOUNT / 2}vw`,
+  pointerEvents: 'none',
 
   opacity: '0',
   animationName: 'fade-in',
