@@ -120,12 +120,10 @@ export function PlayerControls({
 
   const release = useMemo(() => findReleaseFromSong(songPlaying.value), [songPlaying.value])
 
-  if (!showControls.value) return null
-
   const colorValue = `rgba(${color.map(c => c / DARKEN).join(', ')}, 0.75)`
 
   return (
-    <Container>
+    <Container style={{ transform: `translate(0, ${showControls.value ? '0' : '100'}%)` }}>
       <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
         <TitleAndLinks>
           <Title>{loadedProgress.value === 0 ? 'Loading...' : songPlaying.value.title}</Title>
@@ -199,6 +197,7 @@ const Container = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   position: 'fixed',
+  transition: '500ms',
 })
 
 const Card = styled('div', {
@@ -216,6 +215,7 @@ const Card = styled('div', {
   boxShadow: BOX_SHADOW,
   touchAction: 'none',
   backdropFilter: 'blur(15px)',
+  transition: '500ms',
 })
 
 const TitleAndLinks = styled('div', {
