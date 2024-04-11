@@ -2,10 +2,11 @@ import { useEffect, useState } from 'preact/hooks'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { appElement, screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
 import { styled } from '../lib/styled'
+import { Grain } from './Grain'
+import { MIN_SCROLL_AMOUNT } from '../lib/consts'
 
 const MAX_OPACITY = 0.2
 const ANIMATION_DURATION = 1500
-const MIN_SCROLL_AMOUNT = 20
 
 export function ArtworkBackground() {
   const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
@@ -50,12 +51,17 @@ export function ArtworkBackground() {
     <Container>
       <Image
         src={displayedRelease?.background}
+        alt={songPlaying.value?.title || 'WUFO'}
         style={{
           translate: `${translateX} ${translateY}`,
           opacity: imageOpacity,
           filter: `blur(${imageOpacity === 0 ? 20 : 0}px)`,
         }}
-        alt={songPlaying.value?.title || 'WUFO'}
+      />
+      <Grain
+        styles={{
+          translate: `${translateX} ${translateY}`,
+        }}
       />
       <ImagePreload
         id='artwork-background'
@@ -67,9 +73,9 @@ export function ArtworkBackground() {
 }
 
 const Container = styled('div', {
+  position: 'fixed',
   width: `${100 + MIN_SCROLL_AMOUNT}vw`,
   height: `${100 + MIN_SCROLL_AMOUNT}vh`,
-  position: 'fixed',
   top: `-${MIN_SCROLL_AMOUNT / 2}vh`,
   left: `-${MIN_SCROLL_AMOUNT / 2}vw`,
   pointerEvents: 'none',
@@ -81,6 +87,7 @@ const Container = styled('div', {
 })
 
 const Image = styled('img', {
+  position: 'absolute',
   width: '100%',
   height: '100%',
   minWidth: `${100 + MIN_SCROLL_AMOUNT}vh`,

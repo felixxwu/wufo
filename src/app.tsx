@@ -5,7 +5,6 @@ import { useEffect, useState } from 'preact/hooks'
 import { BlurryImageLoad } from './lib/blurryLoad'
 import { ArtworkBackground } from './components/ArtworkBackground'
 import { appElement, screenHeight, screenWidth, scrollTop } from './lib/signals'
-import { Grain } from './components/Grain'
 
 export function App() {
   const [showBackground, setShowBackground] = useState(false)
@@ -28,7 +27,6 @@ export function App() {
   return (
     <Container>
       {showBackground && <ArtworkBackground />}
-      <Grain />
       <UI />
     </Container>
   )
