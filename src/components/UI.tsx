@@ -41,7 +41,7 @@ export function UI() {
 
   return (
     <Container>
-      <Header />
+      <Header startPlaying={play} />
 
       <ReleaseTopBar />
 

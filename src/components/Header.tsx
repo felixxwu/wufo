@@ -1,11 +1,18 @@
 import styled from 'styled-components'
-import { Down } from '../icons/down'
 import { FadeInDelay } from '../lib/FadeInDelay'
 import { FontWeightAnimation } from '../lib/FontWeightAnimation'
-import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
+import {
+  BORDER_RADIUS_LARGE,
+  BOX_SHADOW,
+  HIGHLIGHT,
+  QUICK_TRANSITION,
+  TEXT_COLOR,
+} from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { Link } from './Link'
+import { Music } from '../icons/music'
+import { showControls } from '../lib/signals'
 
 const AVATAR_SIZE = 50
 const TIMING_CONFIG = {
@@ -21,7 +28,7 @@ const TIMING_CONFIG = {
   downArrow: 2000,
 }
 
-export function Header() {
+export function Header({ startPlaying }: { startPlaying: () => void }) {
   if (singleSongMode()) return null
 
   return (
@@ -53,7 +60,10 @@ export function Header() {
         </BottomRow>
       </FadeInDelay>
       <FadeInDelay delay={TIMING_CONFIG.downArrow}>
-        <Down color={TEXT_COLOR} style={{ width: '14px' }} />
+        <StartListening onClick={startPlaying} style={{ opacity: showControls.value ? 0 : 1 }}>
+          <Music color={TEXT_COLOR} style={{ width: '35px', height: '35px' }} />
+          Start Listening
+        </StartListening>
       </FadeInDelay>
     </Container>
   )
@@ -105,4 +115,23 @@ const BottomRow = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+`
+
+const StartListening = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: ${BORDER_RADIUS_LARGE}px;
+  font-size: 14px;
+  color: ${TEXT_COLOR};
+  cursor: pointer;
+  transition: ${QUICK_TRANSITION};
+
+  &:hover {
+    background-color: ${HIGHLIGHT};
+  }
 `
