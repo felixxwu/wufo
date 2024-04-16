@@ -1,11 +1,11 @@
 import './styles.css'
 import './keyframes.css'
 import './fonts.css'
-import { styled } from './lib/styled'
 import { UI } from './components/UI'
 import { useEffect, useState } from 'preact/hooks'
 import { ArtworkBackground } from './components/ArtworkBackground'
 import { appElement, screenHeight, screenWidth, scrollTop } from './lib/signals'
+import styled from 'styled-components'
 
 export function App() {
   const [showBackground, setShowBackground] = useState(false)
@@ -30,9 +30,9 @@ export function App() {
   )
 }
 
-const Container = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  minHeight: '100vh',
-})
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+`

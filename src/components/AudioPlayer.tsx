@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { styled } from '../lib/styled'
 import {
   autoPlay,
   playing,
@@ -8,6 +7,7 @@ import {
   songLength,
   songPlaying,
 } from '../lib/signals'
+import styled from 'styled-components'
 
 export function AudioPlayer({
   onPlayChange,
@@ -69,8 +69,8 @@ export function AudioPlayer({
   )
 }
 
-const Container = styled('div', {
-  pointerEvents: 'none',
-  opacity: 0,
-  display: 'none',
-})
+const Container = styled.div`
+  pointer-events: none;
+  opacity: 0;
+  display: none;
+`

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { sleep } from '../lib/sleep'
-import { styled } from '../lib/styled'
+import styled from 'styled-components'
 
 export function Player({
   songLink,
@@ -85,8 +85,8 @@ export function Player({
   )
 }
 
-const Container = styled('div', {
-  pointerEvents: 'none',
-  opacity: 0,
-  display: 'none',
-})
+const Container = styled.div`
+  pointer-events: none;
+  opacity: 0;
+  display: none;
+`

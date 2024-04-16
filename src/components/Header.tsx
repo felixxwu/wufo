@@ -1,10 +1,10 @@
+import styled from 'styled-components'
 import { Down } from '../icons/down'
 import { FadeInDelay } from '../lib/FadeInDelay'
 import { FontWeightAnimation } from '../lib/FontWeightAnimation'
 import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
-import { styled } from '../lib/styled'
 import { Link } from './Link'
 
 const AVATAR_SIZE = 50
@@ -43,7 +43,12 @@ export function Header() {
       <FadeInDelay delay={TIMING_CONFIG.bottomRow}>
         <BottomRow>
           {content.socials.map(social => (
-            <Link name={social.label} Icon={social.Icon} href={social.link} />
+            <Link
+              name={social.label}
+              Icon={social.Icon}
+              href={social.link}
+              ariaLabel={social.label}
+            />
           ))}
         </BottomRow>
       </FadeInDelay>
@@ -54,51 +59,50 @@ export function Header() {
   )
 }
 
-const Container = styled('div', {
-  display: 'flex',
-  gap: '10px',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: TEXT_COLOR,
-  maxWidth: '500px',
-  margin: 'auto',
-  height: '100vh',
+const Container = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: ${TEXT_COLOR};
+  max-width: 500px;
+  margin: auto;
+  height: 100vh;
+  opacity: 0;
+  animation-name: fade-in;
+  animation-delay: 0.2s;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+`
 
-  opacity: '0',
-  animationName: 'fade-in',
-  animationDelay: `0.2s`,
-  animationDuration: '2s',
-  animationFillMode: 'forwards',
-})
+const TopRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`
 
-const TopRow = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '10px',
-})
+const Avatar = styled.img`
+  width: ${AVATAR_SIZE}px;
+  height: ${AVATAR_SIZE}px;
+  border-radius: ${AVATAR_SIZE}px;
+  box-shadow: ${BOX_SHADOW};
+`
 
-const Avatar = styled('img', {
-  width: `${AVATAR_SIZE}px`,
-  height: `${AVATAR_SIZE}px`,
-  borderRadius: `${AVATAR_SIZE}px`,
-  boxShadow: BOX_SHADOW,
-})
+const NameRow = styled.div`
+  display: flex;
+  gap: 40px;
+`
 
-const NameRow = styled('div', {
-  display: 'flex',
-  gap: '40px',
-})
+const Name = styled.div`
+  font-size: 30px;
+  text-align: center;
+`
 
-const Name = styled('div', {
-  fontSize: '30px',
-  textAlign: 'center',
-})
-
-const BottomRow = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexWrap: 'wrap',
-})
+const BottomRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+`

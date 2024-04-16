@@ -1,5 +1,5 @@
+import styled from 'styled-components'
 import { TEXT_COLOR } from '../lib/consts'
-import { styled } from '../lib/styled'
 
 export const NUM_LOGOS = 20
 export const LOGO_ANIMATION_INTERVAL = 0.1
@@ -15,22 +15,22 @@ export function Logos() {
   )
 }
 
-const Container = styled('div', {
-  opacity: '0.5',
-  position: 'absolute',
-  height: '0',
-  overflow: 'visible',
-})
+const Container = styled.div`
+  opacity: 0.5;
+  position: absolute;
+  height: 0;
+  overflow: visible;
+`
 
-const Logo = styled('div', {
-  fontSize: '150px',
-  margin: '-0.75ch 0 0 -50px',
-  color: TEXT_COLOR,
-  fontWeight: 'bold',
-  letterSpacing: '-0.2ch',
-  fontStyle: 'italic',
-  opacity: '0',
-  animationName: 'pop-in-out',
-  animationDuration: `${LOGO_ANIMATION_DURATION}s`,
-  animationFillMode: 'forwards',
-})
+const Logo = styled.div`
+  font-size: 150px;
+  margin: -0.75ch 0 0 -50px;
+  color: ${TEXT_COLOR};
+  font-weight: bold;
+  letter-spacing: -0.2ch;
+  font-style: italic;
+  opacity: 0;
+  animation-name: pop-in-out;
+  animation-duration: ${LOGO_ANIMATION_DURATION}s;
+  animation-fill-mode: forwards;
+`

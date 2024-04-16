@@ -6,7 +6,6 @@ import {
   QUICK_TRANSITION,
   TEXT_COLOR,
 } from '../lib/consts'
-import { styled } from '../lib/styled'
 import { IRelease, ISong } from '../lib/types'
 import { PlayPause } from './PlayPause'
 import { Song } from './Song'
@@ -15,9 +14,9 @@ import { Spotify } from '../icons/spotify'
 import { Apple } from '../icons/apple'
 import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
-import { css } from '@emotion/css'
 import { Share } from '../icons/share'
 import { singleSongMode } from '../lib/singleSongMode'
+import styled from 'styled-components'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
@@ -74,11 +73,31 @@ export function Release({
           </Title>
         </TitleAndPlayButton>
         <Links>
-          <Link name='Spotify' Icon={Spotify} href={release.spotify} newWindow />
-          <Link name='SoundCloud' Icon={SoundCloud} href={release.soundcloud} newWindow />
-          <Link name='YouTube' Icon={YouTube} href={release.youtube} newWindow />
-          <Link name='Apple' Icon={Apple} href={release.apple} newWindow />
-          {!singleSongMode() && <Link name='Share' Icon={Share} href={`/${release.slug}`} />}
+          <Link
+            name='Spotify'
+            Icon={Spotify}
+            href={release.spotify}
+            newWindow
+            ariaLabel='Spotify'
+          />
+          <Link
+            name='SoundCloud'
+            Icon={SoundCloud}
+            href={release.soundcloud}
+            newWindow
+            ariaLabel='SoundCloud'
+          />
+          <Link
+            name='YouTube'
+            Icon={YouTube}
+            href={release.youtube}
+            newWindow
+            ariaLabel='YouTube'
+          />
+          <Link name='Apple' Icon={Apple} href={release.apple} newWindow ariaLabel='Apple' />
+          {!singleSongMode() && (
+            <Link name='Share' Icon={Share} href={`/${release.slug}`} ariaLabel='Share' />
+          )}
         </Links>
       </TitleAndLinks>
       <Divider />
@@ -99,111 +118,96 @@ export function Release({
   )
 }
 
-const Container = styled(
-  'div',
-  {
-    display: 'grid',
-    gap: '20px',
-    color: TEXT_COLOR,
-    margin: '0 20px',
+const Container = styled.div`
+  display: grid;
+  gap: 20px;
+  color: ${TEXT_COLOR};
+  margin: 0 20px;
 
-    opacity: '0',
-    animationName: 'fade-in',
-    animationDuration: '2s',
-    animationFillMode: 'forwards',
-  },
-  css`
-    grid-template-columns: ${IMAGE_SIZE}px 1fr;
-    grid-template-areas: 'image title' 'divider divider' 'songs songs';
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
 
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-      grid-template-areas: 'image' 'title' 'divider' 'songs';
-    }
-  `
-)
+  grid-template-columns: ${IMAGE_SIZE}px 1fr;
+  grid-template-areas: 'image title' 'divider divider' 'songs songs';
 
-const ImageContainer = styled('div', {
-  gridArea: 'image',
-  borderRadius: `${BORDER_RADIUS}px`,
-  width: `${IMAGE_SIZE}px`,
-})
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'image' 'title' 'divider' 'songs';
+  }
+`
 
-const Image = styled(
-  'img',
-  {
-    width: `${IMAGE_SIZE}px`,
-    maxWidth: '100%',
-    aspectRatio: '1/1',
-    objectFit: 'cover',
-    borderRadius: `${BORDER_RADIUS}px`,
-    cursor: 'pointer',
-    transition: `box-shadow ${QUICK_TRANSITION}`,
-    display: 'block',
-  },
-  css`
-    box-shadow: ${BOX_SHADOW};
-    &:hover {
-      box-shadow: ${BOX_SHADOW_LARGE};
-    }
-  `
-)
+const ImageContainer = styled.div`
+  grid-area: image;
+  border-radius: ${BORDER_RADIUS}px;
+  width: ${IMAGE_SIZE}px;
+`
 
-const TitleAndLinks = styled('div', {
-  gridArea: 'title',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-})
+const Image = styled.img`
+  width: ${IMAGE_SIZE}px;
+  max-width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: ${BORDER_RADIUS}px;
+  cursor: pointer;
+  transition: box-shadow ${QUICK_TRANSITION};
+  display: block;
 
-const TitleAndPlayButton = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-  cursor: 'pointer',
-})
+  box-shadow: ${BOX_SHADOW};
 
-const Title = styled(
-  'a',
-  {
-    fontSize: '30px',
-    letterSpacing: '-1px',
-    fontWeight: '500',
-    color: TEXT_COLOR,
-  },
-  css`
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  `
-)
+  &:hover {
+    box-shadow: ${BOX_SHADOW_LARGE};
+  }
+`
 
-const Links = styled(
-  'div',
-  {
-    display: 'flex',
-    flexWrap: 'wrap',
-    opacity: '0.9',
-  },
-  css`
-    & > * {
-      margin-left: -10px;
-      margin-right: 10px;
-    }
-  `
-)
+const TitleAndLinks = styled.div`
+  grid-area: title;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
 
-const Divider = styled('div', {
-  gridArea: 'divider',
-  width: '100%',
-  height: '1px',
-  backgroundColor: TEXT_COLOR,
-  opacity: '0.8',
-})
+const TitleAndPlayButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+`
 
-const Songs = styled('div', {
-  gridArea: 'songs',
-  display: 'flex',
-  flexDirection: 'column',
-})
+const Title = styled.a`
+  font-size: 30px;
+  letter-spacing: -1px;
+  font-weight: 500;
+  color: ${TEXT_COLOR};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+const Links = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  opacity: 0.9;
+
+  & > * {
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+`
+
+const Divider = styled.div`
+  grid-area: divider;
+  width: 100%;
+  height: 1px;
+  background-color: ${TEXT_COLOR};
+  opacity: 0.8;
+`
+
+const Songs = styled.div`
+  grid-area: songs;
+  display: flex;
+  flex-direction: column;
+`

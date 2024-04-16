@@ -1,5 +1,5 @@
 import { useEffect } from 'preact/hooks'
-import { styled } from '../lib/styled'
+import styled from 'styled-components'
 
 const ANIMATION_START_DELAY = 1000
 const ANIMATION_DURATION = 5000
@@ -57,33 +57,33 @@ function getRandomDelay() {
   return `${ANIMATION_START_DELAY + Math.pow(Math.random(), 5) * ANIMATION_DURATION}ms`
 }
 
-const Container = styled('div', {
-  position: 'fixed',
-  top: '0',
-  left: '0',
-  height: '100svh',
-  width: '100vw',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  pointerEvents: 'none',
-  flexDirection: 'column',
-  transform: `rotate(${ROTATION}deg)`,
-})
+const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  flex-direction: column;
+  transform: rotate(${ROTATION}deg);
+`
 
-const Row = styled('div', {
-  color: 'white',
-  opacity: '0.1',
-  fontSize: `${FONT_SIZE}px`,
-  letterSpacing: `${LETTER_SPACING}px`,
-  transform: 'scaleY(0.9)',
-})
+const Row = styled.div`
+  color: white;
+  opacity: 0.1;
+  font-size: ${FONT_SIZE}px;
+  letter-spacing: ${LETTER_SPACING}px;
+  transform: scaleY(0.9);
+`
 
-const Letter = styled('span', {
-  animation: `pop-out ${ANIMATION_START_DELAY}ms forwards`,
-})
+const Letter = styled.span`
+  animation: pop-out ${ANIMATION_START_DELAY}ms forwards;
+`
 
-const LetterWrapper = styled('span', {
-  opacity: '0',
-  animation: 'fade-in 500ms ease-in forwards',
-})
+const LetterWrapper = styled.span`
+  opacity: 0;
+  animation: fade-in 500ms ease-in forwards;
+`

@@ -1,10 +1,9 @@
-import { css } from '@emotion/css'
 import { Play } from '../icons/play'
 import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { pointerHelper } from '../lib/pointerHelper'
-import { styled } from '../lib/styled'
 import { ISong } from '../lib/types'
 import { Pause } from '../icons/pause'
+import styled from 'styled-components'
 
 const PLAY_ICON_SIZE = 13
 
@@ -28,7 +27,7 @@ export function Song({
   return (
     <Container
       {...pointerHelper(pointerenter, pointerleave)}
-      onclick={onclick}
+      onClick={onclick}
       style={{ backgroundColor: playing ? HIGHLIGHT : null }}
     >
       <NumberOrPlay>
@@ -48,37 +47,33 @@ export function Song({
   )
 }
 
-const Container = styled(
-  'div',
-  {
-    height: '50px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '20px',
-    padding: '0 20px',
-    borderRadius: `${BORDER_RADIUS}px`,
-    cursor: 'pointer',
-    transition: QUICK_TRANSITION,
-  },
-  css`
-    &:hover {
-      background-color: ${HIGHLIGHT};
-    }
-  `
-)
+const Container = styled.div`
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  border-radius: ${BORDER_RADIUS}px;
+  cursor: pointer;
+  transition: ${QUICK_TRANSITION};
 
-const NumberOrPlay = styled('div', {
-  width: '20px',
-  height: '20px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
+  &:hover {
+    background-color: ${HIGHLIGHT};
+  }
+`
 
-const SongLength = styled('div', {
-  marginLeft: 'auto',
-})
+const NumberOrPlay = styled.div`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
-const SongTitle = styled('div', {
-  transition: '1s',
-})
+const SongLength = styled.div`
+  margin-left: auto;
+`
+
+const SongTitle = styled.div`
+  transition: 1s;
+`

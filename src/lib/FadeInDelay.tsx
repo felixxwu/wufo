@@ -1,5 +1,5 @@
 import { JSX } from 'preact/jsx-runtime'
-import { styled } from './styled'
+import styled from 'styled-components'
 
 export function FadeInDelay(props: { children: JSX.Element; delay: number; duration?: number }) {
   return (
@@ -14,8 +14,8 @@ export function FadeInDelay(props: { children: JSX.Element; delay: number; durat
   )
 }
 
-const Container = styled('div', {
-  opacity: '0',
-  animationName: 'fade-in',
-  animationFillMode: 'forwards',
-})
+const Container = styled.div`
+  opacity: 0;
+  animation-name: fade-in;
+  animation-fill-mode: forwards;
+`

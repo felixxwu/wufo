@@ -1,9 +1,8 @@
 import { useState } from 'preact/hooks'
 import { BORDER_RADIUS_LARGE, BOX_SHADOW, HIGHLIGHT, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
-import { styled } from '../lib/styled'
 import { sleep } from '../lib/sleep'
-import { css } from '@emotion/css'
+import styled from 'styled-components'
 
 const COLLAPSED_SIZE = 60
 const OPEN_WIDTH = 200
@@ -59,59 +58,54 @@ export function Profile() {
   )
 }
 
-const Container = styled('div', {
-  position: 'fixed',
-  top: '20px',
-  right: '20px',
-  backgroundColor: '#333',
-  boxShadow: BOX_SHADOW,
-  overflow: 'hidden',
-  transition: `${MENU_TRANSITION}ms`,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
+const Container = styled.div`
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  box-shadow: ${BOX_SHADOW};
+  overflow: hidden;
+  transition: ${MENU_TRANSITION}ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
-const Backdrop = styled('div', {
-  position: 'fixed',
-  top: '0',
-  left: '0',
-  width: '100vw',
-  height: '100vh',
-  zIndex: '-1',
-  transition: `${MENU_TRANSITION}ms`,
-  pointerEvents: 'none',
-  opacity: '0',
-})
+const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  transition: ${MENU_TRANSITION}ms;
+  pointer-events: none;
+  opacity: 0;
+`
 
-const Avatar = styled('img', {
-  width: `${COLLAPSED_SIZE}px`,
-  height: `${COLLAPSED_SIZE}px`,
-  cursor: 'pointer',
-  transition: `${AVATAR_TRANSITION}ms`,
-})
+const Avatar = styled.img`
+  width: ${COLLAPSED_SIZE}px;
+  height: ${COLLAPSED_SIZE}px;
+  cursor: pointer;
+  transition: ${AVATAR_TRANSITION}ms;
+`
 
-const Links = styled('div', {
-  position: 'absolute',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  width: '100%',
-})
+const Links = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+`
 
-const Link = styled(
-  'a',
-  {
-    display: 'flex',
-    gap: '10px',
-    color: TEXT_COLOR,
-    padding: '15px 20px',
-    cursor: 'pointer',
-    textDecoration: 'none',
-  },
-  css`
-    &:hover {
-      background-color: ${HIGHLIGHT};
-    }
-  `
-)
+const Link = styled.a`
+  display: flex;
+  gap: 10px;
+  color: ${TEXT_COLOR};
+  padding: 15px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    background-color: ${HIGHLIGHT};
+  }
+`

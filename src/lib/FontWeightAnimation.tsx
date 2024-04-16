@@ -1,5 +1,5 @@
 import { JSX } from 'preact/jsx-runtime'
-import { styled } from './styled'
+import styled from 'styled-components'
 
 export function FontWeightAnimation(props: {
   children: JSX.Element
@@ -18,8 +18,8 @@ export function FontWeightAnimation(props: {
   )
 }
 
-const Container = styled('div', {
-  fontWeight: '100',
-  animationName: 'weight-increase',
-  animationFillMode: 'forwards',
-})
+const Container = styled.div`
+  font-weight: 100;
+  animation-name: weight-increase;
+  animation-fill-mode: forwards;
+`

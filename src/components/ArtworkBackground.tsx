@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'preact/hooks'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { appElement, screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
-import { styled } from '../lib/styled'
 import { Grain } from './Grain'
 import { MIN_SCROLL_AMOUNT } from '../lib/consts'
+import styled from 'styled-components'
 
 const MAX_OPACITY = 0.2
 const ANIMATION_DURATION = 1500
@@ -72,30 +72,29 @@ export function ArtworkBackground() {
   )
 }
 
-const Container = styled('div', {
-  position: 'fixed',
-  width: `${100 + MIN_SCROLL_AMOUNT}vw`,
-  height: `${100 + MIN_SCROLL_AMOUNT}vh`,
-  top: `-${MIN_SCROLL_AMOUNT / 2}vh`,
-  left: `-${MIN_SCROLL_AMOUNT / 2}vw`,
-  pointerEvents: 'none',
+const Container = styled.div`
+  position: fixed;
+  width: ${100 + MIN_SCROLL_AMOUNT}vw;
+  height: ${100 + MIN_SCROLL_AMOUNT}vh;
+  top: -${MIN_SCROLL_AMOUNT / 2}vh;
+  left: -${MIN_SCROLL_AMOUNT / 2}vw;
+  pointer-events: none;
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+`
 
-  opacity: '0',
-  animationName: 'fade-in',
-  animationDuration: '5s',
-  animationFillMode: 'forwards',
-})
+const Image = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  min-width: ${100 + MIN_SCROLL_AMOUNT}vh;
+  min-height: ${100 + MIN_SCROLL_AMOUNT}vw;
+  transition: opacity ${ANIMATION_DURATION}ms, filter ${ANIMATION_DURATION}ms;
+`
 
-const Image = styled('img', {
-  position: 'absolute',
-  width: '100%',
-  height: '100%',
-  minWidth: `${100 + MIN_SCROLL_AMOUNT}vh`,
-  minHeight: `${100 + MIN_SCROLL_AMOUNT}vw`,
-  transition: `opacity ${ANIMATION_DURATION}ms, filter ${ANIMATION_DURATION}ms`,
-})
-
-const ImagePreload = styled('img', {
-  display: 'none',
-  position: 'absolute',
-})
+const ImagePreload = styled.img`
+  display: none;
+  position: absolute;
+`

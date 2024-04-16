@@ -1,8 +1,7 @@
 import { VNode } from 'preact'
 import { IconProps } from '../lib/types'
-import { styled } from '../lib/styled'
 import { BORDER_RADIUS, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
-import { css } from '@emotion/css'
+import styled from 'styled-components'
 
 const ICON_SIZE = 14
 
@@ -12,43 +11,47 @@ export function Link({
   href,
   onclick,
   newWindow,
+  ariaLabel,
 }: {
   name?: string
   Icon: (props: IconProps) => VNode
   href?: string
   onclick?: () => void
   newWindow?: boolean
+  ariaLabel: string
 }) {
   if (!href && !onclick) return null
 
   return (
-    <Container href={href} {...(newWindow ? { target: '_blank' } : {})} onclick={onclick}>
+    <Container
+      href={href}
+      {...(newWindow ? { target: '_blank' } : {})}
+      onClick={onclick}
+      {...(href ? {} : { role: 'button' })}
+      aria-label={ariaLabel}
+    >
       <Icon color={TEXT_COLOR} style={{ width: ICON_SIZE, height: ICON_SIZE }} />
       {name && <Name>{name}</Name>}
     </Container>
   )
 }
 
-const Container = styled(
-  'a',
-  {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '5px 10px',
-    borderRadius: `${BORDER_RADIUS}px`,
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: TEXT_COLOR,
-    transition: QUICK_TRANSITION,
-  },
-  css`
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.2);
-    }
-  `
-)
+const Container = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: ${BORDER_RADIUS}px;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${TEXT_COLOR};
+  transition: ${QUICK_TRANSITION};
 
-const Name = styled('div', {
-  fontSize: `${ICON_SIZE}px`,
-})
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+`
+
+const Name = styled.div`
+  font-size: ${ICON_SIZE}px;
+`

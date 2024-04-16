@@ -1,5 +1,4 @@
 import { content } from '../lib/content'
-import { styled } from '../lib/styled'
 import { Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
 import { PlayerControls } from './PlayerControls'
@@ -10,6 +9,7 @@ import { CopyRightFooter } from './Copyright'
 import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
 import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
+import styled from 'styled-components'
 
 export function UI() {
   useEffect(() => {
@@ -74,10 +74,10 @@ export function UI() {
   )
 }
 
-const Container = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: singleSongMode() ? '30px' : '80px',
-  width: '100vw',
-  maxWidth: '600px',
-})
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${singleSongMode() ? '30px' : '80px'};
+  width: 100vw;
+  max-width: 600px;
+`

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
-import { styled } from '../lib/styled'
 import { IRelease } from '../lib/types'
 import { BORDER_RADIUS_LARGE, BOX_SHADOW } from '../lib/consts'
+import styled from 'styled-components'
 
 export function CoverPreview({
   release,
@@ -42,7 +42,7 @@ export function CoverPreview({
         ...(release ? { opacity: 1, filter: 'blur(0px)' } : {}),
         backgroundColor: `rgb(${release?.color.join(', ')})`,
       }}
-      onclick={handleClick}
+      onClick={handleClick}
     >
       <Cover src={oldCover.cover} />
     </Container>
@@ -51,26 +51,26 @@ export function CoverPreview({
 
 const TRANSITION = 500
 
-const Container = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100vw',
-  height: '100vh',
-  position: 'fixed',
-  top: '0',
-  left: '0',
-  opacity: 0,
-  filter: 'blur(50px)',
-  cursor: 'pointer',
-  transition: `${TRANSITION}ms`,
-})
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: blur(50px);
+  cursor: pointer;
+  transition: ${TRANSITION}ms;
+`
 
-const Cover = styled('img', {
-  width: '90vw',
-  maxWidth: '90vh',
-  height: '90vh',
-  maxHeight: '90vw',
-  borderRadius: BORDER_RADIUS_LARGE,
-  boxShadow: BOX_SHADOW,
-})
+const Cover = styled.img`
+  width: 90vw;
+  max-width: 90vh;
+  height: 90vh;
+  max-height: 90vw;
+  border-radius: ${BORDER_RADIUS_LARGE}px;
+  box-shadow: ${BOX_SHADOW};
+`

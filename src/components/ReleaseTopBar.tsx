@@ -1,12 +1,12 @@
 import { useState } from 'preact/hooks'
 import { Back } from '../icons/back'
 import { content } from '../lib/content'
-import { styled } from '../lib/styled'
 import { Button } from './Button'
 import { Tick } from '../icons/tick'
 import { Copy } from '../icons/copy'
 import { sleep } from '../lib/sleep'
 import { singleSongMode } from '../lib/singleSongMode'
+import styled from 'styled-components'
 
 export function ReleaseTopBar() {
   const [shared, setShared] = useState(false)
@@ -32,14 +32,14 @@ export function ReleaseTopBar() {
   )
 }
 
-const Buttons = styled('div', {
-  display: 'flex',
-  width: '100%',
-  justifyContent: 'space-between',
-  paddingTop: '80px',
+const Buttons = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 80px;
 
-  opacity: '0',
-  animationName: 'fade-in',
-  animationDuration: '2s',
-  animationFillMode: 'forwards',
-})
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+`

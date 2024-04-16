@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/css": "^11.11.2",
     "@preact/signals": "^1.2.2",
-    "preact": "^10.16.0"
+    "preact": "^10.16.0",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.1",

@@ -1,9 +1,7 @@
 import { Prev } from '../icons/prev'
 import { Next } from '../icons/next'
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
-import { styled } from '../lib/styled'
-import { css } from '@emotion/css'
 import { Color } from '../lib/types'
 import { DARKEN } from './Grain'
 import { Spotify } from '../icons/spotify'
@@ -23,9 +21,14 @@ import {
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { PlayPause } from './PlayPause'
 import { Close } from '../icons/close'
+import styled from 'styled-components'
 
 const START_OF_SONG_THRESHOLD = 0.05
 const PLAY_PAUSE_SIZE = 40
+const CONTROLS_ID = 'player-controls'
+const BUTTONS_ID = 'player-buttons'
+const LINKS_ID = 'player-links'
+const SLIDER_ID = 'player-slider'
 
 export function PlayerControls({
   color,
@@ -44,9 +47,6 @@ export function PlayerControls({
   nextSongPlayable: boolean
   prevSongPlayable: boolean
 }) {
-  const slider = useRef<{ base: HTMLDivElement }>(null)
-  const controls = useRef<{ base: HTMLDivElement }>(null)
-  const buttons = useRef<{ base: HTMLDivElement }>(null)
   const [isDragging, setIsDragging] = useState(false)
 
   const progressIsNearStart = realPlaybackProgress.value < START_OF_SONG_THRESHOLD
@@ -54,9 +54,9 @@ export function PlayerControls({
 
   useEffect(() => {
     function handlePointerDown(e: PointerEvent) {
-      if (controls.current && !e.composedPath().includes(controls.current.base)) return
-      if (buttons.current && e.composedPath().includes(buttons.current.base)) return
-      if (e.composedPath().includes(document.getElementById('player-links')!)) return
+      if (!e.composedPath().includes(document.getElementById(CONTROLS_ID)!)) return
+      if (e.composedPath().includes(document.getElementById(BUTTONS_ID)!)) return
+      if (e.composedPath().includes(document.getElementById(LINKS_ID)!)) return
 
       setIsDragging(true)
       handlePointerSeek(e)
@@ -87,8 +87,8 @@ export function PlayerControls({
   }, [isDragging])
 
   function handlePointerSeek(e: PointerEvent) {
-    if (!slider.current) return
-    const sliderRect = slider.current.base.getBoundingClientRect()
+    if (!document.getElementById(SLIDER_ID)) return
+    const sliderRect = document.getElementById(SLIDER_ID)!.getBoundingClientRect()
     const percent = (e.clientX - sliderRect.left) / sliderRect.width
     const clampedPercent = Math.max(0, Math.min(1, percent))
     progressOverride.value = clampedPercent
@@ -124,18 +124,18 @@ export function PlayerControls({
 
   return (
     <Container style={{ transform: `translate(0, ${showControls.value ? '0' : '100'}%)` }}>
-      <Card ref={controls} onClick={handleClick} style={{ backgroundColor: colorValue }}>
+      <Card id={CONTROLS_ID} onClick={handleClick} style={{ backgroundColor: colorValue }}>
         <TitleAndLinks>
           <Title>{loadedProgress.value === 0 ? 'Loading...' : songPlaying.value.title}</Title>
-          <Links id='player-links'>
-            <Link Icon={Spotify} href={release?.spotify} newWindow />
-            <Link Icon={SoundCloud} href={release?.soundcloud} newWindow />
-            <Link Icon={YouTube} href={release?.youtube} newWindow />
-            <Link Icon={Apple} href={release?.apple} newWindow />
-            <Link Icon={Close} onclick={handleClose} />
+          <Links id={LINKS_ID}>
+            <Link Icon={Spotify} href={release?.spotify} newWindow ariaLabel='Spotify' />
+            <Link Icon={SoundCloud} href={release?.soundcloud} newWindow ariaLabel='SoundCloud' />
+            <Link Icon={YouTube} href={release?.youtube} newWindow ariaLabel='YouTube' />
+            <Link Icon={Apple} href={release?.apple} newWindow ariaLabel='Apple' />
+            <Link Icon={Close} onclick={handleClose} ariaLabel='Close' />
           </Links>
         </TitleAndLinks>
-        <Slider ref={slider} onClick={() => {}}>
+        <Slider id={SLIDER_ID} onClick={() => {}}>
           <SliderLeftNumber>
             {convertSongLengthToString(songLength.value * realPlaybackProgress.value)}
           </SliderLeftNumber>
@@ -145,7 +145,7 @@ export function PlayerControls({
           <SliderBarProgress style={{ width: `${realPlaybackProgress.value * 100}%` }} />
           <SliderThumb style={{ left: `${realPlaybackProgress.value * 100}%` }} />
         </Slider>
-        <Buttons ref={buttons}>
+        <Buttons id={BUTTONS_ID}>
           <div
             onClick={handlePlayPrev}
             style={{
@@ -190,129 +190,125 @@ const thumbTopOffset = 6
 const barHeight = 3
 const smallIconSize = 15
 
-const Container = styled('div', {
-  width: '100%',
-  left: '0',
-  bottom: '0',
-  display: 'flex',
-  justifyContent: 'center',
-  position: 'fixed',
-  transition: '500ms',
-})
+const Container = styled.div`
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  transition: 500ms;
+`
 
-const Card = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '10px',
-  padding: '20px',
-  flexDirection: 'column',
-  marginBottom: `${margin}px`,
-  width: '400px',
-  maxWidth: `calc(100% - ${margin * 2}px)`,
-  backgroundColor: '#222',
-  borderRadius: '10px',
-  boxShadow: BOX_SHADOW,
-  touchAction: 'none',
-  backdropFilter: 'blur(15px)',
-  transition: '500ms',
-})
+const Card = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  flex-direction: column;
+  margin-bottom: ${margin}px;
+  width: 400px;
+  max-width: calc(100% - ${margin * 2}px);
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: ${BOX_SHADOW};
+  touch-action: none;
+  backdrop-filter: blur(15px);
+  transition: 500ms;
+`
 
-const TitleAndLinks = styled('div', {
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-})
+const TitleAndLinks = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`
 
-const Title = styled('div', {
-  color: TEXT_COLOR,
-  width: '100%',
-})
+const Title = styled.div`
+  color: ${TEXT_COLOR};
+  width: 100%;
+`
 
-const Links = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
+const Links = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
-const Slider = styled('div', {
-  pointerEvents: 'all',
-  position: 'relative',
-  width: '100%',
-  height: `${sliderHeight}px`,
-  cursor: 'pointer',
-})
+const Slider = styled.div`
+  pointer-events: all;
+  position: relative;
+  width: 100%;
+  height: ${sliderHeight}px;
+  cursor: pointer;
+`
 
-const SliderThumb = styled('div', {
-  position: 'absolute',
-  width: `${thumbSize}px`,
-  height: `${thumbSize}px`,
-  backgroundColor: TEXT_COLOR,
-  borderRadius: '50%',
-  marginLeft: `${-thumbSize / 2}px`,
-  marginTop: `${thumbTopOffset}px`,
-})
+const SliderThumb = styled.div`
+  position: absolute;
+  width: ${thumbSize}px;
+  height: ${thumbSize}px;
+  background-color: ${TEXT_COLOR};
+  border-radius: 50%;
+  margin-left: ${-thumbSize / 2}px;
+  margin-top: ${thumbTopOffset}px;
+`
 
-const SliderBarProgress = styled('div', {
-  marginTop: `${barPositionFromTop}px`,
-  position: 'absolute',
-  height: `${barHeight}px`,
-  backgroundColor: TEXT_COLOR,
-})
+const SliderBarProgress = styled.div`
+  margin-top: ${barPositionFromTop}px;
+  position: absolute;
+  height: ${barHeight}px;
+  background-color: ${TEXT_COLOR};
+`
 
-const SliderBarLoaded = styled('div', {
-  marginTop: `${barPositionFromTop}px`,
-  position: 'absolute',
-  height: `${barHeight}px`,
-  backgroundColor: 'rgba(255,255,255,0.4)',
-})
+const SliderBarLoaded = styled.div`
+  margin-top: ${barPositionFromTop}px;
+  position: absolute;
+  height: ${barHeight}px;
+  background-color: rgba(255, 255, 255, 0.4);
+`
 
-const SliderBarBG = styled('div', {
-  position: 'absolute',
-  width: '100%',
-  marginTop: `${barPositionFromTop}px`,
-  height: `${barHeight}px`,
-  backgroundColor: `rgba(255,255,255,0.2)`,
-})
+const SliderBarBG = styled.div`
+  position: absolute;
+  width: 100%;
+  margin-top: ${barPositionFromTop}px;
+  height: ${barHeight}px;
+  background-color: rgba(255, 255, 255, 0.2);
+`
 
-const SliderLeftNumber = styled('div', {
-  position: 'absolute',
-  color: TEXT_COLOR,
-  left: '0',
-  top: '30px',
-  opacity: 0.8,
-})
+const SliderLeftNumber = styled.div`
+  position: absolute;
+  color: ${TEXT_COLOR};
+  left: 0;
+  top: 30px;
+  opacity: 0.8;
+`
 
-const SliderRightNumber = styled('div', {
-  position: 'absolute',
-  color: TEXT_COLOR,
-  right: '0',
-  top: '30px',
-  opacity: 0.8,
-})
+const SliderRightNumber = styled.div`
+  position: absolute;
+  color: ${TEXT_COLOR};
+  right: 0;
+  top: 30px;
+  opacity: 0.8;
+`
 
-const Buttons = styled(
-  'div',
-  {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '20px',
-  },
-  css`
-    & > * {
-      cursor: pointer;
-    }
-  `
-)
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 
-const PlayPauseButton = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: `${PLAY_PAUSE_SIZE}px`,
-  height: `${PLAY_PAUSE_SIZE}px`,
-  minWidth: `${PLAY_PAUSE_SIZE}px`,
-  miHeight: `${PLAY_PAUSE_SIZE}px`,
-})
+  & > * {
+    cursor: pointer;
+  }
+`
+
+const PlayPauseButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: ${PLAY_PAUSE_SIZE}px;
+  height: ${PLAY_PAUSE_SIZE}px;
+  min-width: ${PLAY_PAUSE_SIZE}px;
+  min-height: ${PLAY_PAUSE_SIZE}px;
+`

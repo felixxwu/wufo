@@ -1,7 +1,7 @@
+import styled from 'styled-components'
 import { PauseRound } from '../icons/pauseRound'
 import { PlayRound } from '../icons/playRound'
 import { TEXT_COLOR } from '../lib/consts'
-import { styled } from '../lib/styled'
 
 export function PlayPause({ playing, size }: { playing: boolean; size: number }) {
   return (
@@ -15,8 +15,8 @@ export function PlayPause({ playing, size }: { playing: boolean; size: number })
   )
 }
 
-const Container = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-})
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
