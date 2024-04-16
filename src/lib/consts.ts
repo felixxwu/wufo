@@ -1,4 +1,4 @@
-export const BORDER_RADIUS = 4
+export const BORDER_RADIUS = 5
 export const BORDER_RADIUS_LARGE = 10
 export const TEXT_COLOR = '#eee'
 export const TEXT_COLOR_DARKER = '#555'

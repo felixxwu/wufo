@@ -50,6 +50,7 @@ export function Release({
           backgroundColor: `rgb(${release?.color.join(', ')})`,
           backgroundImage: `url("${release.coverTiny}")`,
           backgroundSize: 'cover',
+          ...(index === 0 ? { width: '100%' } : {}),
         }}
       >
         <Image
@@ -125,6 +126,7 @@ const Container = styled(
 const ImageContainer = styled('div', {
   gridArea: 'image',
   borderRadius: `${BORDER_RADIUS}px`,
+  width: `${IMAGE_SIZE}px`,
 })
 
 const Image = styled(
