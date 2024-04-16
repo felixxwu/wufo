@@ -42,7 +42,7 @@ export function Song({
           <div>{index + 1}.</div>
         )}
       </NumberOrPlay>
-      <div>{song.title}</div>
+      <SongTitle style={{ fontWeight: playing ? '600' : '400' }}>{song.title}</SongTitle>
       <SongLength>{song.length}</SongLength>
     </Container>
   )
@@ -77,4 +77,8 @@ const NumberOrPlay = styled('div', {
 
 const SongLength = styled('div', {
   marginLeft: 'auto',
+})
+
+const SongTitle = styled('div', {
+  transition: '1s',
 })

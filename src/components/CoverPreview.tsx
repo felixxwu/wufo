@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { styled } from '../lib/styled'
 import { IRelease } from '../lib/types'
 import { BORDER_RADIUS_LARGE, BOX_SHADOW } from '../lib/consts'
-import { BlurryImageLoad } from '../lib/blurryLoad'
 
 export function CoverPreview({
   release,
@@ -18,10 +17,6 @@ export function CoverPreview({
     if (release) {
       setOldCover(release)
       clearTimeout(timeout.current!)
-      setTimeout(() => {
-        const blurryImageLoad = new BlurryImageLoad()
-        blurryImageLoad.load()
-      })
     } else {
       timeout.current = setTimeout(() => {
         setOldCover(null)
@@ -49,7 +44,7 @@ export function CoverPreview({
       }}
       onclick={handleClick}
     >
-      <Cover className='blurry-load' data-large={oldCover.cover} src={oldCover.coverTiny} />
+      <Cover src={oldCover.cover} />
     </Container>
   )
 }

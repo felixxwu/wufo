@@ -8,114 +8,25 @@
   overflow-x: hidden;
 }
 
-@keyframes pop-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+
+#app {
+  height: 100svh;
+  overflow: auto;
 }
 
-@keyframes pop-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+body {
+  margin: 0;
+  background-color: black;
+  height: 100svh;
+  overflow: hidden;
 }
 
-@keyframes pop-in-out {
-  0% {
-    filter: blur(0px);
-    opacity: 1;
-  }
-  100% {
-    filter: blur(20px);
-    opacity: 0;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  0% {
-    filter: blur(0px);
-    opacity: 1;
-  }
-  100% {
-    filter: blur(20px);
-    opacity: 0;
-  }
-}
-
-/* BLURRY LOAD */
-
-.blurry-load {
-  filter: blur(8px);
-}
-
-@keyframes blurOut {
-  0% {
-    filter: blur(20px);
-  }
-
-  50% {
-    filter: blur(10px);
-  }
-
-  100% {
-    filter: blur(0px);
-  }
-}
-/* Create the blurOut animation
-   To be used for all images with the blur-image class */
-
-.blur-out {
-  animation: blurOut 0.5s ease-out;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -100vw 0;
-  }
-
-  100% {
-    background-position: 100vw 0;
-  }
-}
-/* Create the shimmer animation
-   This will create left to right shimmer effect
-   for the no-blur class below
-   Use -100vw to 100vw for the background position property
-   to ensure that this will work with different sized elements
-   (using -100% to 100% was resulting in a shimmer effect that didn't move left to right) */
-
-.no-blur {
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: shimmer;
-  animation-timing-function: linear;
-  background: #f6f7f8;
-  background: gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(8%, #eeeeee),
-    color-stop(18%, #dddddd),
-    color-stop(33%, #eeeeee)
-  );
-  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-}
-/* The no-blur class will be applied when the browser does not support CSS filters
-   Instead of showing a blurred image, a gray div with the shimmer animation is shown */
+/* latin */
+/* @font-face {
+  font-family: 'Lexend Deca';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/lexenddeca/v21/K2F1fZFYk-dHSE0UPPuwQ5qnJy_YZ2ON.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+} */

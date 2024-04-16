@@ -45,14 +45,20 @@ export function Release({
           : {}),
       }}
     >
-      <Image
-        style={index === 0 ? { width: '100%', margin: 'auto' } : {}}
-        className='blurry-load'
-        src={release.coverTiny}
-        data-large={index === 0 ? release.cover : release.coverSmall}
-        alt={release.title}
-        onclick={() => onSongClick(release.songs[0])}
-      />
+      <ImageContainer
+        style={{
+          backgroundColor: `rgb(${release?.color.join(', ')})`,
+          backgroundImage: `url("${release.coverTiny}")`,
+          backgroundSize: 'cover',
+        }}
+      >
+        <Image
+          style={index === 0 ? { width: '100%', margin: 'auto' } : {}}
+          src={index === 0 ? release.cover : release.coverSmall}
+          alt={release.title}
+          onclick={() => onSongClick(release.songs[0])}
+        />
+      </ImageContainer>
       <TitleAndLinks>
         <TitleAndPlayButton>
           <div onClick={() => onSongClick(release.songs[0])}>
@@ -61,6 +67,7 @@ export function Release({
           <Title
             href={singleSongMode() ? null : `/${release.slug}`}
             onClick={singleSongMode() ? () => onSongClick(release.songs[0]) : null}
+            style={singleSongMode() ? { textDecoration: 'none' } : {}}
           >
             {release.title}
           </Title>
@@ -115,10 +122,14 @@ const Container = styled(
   `
 )
 
+const ImageContainer = styled('div', {
+  gridArea: 'image',
+  borderRadius: `${BORDER_RADIUS}px`,
+})
+
 const Image = styled(
   'img',
   {
-    gridArea: 'image',
     width: `${IMAGE_SIZE}px`,
     maxWidth: '100%',
     aspectRatio: '1/1',
@@ -126,6 +137,7 @@ const Image = styled(
     borderRadius: `${BORDER_RADIUS}px`,
     cursor: 'pointer',
     transition: `box-shadow ${QUICK_TRANSITION}`,
+    display: 'block',
   },
   css`
     box-shadow: ${BOX_SHADOW};

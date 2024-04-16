@@ -1,8 +1,9 @@
 import './styles.css'
+import './keyframes.css'
+import './fonts.css'
 import { styled } from './lib/styled'
 import { UI } from './components/UI'
 import { useEffect, useState } from 'preact/hooks'
-import { BlurryImageLoad } from './lib/blurryLoad'
 import { ArtworkBackground } from './components/ArtworkBackground'
 import { appElement, screenHeight, screenWidth, scrollTop } from './lib/signals'
 
@@ -10,9 +11,6 @@ export function App() {
   const [showBackground, setShowBackground] = useState(false)
   useEffect(() => {
     setShowBackground(true)
-
-    const blurryImageLoad = new BlurryImageLoad()
-    blurryImageLoad.load()
 
     appElement.value.onscroll = () => {
       scrollTop.value = appElement.value.scrollTop

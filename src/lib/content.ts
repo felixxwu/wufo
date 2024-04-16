@@ -1,3 +1,4 @@
+import { avatar64 } from '../base64/avatar'
 import { Apple } from '../icons/apple'
 import { Facebook } from '../icons/facebook'
 import { Instagram } from '../icons/instagram'
@@ -16,7 +17,7 @@ function processReleases(releases: IRelease[]) {
 
 export const content: Content = {
   bio: 'London based Drum & Bass producer, also known as Noxive',
-  avatar: 'https://i1.sndcdn.com/avatars-HZXtNsgyyiU6yoGW-cpRyvQ-t200x200.jpg',
+  avatar: avatar64,
   socials: [
     {
       link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY',
