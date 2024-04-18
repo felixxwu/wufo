@@ -3,7 +3,7 @@ import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { appElement, screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
 import { Grain } from './Grain'
 import { MIN_SCROLL_AMOUNT } from '../lib/consts'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 const MAX_OPACITY = 0.2
 const ANIMATION_DURATION = 1500

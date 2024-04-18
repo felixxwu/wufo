@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@preact/signals": "^1.2.2",
-    "preact": "^10.16.0",
-    "styled-components": "^6.1.8"
+    "goober": "^2.1.14",
+    "preact": "^10.16.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.1",

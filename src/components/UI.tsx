@@ -9,7 +9,7 @@ import { CopyRightFooter } from './Copyright'
 import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
 import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 export function UI() {
   useEffect(() => {

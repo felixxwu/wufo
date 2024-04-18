@@ -5,7 +5,7 @@ import { UI } from './components/UI'
 import { useEffect, useState } from 'preact/hooks'
 import { ArtworkBackground } from './components/ArtworkBackground'
 import { appElement, screenHeight, screenWidth, scrollTop } from './lib/signals'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 export function App() {
   const [showBackground, setShowBackground] = useState(false)

@@ -3,7 +3,7 @@ import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/c
 import { pointerHelper } from '../lib/pointerHelper'
 import { ISong } from '../lib/types'
 import { Pause } from '../icons/pause'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 const PLAY_ICON_SIZE = 13
 

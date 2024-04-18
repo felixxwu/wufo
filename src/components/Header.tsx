@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'goober'
 import { FadeInDelay } from '../lib/FadeInDelay'
 import { FontWeightAnimation } from '../lib/FontWeightAnimation'
 import {

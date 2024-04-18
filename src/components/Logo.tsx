@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'goober'
 import { TEXT_COLOR } from '../lib/consts'
 
 export const NUM_LOGOS = 20

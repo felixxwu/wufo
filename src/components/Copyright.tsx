@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'goober'
 import { TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { ANIMATION_DELAY, ANIMATION_INTERVAL } from './Release'

@@ -1,5 +1,5 @@
 import { useEffect } from 'preact/hooks'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 const ANIMATION_START_DELAY = 1000
 const ANIMATION_DURATION = 5000

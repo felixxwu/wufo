@@ -16,7 +16,7 @@ import { SoundCloud } from '../icons/soundcloud'
 import { YouTube } from '../icons/youtube'
 import { Share } from '../icons/share'
 import { singleSongMode } from '../lib/singleSongMode'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3

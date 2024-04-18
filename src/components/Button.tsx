@@ -1,7 +1,7 @@
 import { VNode } from 'preact'
 import { IconProps } from '../lib/types'
 import { BORDER_RADIUS, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 const ICON_SIZE = 16
 

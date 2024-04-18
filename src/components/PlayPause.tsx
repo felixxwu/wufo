@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'goober'
 import { PauseRound } from '../icons/pauseRound'
 import { PlayRound } from '../icons/playRound'
 import { TEXT_COLOR } from '../lib/consts'

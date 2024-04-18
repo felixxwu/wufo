@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { IRelease } from '../lib/types'
 import { BORDER_RADIUS_LARGE, BOX_SHADOW } from '../lib/consts'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 export function CoverPreview({
   release,

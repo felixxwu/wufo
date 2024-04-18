@@ -21,7 +21,7 @@ import {
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { PlayPause } from './PlayPause'
 import { Close } from '../icons/close'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 const START_OF_SONG_THRESHOLD = 0.05
 const PLAY_PAUSE_SIZE = 40

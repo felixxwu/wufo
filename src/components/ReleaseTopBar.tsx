@@ -6,7 +6,7 @@ import { Tick } from '../icons/tick'
 import { Copy } from '../icons/copy'
 import { sleep } from '../lib/sleep'
 import { singleSongMode } from '../lib/singleSongMode'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 export function ReleaseTopBar() {
   const [shared, setShared] = useState(false)

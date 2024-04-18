@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { sleep } from '../lib/sleep'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 export function Player({
   songLink,

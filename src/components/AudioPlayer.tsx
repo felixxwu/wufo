@@ -7,7 +7,7 @@ import {
   songLength,
   songPlaying,
 } from '../lib/signals'
-import styled from 'styled-components'
+import { styled } from 'goober'
 
 export function AudioPlayer({
   onPlayChange,
