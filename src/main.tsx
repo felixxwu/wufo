@@ -1,5 +1,8 @@
-import { render } from 'preact'
+import { h, render } from 'preact'
 import { App } from './app.tsx'
+import { setup } from 'goober'
+
+setup(h)
 
 history.scrollRestoration = 'manual'
 

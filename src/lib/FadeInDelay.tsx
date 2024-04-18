@@ -14,7 +14,7 @@ export function FadeInDelay(props: { children: JSX.Element; delay: number; durat
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   opacity: 0;
   animation-name: fade-in;
   animation-fill-mode: forwards;

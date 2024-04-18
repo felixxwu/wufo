@@ -36,7 +36,7 @@ export function Link({
   )
 }
 
-const Container = styled.a`
+const Container = styled('a')`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -52,6 +52,6 @@ const Container = styled.a`
   }
 `
 
-const Name = styled.div`
+const Name = styled('div')`
   font-size: ${ICON_SIZE}px;
 `

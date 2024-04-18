@@ -57,7 +57,7 @@ function getRandomDelay() {
   return `${ANIMATION_START_DELAY + Math.pow(Math.random(), 5) * ANIMATION_DURATION}ms`
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   position: fixed;
   top: 0;
   left: 0;
@@ -71,7 +71,7 @@ const Container = styled.div`
   transform: rotate(${ROTATION}deg);
 `
 
-const Row = styled.div`
+const Row = styled('div')`
   color: white;
   opacity: 0.1;
   font-size: ${FONT_SIZE}px;
@@ -79,11 +79,11 @@ const Row = styled.div`
   transform: scaleY(0.9);
 `
 
-const Letter = styled.span`
+const Letter = styled('span')`
   animation: pop-out ${ANIMATION_START_DELAY}ms forwards;
 `
 
-const LetterWrapper = styled.span`
+const LetterWrapper = styled('span')`
   opacity: 0;
   animation: fade-in 500ms ease-in forwards;
 `

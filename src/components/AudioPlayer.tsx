@@ -69,7 +69,7 @@ export function AudioPlayer({
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   pointer-events: none;
   opacity: 0;
   display: none;

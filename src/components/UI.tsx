@@ -74,7 +74,7 @@ export function UI() {
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   gap: ${singleSongMode() ? '30px' : '80px'};

@@ -51,7 +51,7 @@ export function CoverPreview({
 
 const TRANSITION = 500
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@ const Container = styled.div`
   transition: ${TRANSITION}ms;
 `
 
-const Cover = styled.img`
+const Cover = styled('img')`
   width: 90vw;
   max-width: 90vh;
   height: 90vh;

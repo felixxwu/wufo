@@ -58,7 +58,7 @@ export function Profile() {
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   position: fixed;
   top: 20px;
   right: 20px;
@@ -71,7 +71,7 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Backdrop = styled.div`
+const Backdrop = styled('div')`
   position: fixed;
   top: 0;
   left: 0;
@@ -83,14 +83,14 @@ const Backdrop = styled.div`
   opacity: 0;
 `
 
-const Avatar = styled.img`
+const Avatar = styled('img')`
   width: ${COLLAPSED_SIZE}px;
   height: ${COLLAPSED_SIZE}px;
   cursor: pointer;
   transition: ${AVATAR_TRANSITION}ms;
 `
 
-const Links = styled.div`
+const Links = styled('div')`
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@ const Links = styled.div`
   width: 100%;
 `
 
-const Link = styled.a`
+const Link = styled('a')`
   display: flex;
   gap: 10px;
   color: ${TEXT_COLOR};

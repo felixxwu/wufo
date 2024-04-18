@@ -15,7 +15,7 @@ export function PlayPause({ playing, size }: { playing: boolean; size: number })
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;

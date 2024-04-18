@@ -28,7 +28,7 @@ export function Button({
   )
 }
 
-const Container = styled.a`
+const Container = styled('a')`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -46,6 +46,6 @@ const Container = styled.a`
   }
 `
 
-const Label = styled.div`
+const Label = styled('div')`
   font-size: ${ICON_SIZE}px;
 `

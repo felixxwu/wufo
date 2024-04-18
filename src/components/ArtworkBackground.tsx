@@ -72,7 +72,7 @@ export function ArtworkBackground() {
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   position: fixed;
   width: ${100 + MIN_SCROLL_AMOUNT}vw;
   height: ${100 + MIN_SCROLL_AMOUNT}vh;
@@ -85,7 +85,7 @@ const Container = styled.div`
   animation-fill-mode: forwards;
 `
 
-const Image = styled.img`
+const Image = styled('img')`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -94,7 +94,7 @@ const Image = styled.img`
   transition: opacity ${ANIMATION_DURATION}ms, filter ${ANIMATION_DURATION}ms;
 `
 
-const ImagePreload = styled.img`
+const ImagePreload = styled('img')`
   display: none;
   position: absolute;
 `

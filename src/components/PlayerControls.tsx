@@ -190,7 +190,7 @@ const thumbTopOffset = 6
 const barHeight = 3
 const smallIconSize = 15
 
-const Container = styled.div`
+const Container = styled('div')`
   width: 100%;
   left: 0;
   bottom: 0;
@@ -200,7 +200,7 @@ const Container = styled.div`
   transition: 500ms;
 `
 
-const Card = styled.div`
+const Card = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,25 +218,25 @@ const Card = styled.div`
   transition: 500ms;
 `
 
-const TitleAndLinks = styled.div`
+const TitleAndLinks = styled('div')`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 `
 
-const Title = styled.div`
+const Title = styled('div')`
   color: ${TEXT_COLOR};
   width: 100%;
 `
 
-const Links = styled.div`
+const Links = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-const Slider = styled.div`
+const Slider = styled('div')`
   pointer-events: all;
   position: relative;
   width: 100%;
@@ -244,7 +244,7 @@ const Slider = styled.div`
   cursor: pointer;
 `
 
-const SliderThumb = styled.div`
+const SliderThumb = styled('div')`
   position: absolute;
   width: ${thumbSize}px;
   height: ${thumbSize}px;
@@ -254,21 +254,21 @@ const SliderThumb = styled.div`
   margin-top: ${thumbTopOffset}px;
 `
 
-const SliderBarProgress = styled.div`
+const SliderBarProgress = styled('div')`
   margin-top: ${barPositionFromTop}px;
   position: absolute;
   height: ${barHeight}px;
   background-color: ${TEXT_COLOR};
 `
 
-const SliderBarLoaded = styled.div`
+const SliderBarLoaded = styled('div')`
   margin-top: ${barPositionFromTop}px;
   position: absolute;
   height: ${barHeight}px;
   background-color: rgba(255, 255, 255, 0.4);
 `
 
-const SliderBarBG = styled.div`
+const SliderBarBG = styled('div')`
   position: absolute;
   width: 100%;
   margin-top: ${barPositionFromTop}px;
@@ -276,7 +276,7 @@ const SliderBarBG = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
 `
 
-const SliderLeftNumber = styled.div`
+const SliderLeftNumber = styled('div')`
   position: absolute;
   color: ${TEXT_COLOR};
   left: 0;
@@ -284,7 +284,7 @@ const SliderLeftNumber = styled.div`
   opacity: 0.8;
 `
 
-const SliderRightNumber = styled.div`
+const SliderRightNumber = styled('div')`
   position: absolute;
   color: ${TEXT_COLOR};
   right: 0;
@@ -292,7 +292,7 @@ const SliderRightNumber = styled.div`
   opacity: 0.8;
 `
 
-const Buttons = styled.div`
+const Buttons = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,7 +303,7 @@ const Buttons = styled.div`
   }
 `
 
-const PlayPauseButton = styled.div`
+const PlayPauseButton = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;

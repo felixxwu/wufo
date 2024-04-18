@@ -47,7 +47,7 @@ export function Song({
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   height: 50px;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@ const Container = styled.div`
   }
 `
 
-const NumberOrPlay = styled.div`
+const NumberOrPlay = styled('div')`
   width: 20px;
   height: 20px;
   display: flex;
@@ -70,10 +70,10 @@ const NumberOrPlay = styled.div`
   justify-content: center;
 `
 
-const SongLength = styled.div`
+const SongLength = styled('div')`
   margin-left: auto;
 `
 
-const SongTitle = styled.div`
+const SongTitle = styled('div')`
   transition: 1s;
 `

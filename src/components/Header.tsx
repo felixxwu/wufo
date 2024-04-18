@@ -69,7 +69,7 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   gap: 10px;
   flex-direction: column;
@@ -86,38 +86,38 @@ const Container = styled.div`
   animation-fill-mode: forwards;
 `
 
-const TopRow = styled.div`
+const TopRow = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 `
 
-const Avatar = styled.img`
+const Avatar = styled('img')`
   width: ${AVATAR_SIZE}px;
   height: ${AVATAR_SIZE}px;
   border-radius: ${AVATAR_SIZE}px;
   box-shadow: ${BOX_SHADOW};
 `
 
-const NameRow = styled.div`
+const NameRow = styled('div')`
   display: flex;
   gap: 40px;
 `
 
-const Name = styled.div`
+const Name = styled('div')`
   font-size: 30px;
   text-align: center;
 `
 
-const BottomRow = styled.div`
+const BottomRow = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 `
 
-const StartListening = styled.div`
+const StartListening = styled('div')`
   display: flex;
   gap: 10px;
   flex-direction: column;

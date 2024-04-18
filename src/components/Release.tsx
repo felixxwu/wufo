@@ -118,7 +118,7 @@ export function Release({
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   display: grid;
   gap: 20px;
   color: ${TEXT_COLOR};
@@ -138,13 +138,13 @@ const Container = styled.div`
   }
 `
 
-const ImageContainer = styled.div`
+const ImageContainer = styled('div')`
   grid-area: image;
   border-radius: ${BORDER_RADIUS}px;
   width: ${IMAGE_SIZE}px;
 `
 
-const Image = styled.img`
+const Image = styled('img')`
   width: ${IMAGE_SIZE}px;
   max-width: 100%;
   aspect-ratio: 1/1;
@@ -161,21 +161,21 @@ const Image = styled.img`
   }
 `
 
-const TitleAndLinks = styled.div`
+const TitleAndLinks = styled('div')`
   grid-area: title;
   display: flex;
   flex-direction: column;
   gap: 10px;
 `
 
-const TitleAndPlayButton = styled.div`
+const TitleAndPlayButton = styled('div')`
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
 `
 
-const Title = styled.a`
+const Title = styled('a')`
   font-size: 30px;
   letter-spacing: -1px;
   font-weight: 500;
@@ -187,7 +187,7 @@ const Title = styled.a`
   }
 `
 
-const Links = styled.div`
+const Links = styled('div')`
   display: flex;
   flex-wrap: wrap;
   opacity: 0.9;
@@ -198,7 +198,7 @@ const Links = styled.div`
   }
 `
 
-const Divider = styled.div`
+const Divider = styled('div')`
   grid-area: divider;
   width: 100%;
   height: 1px;
@@ -206,7 +206,7 @@ const Divider = styled.div`
   opacity: 0.8;
 `
 
-const Songs = styled.div`
+const Songs = styled('div')`
   grid-area: songs;
   display: flex;
   flex-direction: column;

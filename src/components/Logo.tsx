@@ -15,14 +15,14 @@ export function Logos() {
   )
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   opacity: 0.5;
   position: absolute;
   height: 0;
   overflow: visible;
 `
 
-const Logo = styled.div`
+const Logo = styled('div')`
   font-size: 150px;
   margin: -0.75ch 0 0 -50px;
   color: ${TEXT_COLOR};

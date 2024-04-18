@@ -32,7 +32,7 @@ export function ReleaseTopBar() {
   )
 }
 
-const Buttons = styled.div`
+const Buttons = styled('div')`
   display: flex;
   width: 100%;
   justify-content: space-between;

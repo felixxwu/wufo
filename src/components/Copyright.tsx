@@ -7,7 +7,7 @@ export function CopyRightFooter() {
   return <CopyRight>&copy; WUFO 2024</CopyRight>
 }
 
-const CopyRight = styled.span`
+const CopyRight = styled('span')`
   width: 100%;
   text-align: center;
   color: ${TEXT_COLOR};
