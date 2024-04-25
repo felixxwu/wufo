@@ -14,7 +14,7 @@ import { Link } from './Link'
 import { Music } from '../icons/music'
 import { showControls } from '../lib/signals'
 
-const AVATAR_SIZE = 50
+const AVATAR_SIZE = 70
 const TIMING_CONFIG = {
   name: [
     { letter: 'W', delay: 200 },
@@ -91,6 +91,7 @@ const TopRow = styled('div')`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 100%;
 `
 
 const Avatar = styled('img')`
