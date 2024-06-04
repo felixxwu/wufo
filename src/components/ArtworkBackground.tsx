@@ -50,12 +50,13 @@ export function ArtworkBackground() {
   return (
     <Container>
       <Image
-        src={displayedRelease?.background}
+        src={displayedRelease?.coverSmall}
         alt={songPlaying.value?.title || 'WUFO'}
         style={{
           translate: `${translateX} ${translateY}`,
           opacity: imageOpacity,
-          filter: `blur(${imageOpacity === 0 ? 20 : 0}px)`,
+          // filter: `blur(${imageOpacity === 0 ? 20 : 0}px)`,
+          filter: `blur(50px)`,
         }}
       />
       <Grain
