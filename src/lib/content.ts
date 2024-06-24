@@ -42,6 +42,26 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Resolver',
+      slug: 'resolver',
+      color: [250, 250, 0],
+      cover: 'https://i1.sndcdn.com/artworks-RwnlwdflA2iae14E-MTfqBg-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-RwnlwdflA2iae14E-MTfqBg-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-RwnlwdflA2iae14E-MTfqBg-t50x50.jpg',
+      background: 'https://i1.sndcdn.com/artworks-RwnlwdflA2iae14E-MTfqBg-t200x200.jpg',
+      spotify: 'https://open.spotify.com/track/095FBldvMtg7GervaVSRJB',
+      youtube: 'https://www.youtube.com/watch?v=wgyXULwqLJU',
+      soundcloud: 'https://soundcloud.com/fokuzrecordings/wufo-resolver-master?in=wufo/sets/resolver',
+      apple: 'https://music.apple.com/us/album/resolver/1751297001',
+      songs: [
+        {
+          title: 'Resolver',
+          fileName: '/audio/resolver.mp3',
+          length: '4:16',
+        },
+      ],
+    },
+    {
       title: 'Echo Chamber',
       slug: 'echo-chamber',
       color: [12, 67, 86],
@@ -144,7 +164,7 @@ export const content: Content = {
     {
       title: 'Defiant (ft. Taylor B-W)',
       slug: 'defiant',
-      color: [82, 20, 27],
+      color: [230, 180, 190],
       cover: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t500x500.jpg',
       coverSmall: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t200x200.jpg',
       coverTiny: 'https://i1.sndcdn.com/artworks-UBOydV63uEQkMQJc-xWt0uQ-t50x50.jpg',
