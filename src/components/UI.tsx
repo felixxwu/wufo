@@ -62,7 +62,6 @@ export function UI() {
       />
 
       <PlayerControls
-        color={content.releases.find(release => release.songs.includes(songPlaying.value))!.color}
         onPlay={play}
         onPause={pause}
         onNext={next}

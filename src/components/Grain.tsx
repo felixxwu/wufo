@@ -1,7 +1,7 @@
 import { CSSProperties, useRef } from 'preact/compat'
 import { MIN_SCROLL_AMOUNT } from '../lib/consts'
 
-export const DARKEN = 1.5
+export const DARKEN = 2
 const GRAIN_DENSITY = 1500
 
 export function Grain({ styles }: { styles?: CSSProperties }) {

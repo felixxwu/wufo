@@ -2,8 +2,6 @@ import { Prev } from '../icons/prev'
 import { Next } from '../icons/next'
 import { useEffect, useMemo, useState } from 'preact/hooks'
 import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
-import { Color } from '../lib/types'
-import { DARKEN } from './Grain'
 import { Spotify } from '../icons/spotify'
 import { Link } from './Link'
 import { SoundCloud } from '../icons/soundcloud'
@@ -22,6 +20,7 @@ import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { PlayPause } from './PlayPause'
 import { Close } from '../icons/close'
 import { styled } from 'goober'
+import { getReleaseColourDark } from '../lib/getReleaseColourDark'
 
 const START_OF_SONG_THRESHOLD = 0.05
 const PLAY_PAUSE_SIZE = 40
@@ -31,7 +30,6 @@ const LINKS_ID = 'player-links'
 const SLIDER_ID = 'player-slider'
 
 export function PlayerControls({
-  color,
   onPlay,
   onPause,
   onNext,
@@ -39,7 +37,6 @@ export function PlayerControls({
   nextSongPlayable,
   prevSongPlayable,
 }: {
-  color: Color
   onPlay: () => void
   onPause: () => void
   onNext: () => void
@@ -120,7 +117,7 @@ export function PlayerControls({
 
   const release = useMemo(() => findReleaseFromSong(songPlaying.value), [songPlaying.value])
 
-  const colorValue = `rgba(${color.map(c => c / DARKEN).join(', ')}, 0.75)`
+  const colorValue = getReleaseColourDark(release)
 
   return (
     <Container style={{ transform: `translate(0, ${showControls.value ? '0' : '100'}%)` }}>

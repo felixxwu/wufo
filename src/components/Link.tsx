@@ -3,7 +3,7 @@ import { IconProps } from '../lib/types'
 import { BORDER_RADIUS, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { styled } from 'goober'
 
-const ICON_SIZE = 14
+export const LINK_ICON_SIZE = 14
 
 export function Link({
   name,
@@ -30,7 +30,7 @@ export function Link({
       {...(href ? {} : { role: 'button' })}
       aria-label={ariaLabel}
     >
-      <Icon color={TEXT_COLOR} style={{ width: ICON_SIZE, height: ICON_SIZE }} />
+      <Icon color={TEXT_COLOR} style={{ width: LINK_ICON_SIZE, height: LINK_ICON_SIZE }} />
       {name && <Name>{name}</Name>}
     </Container>
   )
@@ -53,5 +53,5 @@ const Container = styled('a')`
 `
 
 const Name = styled('div')`
-  font-size: ${ICON_SIZE}px;
+  font-size: ${LINK_ICON_SIZE}px;
 `

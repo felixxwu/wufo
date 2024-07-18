@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks'
 import {
   BORDER_RADIUS,
+  BORDER_RADIUS_LARGE,
   BOX_SHADOW,
   BOX_SHADOW_LARGE,
   QUICK_TRANSITION,
@@ -9,14 +10,9 @@ import {
 import { IRelease, ISong } from '../lib/types'
 import { PlayPause } from './PlayPause'
 import { Song } from './Song'
-import { Link } from './Link'
-import { Spotify } from '../icons/spotify'
-import { Apple } from '../icons/apple'
-import { SoundCloud } from '../icons/soundcloud'
-import { YouTube } from '../icons/youtube'
-import { Share } from '../icons/share'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
+import { Links } from './Links'
 
 const IMAGE_SIZE = 120
 export const ANIMATION_INTERVAL = 0.3
@@ -40,21 +36,23 @@ export function Release({
       style={{
         animationDelay: `${ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
         ...(index === 0
-          ? { gridTemplateAreas: `'image' 'title' 'divider' 'songs'`, gridTemplateColumns: '1fr' }
+          ? {
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              boxShadow: BOX_SHADOW,
+            }
           : {}),
       }}
     >
+      {index === 0 && !singleSongMode() && <Notice>Latest Release</Notice>}
       <ImageContainer
         style={{
           backgroundColor: `rgb(${release?.color.join(', ')})`,
           backgroundImage: `url("${release.coverTiny}")`,
           backgroundSize: 'cover',
-          ...(index === 0 ? { width: '100%' } : {}),
         }}
       >
         <Image
-          style={index === 0 ? { width: '100%', margin: 'auto' } : {}}
-          src={index === 0 ? release.cover : release.coverSmall}
+          src={release.coverSmall}
           alt={release.title}
           onclick={() => onSongClick(release.songs[0])}
         />
@@ -65,40 +63,13 @@ export function Release({
             <PlayPause playing={!!release.songs.find(s => s.fileName === songPlaying)} size={30} />
           </div>
           <Title
-            href={singleSongMode() ? null : `/${release.slug}`}
-            onClick={singleSongMode() ? () => onSongClick(release.songs[0]) : null}
+            onClick={() => onSongClick(release.songs[0])}
             style={singleSongMode() ? { textDecoration: 'none' } : {}}
           >
             {release.title}
           </Title>
         </TitleAndPlayButton>
-        <Links>
-          <Link
-            name='Spotify'
-            Icon={Spotify}
-            href={release.spotify}
-            newWindow
-            ariaLabel='Spotify'
-          />
-          <Link
-            name='SoundCloud'
-            Icon={SoundCloud}
-            href={release.soundcloud}
-            newWindow
-            ariaLabel='SoundCloud'
-          />
-          <Link
-            name='YouTube'
-            Icon={YouTube}
-            href={release.youtube}
-            newWindow
-            ariaLabel='YouTube'
-          />
-          <Link name='Apple' Icon={Apple} href={release.apple} newWindow ariaLabel='Apple' />
-          {!singleSongMode() && (
-            <Link name='Share' Icon={Share} href={`/${release.slug}`} ariaLabel='Share' />
-          )}
-        </Links>
+        <Links release={release} />
       </TitleAndLinks>
       <Divider />
       <Songs>
@@ -122,7 +93,8 @@ const Container = styled('div')`
   display: grid;
   gap: 20px;
   color: ${TEXT_COLOR};
-  margin: 0 20px;
+  padding: 20px;
+  border-radius: ${BORDER_RADIUS_LARGE}px;
 
   opacity: 0;
   animation-name: fade-in;
@@ -130,22 +102,29 @@ const Container = styled('div')`
   animation-fill-mode: forwards;
 
   grid-template-columns: ${IMAGE_SIZE}px 1fr;
-  grid-template-areas: 'image title' 'divider divider' 'songs songs';
+  grid-template-areas: 'notice notice' 'image title' 'divider divider' 'songs songs';
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
-    grid-template-areas: 'image' 'title' 'divider' 'songs';
+    grid-template-areas: 'notice' 'image' 'title' 'divider' 'songs';
   }
+`
+
+const Notice = styled('div')`
+  grid-area: notice;
+  opacity: 0.8;
 `
 
 const ImageContainer = styled('div')`
   grid-area: image;
   border-radius: ${BORDER_RADIUS}px;
   width: ${IMAGE_SIZE}px;
+  height: ${IMAGE_SIZE}px;
 `
 
 const Image = styled('img')`
   width: ${IMAGE_SIZE}px;
+  height: ${IMAGE_SIZE}px;
   max-width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -184,17 +163,6 @@ const Title = styled('a')`
 
   &:hover {
     text-decoration: underline;
-  }
-`
-
-const Links = styled('div')`
-  display: flex;
-  flex-wrap: wrap;
-  opacity: 0.9;
-
-  & > * {
-    margin-left: -10px;
-    margin-right: 10px;
   }
 `
 
