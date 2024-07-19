@@ -8,3 +8,4 @@ export const HIGHLIGHT = 'rgba(0, 0, 0, 0.2)'
 export const QUICK_TRANSITION = '0.2s'
 export const UI_FADE_IN_DELAY = 0
 export const MIN_SCROLL_AMOUNT = 20
+export const MOBILE_CUTOFF = 600

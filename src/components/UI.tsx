@@ -10,6 +10,7 @@ import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
 import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
 import { styled } from 'goober'
+import { MOBILE_CUTOFF } from '../lib/consts'
 
 export function UI() {
   useEffect(() => {
@@ -78,5 +79,5 @@ const Container = styled('div')`
   flex-direction: column;
   gap: ${singleSongMode() ? '30px' : '80px'};
   width: 100vw;
-  max-width: 600px;
+  max-width: ${MOBILE_CUTOFF}px;
 `

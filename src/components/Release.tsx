@@ -4,6 +4,7 @@ import {
   BORDER_RADIUS_LARGE,
   BOX_SHADOW,
   BOX_SHADOW_LARGE,
+  MOBILE_CUTOFF,
   QUICK_TRANSITION,
   TEXT_COLOR,
 } from '../lib/consts'
@@ -14,7 +15,7 @@ import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
 import { Links } from './Links'
 
-const IMAGE_SIZE = 120
+const IMAGE_SIZE = 130
 export const ANIMATION_INTERVAL = 0.3
 export const ANIMATION_DELAY = 0
 
@@ -105,7 +106,7 @@ const Container = styled('div')`
   grid-template-columns: ${IMAGE_SIZE}px 1fr;
   grid-template-areas: 'notice notice' 'image title' 'divider divider' 'songs songs';
 
-  @media (max-width: 600px) {
+  @media (max-width: ${MOBILE_CUTOFF}px) {
     grid-template-columns: 1fr;
     grid-template-areas: 'notice' 'image' 'title' 'divider' 'songs';
 
@@ -159,7 +160,7 @@ const TitleAndPlayButton = styled('div')`
   gap: 10px;
   cursor: pointer;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${MOBILE_CUTOFF}px) {
     justify-content: center;
   }
 `
