@@ -42,6 +42,20 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Skillz (ft. Taylor B-W)',
+      slug: 'skillz',
+      color: [11, 53, 171],
+      cover: 'https://i1.sndcdn.com/artworks-RqEqZ6qHaCP2zej0-xfOZ4w-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-RqEqZ6qHaCP2zej0-xfOZ4w-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-RqEqZ6qHaCP2zej0-xfOZ4w-t50x50.jpg',
+      background: 'https://i1.sndcdn.com/artworks-RqEqZ6qHaCP2zej0-xfOZ4w-t200x200.jpg',
+      spotify: 'https://open.spotify.com/track/03tvSW6YMWvMeSB8l5j92v?si=1fa8586e6e874b6d',
+      youtube: 'https://www.youtube.com/watch?v=2egFEw8hKDg',
+      soundcloud: 'https://soundcloud.com/wufo/skillz',
+      apple: 'https://music.apple.com/us/album/skillz/1753842716',
+      songs: [{ title: 'Skillz', fileName: '/audio/skillz.mp3', length: '3:14' }],
+    },
+    {
       title: 'Resolver',
       slug: 'resolver',
       color: [250, 250, 0],
@@ -51,7 +65,8 @@ export const content: Content = {
       background: 'https://i1.sndcdn.com/artworks-RwnlwdflA2iae14E-MTfqBg-t200x200.jpg',
       spotify: 'https://open.spotify.com/track/095FBldvMtg7GervaVSRJB',
       youtube: 'https://www.youtube.com/watch?v=wgyXULwqLJU',
-      soundcloud: 'https://soundcloud.com/fokuzrecordings/wufo-resolver-master?in=wufo/sets/resolver',
+      soundcloud:
+        'https://soundcloud.com/fokuzrecordings/wufo-resolver-master?in=wufo/sets/resolver',
       apple: 'https://music.apple.com/us/album/resolver/1751297001',
       songs: [
         {
