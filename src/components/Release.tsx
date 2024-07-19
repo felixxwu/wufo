@@ -72,7 +72,7 @@ export function Release({
         <Links release={release} />
       </TitleAndLinks>
       <Divider />
-      <Songs>
+      <Songs className='songs'>
         {release.songs.map((song, i) => (
           <Song
             song={song}
@@ -93,6 +93,7 @@ const Container = styled('div')`
   display: grid;
   gap: 20px;
   color: ${TEXT_COLOR};
+  margin: 0 3px;
   padding: 20px;
   border-radius: ${BORDER_RADIUS_LARGE}px;
 
@@ -107,6 +108,10 @@ const Container = styled('div')`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
     grid-template-areas: 'notice' 'image' 'title' 'divider' 'songs';
+
+    & > *:not(.songs) {
+      justify-self: center;
+    }
   }
 `
 
@@ -145,6 +150,7 @@ const TitleAndLinks = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 `
 
 const TitleAndPlayButton = styled('div')`
@@ -152,6 +158,10 @@ const TitleAndPlayButton = styled('div')`
   align-items: center;
   gap: 10px;
   cursor: pointer;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `
 
 const Title = styled('a')`
