@@ -12,7 +12,7 @@ const CopyRight = styled('span')`
   width: 100%;
   text-align: center;
   color: ${TEXT_COLOR};
-  margin-bottom: ${singleSongMode() ? '' : '50vh'};
+  margin-bottom: ${singleSongMode() ? '20px' : '50vh'};
   opacity: 0;
   animation-name: fade-in;
   animation-delay: ${ANIMATION_INTERVAL * content.releases.length + ANIMATION_DELAY}s;

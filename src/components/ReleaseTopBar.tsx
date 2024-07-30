@@ -36,6 +36,7 @@ const Buttons = styled('div')`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  padding-top: 20px;
 
   opacity: 0;
   animation-name: fade-in;
