@@ -79,7 +79,7 @@ export function Release({
         }}
       >
         <Image
-          src={release.coverSmall}
+          src={singleSongMode() ? release.cover : release.coverSmall}
           alt={release.title}
           onclick={() => onSongClick(release.songs[0])}
           style={{
