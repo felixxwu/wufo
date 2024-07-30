@@ -1,7 +1,7 @@
 import { Prev } from '../icons/prev'
 import { Next } from '../icons/next'
 import { useEffect, useMemo, useState } from 'preact/hooks'
-import { BOX_SHADOW, TEXT_COLOR } from '../lib/consts'
+import { BOX_SHADOW, MOBILE_CUTOFF, TEXT_COLOR, TRANSITION } from '../lib/consts'
 import { Spotify } from '../icons/spotify'
 import { Link } from './Link'
 import { SoundCloud } from '../icons/soundcloud'
@@ -120,8 +120,13 @@ export function PlayerControls({
   const colorValue = getReleaseColourDark(release)
 
   return (
-    <Container style={{ transform: `translate(0, ${showControls.value ? '0' : '100'}%)` }}>
-      <Card id={CONTROLS_ID} onClick={handleClick} style={{ backgroundColor: colorValue }}>
+    <Container
+      style={{
+        transform: `translate(0, ${showControls.value ? '0' : '100'}%)`,
+        backgroundColor: colorValue,
+      }}
+    >
+      <Card id={CONTROLS_ID} onClick={handleClick}>
         <TitleAndLinks>
           <Title>{loadedProgress.value === 0 ? 'Loading...' : songPlaying.value.title}</Title>
           <Links id={LINKS_ID}>
@@ -194,7 +199,9 @@ const Container = styled('div')`
   display: flex;
   justify-content: center;
   position: fixed;
-  transition: 500ms;
+  transition: ${TRANSITION};
+  box-shadow: ${BOX_SHADOW};
+  backdrop-filter: blur(40px);
 `
 
 const Card = styled('div')`
@@ -204,15 +211,11 @@ const Card = styled('div')`
   gap: 10px;
   padding: 20px;
   flex-direction: column;
-  margin-bottom: ${margin}px;
-  width: 400px;
+  width: ${MOBILE_CUTOFF}px;
   max-width: calc(100% - ${margin * 2}px);
-  background-color: #222;
   border-radius: 10px;
-  box-shadow: ${BOX_SHADOW};
   touch-action: none;
-  backdrop-filter: blur(15px);
-  transition: 500ms;
+  transition: ${TRANSITION};
 `
 
 const TitleAndLinks = styled('div')`
