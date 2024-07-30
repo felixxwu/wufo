@@ -38,6 +38,7 @@ export interface IRelease {
   apple?: string
   youtube?: string
   songs: ISong[]
+  year: number
   releaseDate?: string
   slug?: string
 }

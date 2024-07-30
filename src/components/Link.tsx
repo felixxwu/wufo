@@ -48,7 +48,7 @@ const Container = styled('a')`
   transition: ${QUICK_TRANSITION};
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: black;
   }
 `
 

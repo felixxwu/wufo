@@ -6,7 +6,7 @@ import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
 import { singleSongMode } from '../lib/singleSongMode'
 import { IRelease } from '../lib/types'
-import { BORDER_RADIUS_LARGE, MOBILE_CUTOFF, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import { BORDER_RADIUS_LARGE, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { URL } from '../icons/url'
 
 export const Links = ({ release }: { release: IRelease }) => {
@@ -51,10 +51,6 @@ const LinksRow = styled('div')`
     margin-left: -10px;
     margin-right: 10px;
   }
-
-  @media (max-width: ${MOBILE_CUTOFF}px) {
-    justify-content: center;
-  }
 `
 
 const Button = styled('a')`
@@ -74,6 +70,6 @@ const Button = styled('a')`
   text-decoration: none;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: black;
   }
 `

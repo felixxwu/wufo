@@ -54,6 +54,7 @@ export const content: Content = {
       soundcloud: 'https://soundcloud.com/wufo/skillz',
       apple: 'https://music.apple.com/us/album/skillz/1753842716',
       songs: [{ title: 'Skillz', fileName: '/audio/skillz.mp3', length: '3:14' }],
+      year: 2024,
     },
     {
       title: 'Resolver',
@@ -75,6 +76,7 @@ export const content: Content = {
           length: '4:16',
         },
       ],
+      year: 2024,
     },
     {
       title: 'Echo Chamber',
@@ -95,6 +97,7 @@ export const content: Content = {
           length: '4:17',
         },
       ],
+      year: 2024,
     },
     {
       title: 'Pulse EP',
@@ -120,6 +123,7 @@ export const content: Content = {
           length: '4:02',
         },
       ],
+      year: 2023,
     },
     {
       title: 'Threaded EP',
@@ -155,6 +159,7 @@ export const content: Content = {
           length: '3:36',
         },
       ],
+      year: 2023,
     },
     {
       title: 'Deadlock',
@@ -175,6 +180,7 @@ export const content: Content = {
           length: '3:55',
         },
       ],
+      year: 2023,
     },
     {
       title: 'Defiant (ft. Taylor B-W)',
@@ -189,6 +195,7 @@ export const content: Content = {
       soundcloud: 'https://soundcloud.com/wufo/defiant',
       youtube: 'https://www.youtube.com/watch?v=AY3axDZug2w',
       songs: [{ title: 'Defiant', fileName: '/audio/defiant.mp3', length: '3:35' }],
+      year: 2023,
     },
     {
       title: 'Blockbuster Love (ft. Taylor B-W)',
@@ -209,6 +216,7 @@ export const content: Content = {
           length: '3:09',
         },
       ],
+      year: 2023,
     },
     {
       title: 'Night & Day EP',
@@ -245,6 +253,7 @@ export const content: Content = {
           length: '4:04',
         },
       ],
+      year: 2023,
     },
     {
       title: 'Hyde Park',
@@ -265,6 +274,7 @@ export const content: Content = {
           length: '4:55',
         },
       ],
+      year: 2022,
     },
   ]),
 }

@@ -5,7 +5,7 @@ import { Grain } from './Grain'
 import { MIN_SCROLL_AMOUNT } from '../lib/consts'
 import { styled } from 'goober'
 
-const MAX_OPACITY = 0.2
+const MAX_OPACITY = 0.15
 const ANIMATION_DURATION = 1500
 
 export function ArtworkBackground() {

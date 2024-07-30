@@ -6,7 +6,6 @@ import { useEffect } from 'preact/hooks'
 import { Header } from './Header'
 import { AudioPlayer } from './AudioPlayer'
 import { CopyRightFooter } from './Copyright'
-import { singleSongMode } from '../lib/singleSongMode'
 import { ReleaseTopBar } from './ReleaseTopBar'
 import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
 import { styled } from 'goober'
@@ -77,7 +76,7 @@ export function UI() {
 const Container = styled('div')`
   display: flex;
   flex-direction: column;
-  gap: ${singleSongMode() ? '30px' : '80px'};
+  gap: 20px;
   width: 100vw;
   max-width: ${MOBILE_CUTOFF}px;
 `

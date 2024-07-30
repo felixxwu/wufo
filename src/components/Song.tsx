@@ -1,11 +1,12 @@
 import { Play } from '../icons/play'
-import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import { BORDER_RADIUS_LARGE, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { pointerHelper } from '../lib/pointerHelper'
 import { ISong } from '../lib/types'
 import { Pause } from '../icons/pause'
 import { styled } from 'goober'
 
 const PLAY_ICON_SIZE = 13
+export const SONG_HEIGHT = 50
 
 export function Song({
   song,
@@ -28,7 +29,7 @@ export function Song({
     <Container
       {...pointerHelper(pointerenter, pointerleave)}
       onClick={onclick}
-      style={{ backgroundColor: playing ? HIGHLIGHT : null }}
+      style={{ backgroundColor: playing ? 'black' : null }}
     >
       <NumberOrPlay>
         {hovering || playing ? (
@@ -48,12 +49,12 @@ export function Song({
 }
 
 const Container = styled('div')`
-  height: 50px;
+  height: ${SONG_HEIGHT}px;
   display: flex;
   align-items: center;
   gap: 20px;
   padding: 0 20px;
-  border-radius: ${BORDER_RADIUS}px;
+  border-radius: ${BORDER_RADIUS_LARGE}px;
   cursor: pointer;
   transition: ${QUICK_TRANSITION};
 
