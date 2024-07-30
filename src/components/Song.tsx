@@ -1,5 +1,11 @@
 import { Play } from '../icons/play'
-import { BORDER_RADIUS_LARGE, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import {
+  BG_DARK,
+  BORDER_RADIUS_LARGE,
+  HIGHLIGHT,
+  QUICK_TRANSITION,
+  TEXT_COLOR,
+} from '../lib/consts'
 import { pointerHelper } from '../lib/pointerHelper'
 import { ISong } from '../lib/types'
 import { Pause } from '../icons/pause'
@@ -29,7 +35,7 @@ export function Song({
     <Container
       {...pointerHelper(pointerenter, pointerleave)}
       onClick={onclick}
-      style={{ backgroundColor: playing ? 'black' : null }}
+      style={{ backgroundColor: playing ? BG_DARK : null }}
     >
       <NumberOrPlay>
         {hovering || playing ? (

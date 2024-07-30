@@ -1,12 +1,7 @@
 import { Prev } from '../icons/prev'
 import { Next } from '../icons/next'
 import { useEffect, useMemo, useState } from 'preact/hooks'
-import { BOX_SHADOW, MOBILE_CUTOFF, TEXT_COLOR, TRANSITION } from '../lib/consts'
-import { Spotify } from '../icons/spotify'
-import { Link } from './Link'
-import { SoundCloud } from '../icons/soundcloud'
-import { YouTube } from '../icons/youtube'
-import { Apple } from '../icons/apple'
+import { BOX_SHADOW, TEXT_COLOR, TRANSITION } from '../lib/consts'
 import {
   loadedProgress,
   playing,
@@ -18,7 +13,6 @@ import {
 } from '../lib/signals'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { PlayPause } from './PlayPause'
-import { Close } from '../icons/close'
 import { styled } from 'goober'
 import { getReleaseColourDark } from '../lib/getReleaseColourDark'
 
@@ -102,10 +96,10 @@ export function PlayerControls({
       progressOverride.value = 0
     }
   }
-  const handleClose = () => {
-    showControls.value = false
-    playing.value = false
-  }
+  // const handleClose = () => {
+  //   showControls.value = false
+  //   playing.value = false
+  // }
 
   function convertSongLengthToString(length: number) {
     if (length === 0) return '-:--'
@@ -127,7 +121,7 @@ export function PlayerControls({
       }}
     >
       <Card id={CONTROLS_ID} onClick={handleClick}>
-        <TitleAndLinks>
+        {/* <TitleAndLinks>
           <Title>{loadedProgress.value === 0 ? 'Loading...' : songPlaying.value.title}</Title>
           <Links id={LINKS_ID}>
             <Link Icon={Spotify} href={release?.spotify} newWindow ariaLabel='Spotify' />
@@ -136,7 +130,7 @@ export function PlayerControls({
             <Link Icon={Apple} href={release?.apple} newWindow ariaLabel='Apple' />
             <Link Icon={Close} onclick={handleClose} ariaLabel='Close' />
           </Links>
-        </TitleAndLinks>
+        </TitleAndLinks> */}
         <Slider id={SLIDER_ID} onClick={() => {}}>
           <SliderLeftNumber>
             {convertSongLengthToString(songLength.value * realPlaybackProgress.value)}
@@ -211,30 +205,30 @@ const Card = styled('div')`
   gap: 10px;
   padding: 20px;
   flex-direction: column;
-  width: ${MOBILE_CUTOFF}px;
+  width: 500px;
   max-width: calc(100% - ${margin * 2}px);
   border-radius: 10px;
   touch-action: none;
   transition: ${TRANSITION};
 `
 
-const TitleAndLinks = styled('div')`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-`
+// const TitleAndLinks = styled('div')`
+//   width: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-start;
+// `
 
-const Title = styled('div')`
-  color: ${TEXT_COLOR};
-  width: 100%;
-`
+// const Title = styled('div')`
+//   color: ${TEXT_COLOR};
+//   width: 100%;
+// `
 
-const Links = styled('div')`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
+// const Links = styled('div')`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `
 
 const Slider = styled('div')`
   pointer-events: all;
@@ -280,7 +274,7 @@ const SliderLeftNumber = styled('div')`
   position: absolute;
   color: ${TEXT_COLOR};
   left: 0;
-  top: 30px;
+  top: 42px;
   opacity: 0.8;
 `
 
@@ -288,7 +282,7 @@ const SliderRightNumber = styled('div')`
   position: absolute;
   color: ${TEXT_COLOR};
   right: 0;
-  top: 30px;
+  top: 42px;
   opacity: 0.8;
 `
 

@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks'
 import {
+  BG_DARK,
   BORDER_RADIUS,
   BORDER_RADIUS_LARGE,
   BOX_SHADOW,
@@ -66,7 +67,7 @@ export function Release({
         gridTemplateRows: singleSongMode()
           ? `${releaseImageSize}px 1fr auto ${LINKS_HEIGHT}px`
           : `${releaseImageSize}px auto ${LINKS_HEIGHT}px`,
-        backgroundColor: thisReleasePlaying ? getReleaseColourDark(release) : 'black',
+        backgroundColor: thisReleasePlaying ? getReleaseColourDark(release) : BG_DARK,
         cursor: thisReleasePlaying ? 'default' : 'pointer',
       }}
     >

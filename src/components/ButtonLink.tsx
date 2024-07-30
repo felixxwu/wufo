@@ -48,4 +48,5 @@ const Name = styled('div')`
   white-space: nowrap;
   text-overflow: ellipsis;
   width: calc(100% - ${LINK_ICON_SIZE}px - 10px);
+  opacity: 0.8;
 `

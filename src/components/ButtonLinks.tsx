@@ -43,4 +43,5 @@ const Links = styled('div')`
 
 const Share = styled('div')`
   margin: auto;
+  opacity: 0.8;
 `
