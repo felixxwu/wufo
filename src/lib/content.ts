@@ -50,7 +50,7 @@ export const content: Content = {
       coverTiny: 'https://i1.sndcdn.com/artworks-RqEqZ6qHaCP2zej0-xfOZ4w-t50x50.jpg',
       background: 'https://i1.sndcdn.com/artworks-RqEqZ6qHaCP2zej0-xfOZ4w-t200x200.jpg',
       spotify: 'https://open.spotify.com/track/03tvSW6YMWvMeSB8l5j92v?si=1fa8586e6e874b6d',
-      youtube: 'https://www.youtube.com/watch?v=2egFEw8hKDg',
+      youtube: 'https://www.youtube.com/watch?v=Y59zJgRwALE',
       soundcloud: 'https://soundcloud.com/wufo/skillz',
       apple: 'https://music.apple.com/us/album/skillz/1753842716',
       songs: [{ title: 'Skillz', fileName: '/audio/skillz.mp3', length: '3:14' }],
