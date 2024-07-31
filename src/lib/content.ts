@@ -100,7 +100,7 @@ export const content: Content = {
       year: 2024,
     },
     {
-      title: 'Pulse EP',
+      title: 'Pulse',
       slug: 'pulse',
       color: [40, 40, 40],
       cover: 'https://i1.sndcdn.com/artworks-I1k73bEsIDCEH43q-XQYKYA-t500x500.jpg',
@@ -126,7 +126,7 @@ export const content: Content = {
       year: 2023,
     },
     {
-      title: 'Threaded EP',
+      title: 'Threaded',
       slug: 'threaded',
       color: [70, 30, 10],
       cover: 'https://i1.sndcdn.com/artworks-q118zuvRNDyfvPer-Zc0nsg-t500x500.jpg',
@@ -219,7 +219,7 @@ export const content: Content = {
       year: 2023,
     },
     {
-      title: 'Night & Day EP',
+      title: 'Night & Day',
       slug: 'night-and-day',
       color: [148, 91, 56],
       cover: 'https://i1.sndcdn.com/artworks-ZyxWR15thSF4EYeL-C2VLjQ-t500x500.jpg',

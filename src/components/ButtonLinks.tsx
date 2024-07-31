@@ -5,11 +5,8 @@ import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
 import { SoundCloud } from '../icons/soundcloud'
 import { ButtonLink } from './ButtonLink'
-import { Button } from './Button'
-import { URL } from '../icons/url'
-import { singleSongMode } from '../lib/singleSongMode'
 
-export const LINKS_HEIGHT = singleSongMode() ? 90 : 130
+export const LINKS_HEIGHT = 90
 
 export const ButtonLinks = ({ release }: { release: IRelease }) => {
   return (
@@ -20,9 +17,6 @@ export const ButtonLinks = ({ release }: { release: IRelease }) => {
         <ButtonLink name='Apple Music' href={release.apple} icon={Apple} />
         <ButtonLink name='SoundCloud' href={release.soundcloud} icon={SoundCloud} />
       </Links>
-      <Share>
-        {!singleSongMode() && <Button label='Share Link' Icon={URL} href={`/${release.slug}`} />}
-      </Share>
     </Wrapper>
   )
 }
@@ -39,9 +33,4 @@ const Links = styled('div')`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-`
-
-const Share = styled('div')`
-  margin: auto;
-  opacity: 0.8;
 `

@@ -10,6 +10,8 @@ import { pointerHelper } from '../lib/pointerHelper'
 import { ISong } from '../lib/types'
 import { Pause } from '../icons/pause'
 import { styled } from 'goober'
+import { convertSongLengthToString } from '../lib/convertSongLengthToString'
+import { realPlaybackProgress, songLength } from '../lib/signals'
 
 const PLAY_ICON_SIZE = 13
 export const SONG_HEIGHT = 50
@@ -49,7 +51,12 @@ export function Song({
         )}
       </NumberOrPlay>
       <SongTitle style={{ fontWeight: playing ? '600' : '400' }}>{song.title}</SongTitle>
-      <SongLength>{song.length}</SongLength>
+      <SongLength>
+        {playing
+          ? `${convertSongLengthToString(songLength.value * realPlaybackProgress.value)} / `
+          : ''}
+        {song.length}
+      </SongLength>
     </Container>
   )
 }
@@ -79,6 +86,7 @@ const NumberOrPlay = styled('div')`
 
 const SongLength = styled('div')`
   margin-left: auto;
+  opacity: 0.8;
 `
 
 const SongTitle = styled('div')`

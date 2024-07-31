@@ -16,11 +16,16 @@ import { styled } from 'goober'
 import { getReleaseColourDark } from '../lib/getReleaseColourDark'
 import { songPlaying as songPlayingSignal } from '../lib/signals'
 import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
+import { SLIDER_HEIGHT, Slider } from './Slider'
 
 const LARGE_IMAGE_SIZE = 300
 const IMAGE_SIZE = 130
 const SMALL_IMAGE_SIZE = 50
 const GRID_GAP = 20
+const EXTRA_SSM_HEIGHT = 100
+const NUM_GRID_GAPS = 3
+const RELEASE_TITLE_BASE_SIZE = 50
+const RELEASE_TITLE_SCALAR = 0.6
 export const ANIMATION_INTERVAL = 0.3
 export const ANIMATION_DELAY = 0
 
@@ -49,9 +54,10 @@ export function Release({
   const releaseHeight = expanded
     ? releaseImageSize +
       release.songs.length * SONG_HEIGHT +
-      GRID_GAP * 2 +
+      GRID_GAP * NUM_GRID_GAPS +
       LINKS_HEIGHT +
-      (singleSongMode() ? 100 : 0)
+      SLIDER_HEIGHT +
+      (singleSongMode() ? EXTRA_SSM_HEIGHT : 0)
     : releaseImageSize
 
   return (
@@ -61,12 +67,12 @@ export function Release({
         animationDelay: `${ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
         height: releaseHeight,
         gridTemplateAreas: singleSongMode()
-          ? `'image' 'title' 'songs' 'links'`
-          : `'image title' 'songs songs' 'links links'`,
+          ? `'image' 'title' 'slider' 'songs' 'links'`
+          : `'image title' 'slider slider' 'songs songs' 'links links'`,
         gridTemplateColumns: singleSongMode() ? '1fr' : `${releaseImageSize}px 1fr`,
         gridTemplateRows: singleSongMode()
-          ? `${releaseImageSize}px 1fr auto ${LINKS_HEIGHT}px`
-          : `${releaseImageSize}px auto ${LINKS_HEIGHT}px`,
+          ? `${releaseImageSize}px 1fr auto auto ${LINKS_HEIGHT}px`
+          : `${releaseImageSize}px auto auto ${LINKS_HEIGHT}px`,
         backgroundColor: thisReleasePlaying ? getReleaseColourDark(release) : BG_DARK,
         cursor: thisReleasePlaying ? 'default' : 'pointer',
       }}
@@ -96,7 +102,9 @@ export function Release({
             onClick={() => onSongClick(release.songs[0])}
             style={{
               ...(singleSongMode() ? { textDecoration: 'none' } : {}),
-              fontSize: thisReleasePlaying ? `${50 - release.title.length * 0.6}px` : '16px',
+              fontSize: thisReleasePlaying
+                ? `${RELEASE_TITLE_BASE_SIZE - release.title.length * RELEASE_TITLE_SCALAR}px`
+                : '16px',
               letterSpacing: thisReleasePlaying ? '-1px' : '0',
             }}
           >
@@ -104,11 +112,14 @@ export function Release({
           </Title>
         </TitleAndPlayButton>
         <Meta>
-          {release.songs.length === 1 ? 'Single' : 'EP'} •{' '}
+          {release.songs.length <= 2 ? 'Single' : 'EP'} •{' '}
           {latestRelease ? 'Latest Release' : release.year} • {release.songs.length} song
           {release.songs.length === 1 ? '' : 's'}
         </Meta>
       </TitleAndLinks>
+      <SliderWrapper>
+        <Slider />
+      </SliderWrapper>
       <Songs className='songs'>
         {release.songs.map((song, i) => (
           <Song
@@ -211,4 +222,8 @@ const Songs = styled('div')`
 
 const Links = styled('div')`
   grid-area: links;
+`
+
+const SliderWrapper = styled('div')`
+  grid-area: slider;
 `

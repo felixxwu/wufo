@@ -1,7 +1,6 @@
 import { content } from '../lib/content'
 import { Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
-import { PlayerControls } from './PlayerControls'
 import { useEffect } from 'preact/hooks'
 import { Header } from './Header'
 import { AudioPlayer } from './AudioPlayer'
@@ -10,6 +9,7 @@ import { ReleaseTopBar } from './ReleaseTopBar'
 import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
 import { styled } from 'goober'
 import { MOBILE_CUTOFF } from '../lib/consts'
+import { SliderListeners } from './SliderListeners'
 
 export function UI() {
   useEffect(() => {
@@ -18,8 +18,7 @@ export function UI() {
     }
   }, [progressOverride.value])
 
-  const { play, pause, next, prev, onSongClick, nextSongPlayable, prevSongPlayable, onTrackEnd } =
-    usePlayerController()
+  const { play, pause, next, prev, onSongClick, onTrackEnd } = usePlayerController()
 
   useEffect(() => {
     const onkeydown = (e: KeyboardEvent) => {
@@ -61,14 +60,7 @@ export function UI() {
         onTrackEnd={onTrackEnd}
       />
 
-      <PlayerControls
-        onPlay={play}
-        onPause={pause}
-        onNext={next}
-        onPrev={prev}
-        nextSongPlayable={nextSongPlayable}
-        prevSongPlayable={prevSongPlayable}
-      />
+      <SliderListeners />
     </Container>
   )
 }
