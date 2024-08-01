@@ -33,7 +33,7 @@ export function Profile() {
         height: open ? OPEN_HEIGHT : COLLAPSED_SIZE,
         borderRadius: open ? BORDER_RADIUS_LARGE : COLLAPSED_SIZE / 2,
       }}
-      onclick={async () => {
+      onClick={async () => {
         if (open) {
           closeProfile()
         } else {
@@ -47,7 +47,7 @@ export function Profile() {
         {content.socials.map(social => {
           const Icon = social.Icon
           return (
-            <Link href={social.link} target='_blank' ariaLabel={social.label}>
+            <Link href={social.link} target='_blank' aria-label={social.label}>
               <Icon color={TEXT_COLOR} style={{ width: 20, height: 20 }} />
               {social.label}
             </Link>

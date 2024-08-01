@@ -17,6 +17,7 @@ import { getReleaseColourDark } from '../lib/getReleaseColourDark'
 import { songPlaying as songPlayingSignal } from '../lib/signals'
 import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
+import { URL } from '../icons/url'
 
 const LARGE_IMAGE_SIZE = 300
 const IMAGE_SIZE = 130
@@ -77,6 +78,11 @@ export function Release({
         cursor: thisReleasePlaying ? 'default' : 'pointer',
       }}
     >
+      <LinkCopy>
+        <URLIconWrapper href={`/${release.slug}`}>
+          <URL color={TEXT_COLOR} style={{ width: '18px' }} />
+        </URLIconWrapper>
+      </LinkCopy>
       <ImageContainer
         style={{
           backgroundColor: `rgb(${release?.color.join(', ')})`,
@@ -88,7 +94,7 @@ export function Release({
         <Image
           src={singleSongMode() ? release.cover : release.coverSmall}
           alt={release.title}
-          onclick={() => onSongClick(release.songs[0])}
+          onClick={() => onSongClick(release.songs[0])}
           style={{
             width: `${releaseImageSize}px`,
             height: `${releaseImageSize}px`,
@@ -134,7 +140,11 @@ export function Release({
         ))}
       </Songs>
       <Links>
-        <ButtonLinks release={release} />
+        {release.releaseDate ? (
+          <ReleaseDate>Release Date: {release.releaseDate}</ReleaseDate>
+        ) : (
+          <ButtonLinks release={release} />
+        )}
       </Links>
     </Container>
   )
@@ -157,9 +167,36 @@ const Container = styled('div')`
   animation-fill-mode: forwards;
 `
 
+const LinkCopy = styled('div')`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  opacity: 0;
+  transition: ${QUICK_TRANSITION};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    opacity: 1;
+  }
+`
+
+const URLIconWrapper = styled('a')`
+  cursor: pointer;
+`
+
 const Meta = styled('div')`
   opacity: 0.8;
   place-self: bottom;
+`
+
+const ReleaseDate = styled('div')`
+  opacity: 0.8;
+  width: 100%;
+  text-align: center;
 `
 
 const ImageContainer = styled('div')`
@@ -222,8 +259,11 @@ const Songs = styled('div')`
 
 const Links = styled('div')`
   grid-area: links;
+  place-self: center;
+  width: 100%;
 `
 
 const SliderWrapper = styled('div')`
   grid-area: slider;
+  padding: 0 20px;
 `

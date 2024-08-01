@@ -42,6 +42,24 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Crossroads',
+      slug: 'crossroads',
+      color: [133, 33, 9],
+      cover: 'https://i1.sndcdn.com/artworks-DRsTN99sMDrAP2B9-1vU57g-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-DRsTN99sMDrAP2B9-1vU57g-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-DRsTN99sMDrAP2B9-1vU57g-t50x50.jpg',
+      background: 'https://i1.sndcdn.com/artworks-DRsTN99sMDrAP2B9-1vU57g-t200x200.jpg',
+      soundcloud: 'https://soundcloud.com/wufo/sets/crossroads-ep',
+      songs: [
+        { title: 'From the Start', fileName: '/audio/fromthestart.mp3', length: '4:04' },
+        { title: 'Slow Burn', fileName: '/audio/slowburn.mp3', length: '3:48' },
+        { title: 'Who You Are', fileName: '/audio/whoyouare.mp3', length: '4:05' },
+        { title: 'Crossroads', fileName: '/audio/crossroads.mp3', length: '3:56' },
+      ],
+      year: 2024,
+      releaseDate: 'August 2nd',
+    },
+    {
       title: 'Skillz (ft. Taylor B-W)',
       slug: 'skillz',
       color: [11, 53, 171],

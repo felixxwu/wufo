@@ -14,7 +14,7 @@ export const Links = ({ release }: { release: IRelease }) => {
 
   return (
     <Wrapper>
-      <Button href={release.spotify} target='_blank' style={{ color: colour }} ariaLabel='Spotify'>
+      <Button href={release.spotify} target='_blank' style={{ color: colour }} aria-label='Spotify'>
         <Spotify color={colour} style={{ width: LINK_ICON_SIZE }} />
         Spotify
       </Button>
