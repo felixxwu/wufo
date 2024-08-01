@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { SLIDER_CLASSNAME } from './Slider'
-import { progressOverride, songPlaying } from '../lib/signals'
+import { loadedProgress, progressOverride, realPlaybackProgress, songPlaying } from '../lib/signals'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { usePlayerController } from '../lib/usePlayerController'
 import { findReleaseFromSlug } from '../lib/findReleaseFromSlug'
@@ -27,6 +27,8 @@ export const SliderListeners = () => {
         if (release) {
           onSongClick(release.songs[0])
           progressOverride.value = 0
+          loadedProgress.value = 0
+          realPlaybackProgress.value = 0
         }
       } else {
         setIsDragging(true)
