@@ -72,7 +72,7 @@ export function PlayerControls({
             <Link Icon={Close} onclick={handleClose} ariaLabel='Close' />
           </Links>
         </TitleAndLinks> */}
-        <Slider />
+        <Slider release={release!} />
         <Buttons id={BUTTONS_ID}>
           <div
             onClick={handlePlayPrev}
