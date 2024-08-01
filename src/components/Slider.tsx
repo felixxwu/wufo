@@ -1,27 +1,36 @@
 import { styled } from 'goober'
 import { TEXT_COLOR } from '../lib/consts'
-import { loadedProgress, playing, realPlaybackProgress } from '../lib/signals'
+import { loadedProgress, playing, realPlaybackProgress, songPlaying } from '../lib/signals'
 import { PlayPause } from './PlayPause'
 import { usePlayerController } from '../lib/usePlayerController'
+import { IRelease } from '../lib/types'
 
-export const Slider = () => {
-  const { play, pause } = usePlayerController()
+export const Slider = ({ release }: { release: IRelease }) => {
+  const { play, pause, onSongClick } = usePlayerController()
+  const thisReleasePlaying = release.songs.includes(songPlaying.value)
+  const [loaded, progress] = thisReleasePlaying
+    ? [loadedProgress.value, realPlaybackProgress.value]
+    : [0, 0]
 
   return (
     <Wrapper>
       <PlayPauseWrapper
         onClick={() => {
-          playing.value ? pause() : play()
+          if (thisReleasePlaying) {
+            playing.value ? pause() : play()
+          } else {
+            onSongClick(release.songs[0])
+          }
         }}
       >
-        <PlayPause playing={playing.value} size={SLIDER_HEIGHT} />
+        <PlayPause playing={thisReleasePlaying && playing.value} size={SLIDER_HEIGHT} />
       </PlayPauseWrapper>
 
-      <SliderWrapper className={SLIDER_CLASSNAME} onClick={() => {}}>
+      <SliderWrapper id={release.slug} className={SLIDER_CLASSNAME} onClick={() => {}}>
         <SliderBarBG />
-        <SliderBarLoaded style={{ width: `${loadedProgress.value * 100}%` }} />
-        <SliderBarProgress style={{ width: `${realPlaybackProgress.value * 100}%` }} />
-        <SliderThumb style={{ left: `${realPlaybackProgress.value * 100}%` }} />
+        <SliderBarLoaded style={{ width: `${loaded * 100}%` }} />
+        <SliderBarProgress style={{ width: `${progress * 100}%` }} />
+        <SliderThumb style={{ left: `${progress * 100}%` }} />
       </SliderWrapper>
     </Wrapper>
   )

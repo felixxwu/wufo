@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { SLIDER_CLASSNAME } from './Slider'
-import { progressOverride } from '../lib/signals'
+import { progressOverride, songPlaying } from '../lib/signals'
+import { findReleaseFromSong } from '../lib/findReleaseFromSong'
+import { usePlayerController } from '../lib/usePlayerController'
+import { findReleaseFromSlug } from '../lib/findReleaseFromSlug'
 
 export const SliderListeners = () => {
   const [isDragging, setIsDragging] = useState(false)
   const sliderRef = useRef<HTMLElement | undefined>()
+
+  const { onSongClick } = usePlayerController()
 
   useEffect(() => {
     function handlePointerDown(e: PointerEvent) {
@@ -15,9 +20,18 @@ export const SliderListeners = () => {
         ) as HTMLElement
 
       if (!sliderRef.current) return
+      const releasePlaying = findReleaseFromSong(songPlaying.value)
 
-      setIsDragging(true)
-      handlePointerSeek(e)
+      if (releasePlaying && sliderRef.current.id && sliderRef.current.id !== releasePlaying.slug) {
+        const release = findReleaseFromSlug(sliderRef.current.id)
+        if (release) {
+          onSongClick(release.songs[0])
+          progressOverride.value = 0
+        }
+      } else {
+        setIsDragging(true)
+        handlePointerSeek(e)
+      }
     }
     function handlePointerMove(e: PointerEvent) {
       if (!isDragging) return

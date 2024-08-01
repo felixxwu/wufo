@@ -91,7 +91,7 @@ export const content: Content = {
         {
           title: 'Resolver',
           fileName: '/audio/resolver.mp3',
-          length: '4:16',
+          length: '4:17',
         },
       ],
       year: 2024,

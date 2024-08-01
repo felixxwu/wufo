@@ -14,7 +14,6 @@ import { SONG_HEIGHT, Song } from './Song'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
 import { getReleaseColourDark } from '../lib/getReleaseColourDark'
-import { songPlaying as songPlayingSignal } from '../lib/signals'
 import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
 import { URL } from '../icons/url'
@@ -42,16 +41,14 @@ export function Release({
   onSongClick: (song: ISong) => void
 }) {
   const [hovering, setHovering] = useState<number | null>(null)
-  const thisReleasePlaying = !!release.songs.find(
-    s => s.fileName === songPlayingSignal.value.fileName
-  )
+  const [releaseOpen, setReleaseOpen] = useState(index === 0)
+  const expanded = releaseOpen || singleSongMode()
   const releaseImageSize = singleSongMode()
     ? LARGE_IMAGE_SIZE
-    : thisReleasePlaying
+    : expanded
     ? IMAGE_SIZE
     : SMALL_IMAGE_SIZE
   const latestRelease = index === 0 && !singleSongMode()
-  const expanded = thisReleasePlaying || singleSongMode()
   const releaseHeight = expanded
     ? releaseImageSize +
       release.songs.length * SONG_HEIGHT +
@@ -63,7 +60,7 @@ export function Release({
 
   return (
     <Container
-      {...(!thisReleasePlaying && { onClick: () => onSongClick(release.songs[0]) })}
+      {...(!expanded && { onClick: () => setReleaseOpen(true) })}
       style={{
         animationDelay: `${ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
         height: releaseHeight,
@@ -74,8 +71,8 @@ export function Release({
         gridTemplateRows: singleSongMode()
           ? `${releaseImageSize}px 1fr auto auto ${LINKS_HEIGHT}px`
           : `${releaseImageSize}px auto auto ${LINKS_HEIGHT}px`,
-        backgroundColor: thisReleasePlaying ? getReleaseColourDark(release) : BG_DARK,
-        cursor: thisReleasePlaying ? 'default' : 'pointer',
+        backgroundColor: expanded ? getReleaseColourDark(release) : BG_DARK,
+        cursor: expanded ? 'default' : 'pointer',
       }}
     >
       <LinkCopy>
@@ -105,13 +102,13 @@ export function Release({
       <TitleAndLinks>
         <TitleAndPlayButton>
           <Title
-            onClick={() => onSongClick(release.songs[0])}
+            onClick={() => setReleaseOpen(!expanded)}
             style={{
               ...(singleSongMode() ? { textDecoration: 'none' } : {}),
-              fontSize: thisReleasePlaying
+              fontSize: expanded
                 ? `${RELEASE_TITLE_BASE_SIZE - release.title.length * RELEASE_TITLE_SCALAR}px`
                 : '16px',
-              letterSpacing: thisReleasePlaying ? '-1px' : '0',
+              letterSpacing: expanded ? '-1px' : '0',
             }}
           >
             {release.title}
@@ -124,7 +121,7 @@ export function Release({
         </Meta>
       </TitleAndLinks>
       <SliderWrapper>
-        <Slider />
+        <Slider release={release} />
       </SliderWrapper>
       <Songs className='songs'>
         {release.songs.map((song, i) => (
