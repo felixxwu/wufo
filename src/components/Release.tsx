@@ -91,7 +91,7 @@ export function Release({
         <Image
           src={singleSongMode() ? release.cover : release.coverSmall}
           alt={release.title}
-          onClick={() => onSongClick(release.songs[0])}
+          onClick={() => setReleaseOpen(!expanded)}
           style={{
             width: `${releaseImageSize}px`,
             height: `${releaseImageSize}px`,
