@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import {
   BG_DARK,
   BORDER_RADIUS,
@@ -17,15 +17,15 @@ import { getReleaseColourDark } from '../lib/getReleaseColourDark'
 import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
 import { URL } from '../icons/url'
+import { getLargeTitleFontSize } from '../lib/getTitleFontSize'
 
 const LARGE_IMAGE_SIZE = 300
-const IMAGE_SIZE = 130
+export const IMAGE_SIZE = 130
+export const SIDE_MARGIN = 3
 const SMALL_IMAGE_SIZE = 50
-const GRID_GAP = 20
+export const GRID_GAP = 20
 const EXTRA_SSM_HEIGHT = 100
 const NUM_GRID_GAPS = 3
-const RELEASE_TITLE_BASE_SIZE = 50
-const RELEASE_TITLE_SCALAR = 0.6
 export const ANIMATION_INTERVAL = 0.3
 export const ANIMATION_DELAY = 0
 
@@ -40,6 +40,12 @@ export function Release({
   songPlaying: string | null
   onSongClick: (song: ISong) => void
 }) {
+  const [, setAfterInitialRender] = useState(false)
+
+  useEffect(() => {
+    setAfterInitialRender(true)
+  }, [])
+
   const [hovering, setHovering] = useState<number | null>(null)
   const [releaseOpen, setReleaseOpen] = useState(index === 0)
   const expanded = releaseOpen || singleSongMode()
@@ -100,20 +106,15 @@ export function Release({
         />
       </ImageContainer>
       <TitleAndLinks>
-        <TitleAndPlayButton>
-          <Title
-            onClick={() => setReleaseOpen(!expanded)}
-            style={{
-              ...(singleSongMode() ? { textDecoration: 'none' } : {}),
-              fontSize: expanded
-                ? `${RELEASE_TITLE_BASE_SIZE - release.title.length * RELEASE_TITLE_SCALAR}px`
-                : '16px',
-              letterSpacing: expanded ? '-1px' : '0',
-            }}
-          >
-            {release.title}
-          </Title>
-        </TitleAndPlayButton>
+        <Title
+          onClick={() => setReleaseOpen(!expanded)}
+          style={{
+            fontSize: expanded ? `${getLargeTitleFontSize(release.title)}px` : '16px',
+            letterSpacing: expanded ? '-1px' : '0',
+          }}
+        >
+          {release.title}
+        </Title>
         <Meta>
           {release.songs.length <= 2 ? 'Single' : 'EP'} •{' '}
           {latestRelease ? 'Latest Release' : release.year} • {release.songs.length} song
@@ -151,8 +152,8 @@ const Container = styled('div')`
   display: grid;
   gap: ${GRID_GAP}px;
   color: ${TEXT_COLOR};
-  margin: 0 3px;
-  padding: 20px;
+  margin: 0 ${SIDE_MARGIN}px;
+  padding: ${GRID_GAP}px;
   border-radius: ${BORDER_RADIUS_LARGE}px;
   overflow: hidden;
   transition: ${TRANSITION};
@@ -188,6 +189,9 @@ const URLIconWrapper = styled('a')`
 const Meta = styled('div')`
   opacity: 0.8;
   place-self: bottom;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const ReleaseDate = styled('div')`
@@ -230,20 +234,12 @@ const TitleAndLinks = styled('div')`
   overflow: hidden;
 `
 
-const TitleAndPlayButton = styled('div')`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-`
-
-const Title = styled('a')`
+const Title = styled('span')`
   letter-spacing: -1px;
   font-weight: 500;
   color: ${TEXT_COLOR};
   text-decoration: none;
   transition: ${TRANSITION};
-  word-wrap: break-word;
   width: 100%;
   line-height: 1;
 `
