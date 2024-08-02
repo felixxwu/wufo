@@ -39,6 +39,7 @@ export function Link({
 const Container = styled('a')`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 5px 10px;
   border-radius: ${BORDER_RADIUS}px;

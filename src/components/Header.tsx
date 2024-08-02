@@ -112,10 +112,8 @@ const Name = styled('div')`
 `
 
 const BottomRow = styled('div')`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `
 
 const StartListening = styled('div')`

@@ -12,7 +12,7 @@ import {
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { PlayPause } from './PlayPause'
 import { styled } from 'goober'
-import { getReleaseColourDark } from '../lib/getReleaseColourDark'
+import { getReleaseColourDarkTransparent } from '../lib/getReleaseColourDark'
 import { Slider } from './Slider'
 
 const START_OF_SONG_THRESHOLD = 0.05
@@ -52,7 +52,7 @@ export function PlayerControls({
 
   const release = useMemo(() => findReleaseFromSong(songPlaying.value), [songPlaying.value])
 
-  const colorValue = getReleaseColourDark(release)
+  const colorValue = getReleaseColourDarkTransparent(release)
 
   return (
     <Container

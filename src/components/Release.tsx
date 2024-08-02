@@ -13,7 +13,7 @@ import { IRelease, ISong } from '../lib/types'
 import { SONG_HEIGHT, Song } from './Song'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
-import { getReleaseColourDark } from '../lib/getReleaseColourDark'
+import { getReleaseColourDark, getReleaseColourDarkTransparent } from '../lib/getReleaseColourDark'
 import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
 import { URL } from '../icons/url'
@@ -28,6 +28,7 @@ const EXTRA_SSM_HEIGHT = 100
 const NUM_GRID_GAPS = 3
 export const ANIMATION_INTERVAL = 0.3
 export const ANIMATION_DELAY = 0
+const URLIconSize = 18
 
 export function Release({
   release,
@@ -77,15 +78,20 @@ export function Release({
         gridTemplateRows: singleSongMode()
           ? `${releaseImageSize}px 1fr auto auto ${LINKS_HEIGHT}px`
           : `${releaseImageSize}px auto auto ${LINKS_HEIGHT}px`,
-        backgroundColor: expanded ? getReleaseColourDark(release) : BG_DARK,
+        backgroundColor: expanded ? getReleaseColourDarkTransparent(release) : BG_DARK,
         cursor: expanded ? 'default' : 'pointer',
       }}
     >
-      <LinkCopy>
-        <URLIconWrapper href={`/${release.slug}`}>
-          <URL color={TEXT_COLOR} style={{ width: '18px' }} />
-        </URLIconWrapper>
-      </LinkCopy>
+      {!singleSongMode() && (
+        <LinkCopy>
+          <URLIconWrapper
+            href={`/${release.slug}`}
+            style={{ backgroundColor: getReleaseColourDark(release) }}
+          >
+            <URL color={TEXT_COLOR} style={{ width: URLIconSize, height: URLIconSize }} />
+          </URLIconWrapper>
+        </LinkCopy>
+      )}
       <ImageContainer
         style={{
           backgroundColor: `rgb(${release?.color.join(', ')})`,
@@ -183,7 +189,11 @@ const LinkCopy = styled('div')`
 `
 
 const URLIconWrapper = styled('a')`
+  border-radius: 100vh;
   cursor: pointer;
+  padding: 10px;
+  width: ${URLIconSize}px;
+  height: ${URLIconSize}px;
 `
 
 const Meta = styled('div')`
@@ -202,7 +212,7 @@ const ReleaseDate = styled('div')`
 
 const ImageContainer = styled('div')`
   grid-area: image;
-  border-radius: ${BORDER_RADIUS}px;
+  border-radius: ${BORDER_RADIUS_LARGE}px;
   background-size: cover;
   transition: ${TRANSITION};
   place-self: center;
