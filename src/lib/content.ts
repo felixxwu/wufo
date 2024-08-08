@@ -51,6 +51,8 @@ export const content: Content = {
       background: 'https://i1.sndcdn.com/artworks-DRsTN99sMDrAP2B9-1vU57g-t200x200.jpg',
       soundcloud: 'https://soundcloud.com/wufo/sets/crossroads-ep',
       spotify: 'https://open.spotify.com/album/6THJhf2BMQfJAigYJYcAEb?si=WkLW50U5RLiU8ff6dqFxMA',
+      youtube:
+        'https://www.youtube.com/watch?v=HFJ3md1W7bQ&list=PL-BYmIN56P1986Rs1mUS3TD-gr96Mx7d_',
       songs: [
         { title: 'From the Start', fileName: '/audio/fromthestart.mp3', length: '4:04' },
         { title: 'Slow Burn', fileName: '/audio/slowburn.mp3', length: '3:48' },
