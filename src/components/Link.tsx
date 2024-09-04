@@ -1,6 +1,6 @@
 import { VNode } from 'preact'
 import { IconProps } from '../lib/types'
-import { BG_DARK, BORDER_RADIUS, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { styled } from 'goober'
 
 export const LINK_ICON_SIZE = 14
@@ -49,7 +49,7 @@ const Container = styled('a')`
   transition: ${QUICK_TRANSITION};
 
   &:hover {
-    background-color: ${BG_DARK};
+    background-color: ${HIGHLIGHT};
   }
 `
 

@@ -1,4 +1,3 @@
-import { avatar64 } from '../base64/avatar'
 import { Apple } from '../icons/apple'
 import { Facebook } from '../icons/facebook'
 import { Instagram } from '../icons/instagram'
@@ -17,21 +16,21 @@ function processReleases(releases: IRelease[]) {
 
 export const content: Content = {
   bio: 'London based Drum & Bass producer, also known as Noxive',
-  avatar: avatar64,
+  avatar: '/wufo256.png',
   socials: [
     {
       link: 'https://open.spotify.com/artist/5nONWldPVh7MEziwG8r7RY',
       label: 'Spotify',
       Icon: Spotify,
     },
-    { link: 'https://soundcloud.com/wufo', label: 'SoundCloud', Icon: SoundCloud },
+    { link: 'https://www.instagram.com/wufodnb', label: 'Instagram', Icon: Instagram },
     { link: 'https://www.youtube.com/@wufodnb', label: 'YouTube', Icon: YouTube },
+    { link: 'https://soundcloud.com/wufo', label: 'SoundCloud', Icon: SoundCloud },
     {
       link: 'https://music.apple.com/us/artist/wufo/1643758828',
       label: 'Apple Music',
       Icon: Apple,
     },
-    { link: 'https://www.instagram.com/wufodnb', label: 'Instagram', Icon: Instagram },
     {
       link: 'https://www.facebook.com/profile.php?id=100088831532494',
       label: 'Facebook',

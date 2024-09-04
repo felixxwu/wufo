@@ -1,26 +1,20 @@
 import { styled } from 'goober'
 import { FadeInDelay } from '../lib/FadeInDelay'
 import { FontWeightAnimation } from '../lib/FontWeightAnimation'
-import {
-  BORDER_RADIUS_LARGE,
-  BOX_SHADOW,
-  HIGHLIGHT,
-  QUICK_TRANSITION,
-  TEXT_COLOR,
-} from '../lib/consts'
+import { BORDER_RADIUS_LARGE, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { Link } from './Link'
 import { Music } from '../icons/music'
 import { showControls } from '../lib/signals'
+import { useState } from 'preact/hooks'
 
-const AVATAR_SIZE = 120
 const TIMING_CONFIG = {
   name: [
     { letter: 'W', delay: 200 },
     { letter: 'U', delay: 400 },
     { letter: 'F', delay: 600 },
-    // { letter: 'O', delay: 800 },
+    { letter: 'O', delay: 800 },
   ],
   fontWeightDuration: 5000,
   avatar: 1000,
@@ -29,23 +23,32 @@ const TIMING_CONFIG = {
 }
 
 export function Header({ startPlaying }: { startPlaying: () => void }) {
+  const [showEasterEgg, setShowEasterEgg] = useState(false)
+  console.log(`showEasterEgg`, showEasterEgg)
+
   if (singleSongMode()) return null
+
+  const handleEasterEgg = (letter: string) => {
+    if (letter === 'O') setShowEasterEgg(true)
+  }
 
   return (
     <Container>
       <TopRow>
         {/* <FadeInDelay delay={TIMING_CONFIG.avatar}>
-          <Avatar src={content.avatar} alt='WUFO Avatar' />
-        </FadeInDelay> */}
+            <Avatar src={content.avatar} alt='WUFO Avatar' />
+          </FadeInDelay> */}
         <NameRow>
           {TIMING_CONFIG.name.map(({ letter, delay }) => (
             <FontWeightAnimation delay={delay} duration={TIMING_CONFIG.fontWeightDuration}>
               <FadeInDelay delay={delay}>
-                <Name>{letter}</Name>
+                <>
+                  <Name onClick={() => handleEasterEgg(letter)}>{letter}</Name>
+                  {letter === 'O' && showEasterEgg && <Egg src={content.avatar} />}
+                </>
               </FadeInDelay>
             </FontWeightAnimation>
           ))}
-          <Stupid src={content.avatar} width={60} height={60} />
         </NameRow>
       </TopRow>
       <FadeInDelay delay={TIMING_CONFIG.bottomRow}>
@@ -69,47 +72,6 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
     </Container>
   )
 }
-
-const Stupid = styled('img')`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 11px solid ${TEXT_COLOR};
-  margin-top: 20px;
-
-  animation: flyIn 2s ease-in-out 2s forwards;
-  transform: translate(-1000px, -100px);
-
-  @keyframes flyIn {
-    0% {
-      transform: translate(-1000px, -80px);
-    }
-    12% {
-      transform: translate(-500px, -200px);
-    }
-    25% {
-      transform: translate(-350px, -80px);
-    }
-    38% {
-      transform: translate(-275px, -150px);
-    }
-    50% {
-      transform: translate(-220px, -80px);
-    }
-    62% {
-      transform: translate(-150px, -150px);
-    }
-    75% {
-      transform: translate(-100px, -80px);
-    }
-    87% {
-      transform: translate(-50px, -150px);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
-`
 
 const Container = styled('div')`
   display: flex;
@@ -136,12 +98,25 @@ const TopRow = styled('div')`
   width: 100%;
 `
 
-const Avatar = styled('img')`
-  width: ${AVATAR_SIZE}px;
-  height: ${AVATAR_SIZE}px;
-  border-radius: ${AVATAR_SIZE}px;
-  /* box-shadow: ${BOX_SHADOW}; */
-  border: 1px solid #888;
+const Egg = styled('img')`
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: translate(7px, -73px);
+  z-index: -1;
+
+  animation: fadeIn 1s ease-in-out;
+  animation-fill-mode: forwards;
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `
 
 const NameRow = styled('div')`
@@ -150,14 +125,14 @@ const NameRow = styled('div')`
 `
 
 const Name = styled('div')`
-  font-size: 100px;
-  /* font-size: 30px; */
+  font-size: 80px;
   text-align: center;
 `
 
 const BottomRow = styled('div')`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
 `
 
 const StartListening = styled('div')`
