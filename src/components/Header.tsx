@@ -14,13 +14,13 @@ import { Link } from './Link'
 import { Music } from '../icons/music'
 import { showControls } from '../lib/signals'
 
-const AVATAR_SIZE = 70
+const AVATAR_SIZE = 120
 const TIMING_CONFIG = {
   name: [
     { letter: 'W', delay: 200 },
     { letter: 'U', delay: 400 },
     { letter: 'F', delay: 600 },
-    { letter: 'O', delay: 800 },
+    // { letter: 'O', delay: 800 },
   ],
   fontWeightDuration: 5000,
   avatar: 1000,
@@ -34,9 +34,9 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
   return (
     <Container>
       <TopRow>
-        <FadeInDelay delay={TIMING_CONFIG.avatar}>
+        {/* <FadeInDelay delay={TIMING_CONFIG.avatar}>
           <Avatar src={content.avatar} alt='WUFO Avatar' />
-        </FadeInDelay>
+        </FadeInDelay> */}
         <NameRow>
           {TIMING_CONFIG.name.map(({ letter, delay }) => (
             <FontWeightAnimation delay={delay} duration={TIMING_CONFIG.fontWeightDuration}>
@@ -45,6 +45,7 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
               </FadeInDelay>
             </FontWeightAnimation>
           ))}
+          <Stupid src={content.avatar} width={60} height={60} />
         </NameRow>
       </TopRow>
       <FadeInDelay delay={TIMING_CONFIG.bottomRow}>
@@ -68,6 +69,47 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
     </Container>
   )
 }
+
+const Stupid = styled('img')`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 11px solid ${TEXT_COLOR};
+  margin-top: 20px;
+
+  animation: flyIn 2s ease-in-out 2s forwards;
+  transform: translate(-1000px, -100px);
+
+  @keyframes flyIn {
+    0% {
+      transform: translate(-1000px, -80px);
+    }
+    12% {
+      transform: translate(-500px, -200px);
+    }
+    25% {
+      transform: translate(-350px, -80px);
+    }
+    38% {
+      transform: translate(-275px, -150px);
+    }
+    50% {
+      transform: translate(-220px, -80px);
+    }
+    62% {
+      transform: translate(-150px, -150px);
+    }
+    75% {
+      transform: translate(-100px, -80px);
+    }
+    87% {
+      transform: translate(-50px, -150px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+`
 
 const Container = styled('div')`
   display: flex;
@@ -98,7 +140,8 @@ const Avatar = styled('img')`
   width: ${AVATAR_SIZE}px;
   height: ${AVATAR_SIZE}px;
   border-radius: ${AVATAR_SIZE}px;
-  box-shadow: ${BOX_SHADOW};
+  /* box-shadow: ${BOX_SHADOW}; */
+  border: 1px solid #888;
 `
 
 const NameRow = styled('div')`
@@ -107,7 +150,8 @@ const NameRow = styled('div')`
 `
 
 const Name = styled('div')`
-  font-size: 30px;
+  font-size: 100px;
+  /* font-size: 30px; */
   text-align: center;
 `
 
