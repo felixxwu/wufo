@@ -41,6 +41,21 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Look In Her Eye (ft. Taylor B-W)',
+      slug: 'lookinhereye',
+      color: [70, 70, 70],
+      cover: 'https://i1.sndcdn.com/artworks-P4bUXXZRQnka-0-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-P4bUXXZRQnka-0-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-P4bUXXZRQnka-0-t50x50.jpg',
+      background: 'https://i1.sndcdn.com/artworks-P4bUXXZRQnka-0-t200x200.jpg',
+      soundcloud: 'https://soundcloud.com/wufo/look-in-her-eye',
+      spotify: 'https://open.spotify.com/track/0KZNdQXHvKQgRgW8nBwmz4',
+      youtube: 'https://www.youtube.com/watch?v=a2iOpR60Wvw',
+      apple: 'https://music.apple.com/us/album/look-in-her-eye/1762738681',
+      songs: [{ title: 'Look In Her Eye', fileName: '/audio/lookinhereye.mp3', length: '4:33' }],
+      year: 2024,
+    },
+    {
       title: 'Crossroads',
       slug: 'crossroads',
       color: [133, 33, 9],
