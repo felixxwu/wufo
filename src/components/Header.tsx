@@ -1,7 +1,7 @@
 import { styled } from 'goober'
 import { FadeInDelay } from '../lib/FadeInDelay'
 import { FontWeightAnimation } from '../lib/FontWeightAnimation'
-import { BORDER_RADIUS_LARGE, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import { BORDER_RADIUS_LARGE, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { Link } from './Link'
@@ -130,9 +130,8 @@ const Name = styled('div')`
 `
 
 const BottomRow = styled('div')`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+  display: flex;
+  gap: 10px;
 `
 
 const StartListening = styled('div')`
@@ -150,6 +149,6 @@ const StartListening = styled('div')`
   transition: ${QUICK_TRANSITION};
 
   &:hover {
-    background-color: ${HIGHLIGHT};
+    background-color: rgba(255, 255, 255, 0.1);
   }
 `

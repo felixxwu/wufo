@@ -1,5 +1,4 @@
 import { Apple } from '../icons/apple'
-import { Facebook } from '../icons/facebook'
 import { Instagram } from '../icons/instagram'
 import { SoundCloud } from '../icons/soundcloud'
 import { Spotify } from '../icons/spotify'
@@ -31,12 +30,6 @@ export const content: Content = {
       label: 'Apple Music',
       Icon: Apple,
     },
-    {
-      link: 'https://www.facebook.com/profile.php?id=100088831532494',
-      label: 'Facebook',
-      Icon: Facebook,
-    },
-    // { link: 'https://twitter.com/wufodnb', label: 'Twitter', Icon: Twitter },
   ],
   email: 'wufodnb@gmail.com',
   releases: processReleases([
