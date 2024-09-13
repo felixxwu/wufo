@@ -45,12 +45,7 @@ export function UI() {
       <ReleaseTopBar />
 
       {content.releases.map((release, i) => (
-        <Release
-          release={release}
-          index={i}
-          onSongClick={onSongClick}
-          songPlaying={playing.value ? songPlaying.value.fileName : null}
-        />
+        <Release release={release} index={i} onSongClick={onSongClick} />
       ))}
 
       <CopyRightFooter />

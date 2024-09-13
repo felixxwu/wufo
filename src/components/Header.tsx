@@ -125,7 +125,7 @@ const NameRow = styled('div')`
 `
 
 const Name = styled('div')`
-  font-size: 80px;
+  font-size: 70px;
   text-align: center;
 `
 

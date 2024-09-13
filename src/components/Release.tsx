@@ -18,6 +18,7 @@ import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
 import { URL } from '../icons/url'
 import { getLargeTitleFontSize } from '../lib/getTitleFontSize'
+import { playing, songPlaying } from '../lib/signals'
 
 const LARGE_IMAGE_SIZE = 300
 export const IMAGE_SIZE = 130
@@ -33,12 +34,10 @@ const URLIconSize = 18
 export function Release({
   release,
   index,
-  songPlaying,
   onSongClick,
 }: {
   release: IRelease
   index: number
-  songPlaying: string | null
   onSongClick: (song: ISong) => void
 }) {
   const [, setAfterInitialRender] = useState(false)
@@ -46,6 +45,12 @@ export function Release({
   useEffect(() => {
     setAfterInitialRender(true)
   }, [])
+
+  useEffect(() => {
+    if (release.songs.includes(songPlaying.value)) {
+      setReleaseOpen(true)
+    }
+  }, [songPlaying.value, playing.value])
 
   const [hovering, setHovering] = useState<number | null>(null)
   const [releaseOpen, setReleaseOpen] = useState(index === 0)
@@ -111,9 +116,8 @@ export function Release({
           }}
         />
       </ImageContainer>
-      <TitleAndLinks>
+      <TitleAndLinks onClick={() => setReleaseOpen(!expanded)}>
         <Title
-          onClick={() => setReleaseOpen(!expanded)}
           style={{
             fontSize: expanded ? `${getLargeTitleFontSize(release.title)}px` : '16px',
             letterSpacing: expanded ? '-1px' : '0',
@@ -136,7 +140,6 @@ export function Release({
             song={song}
             index={i}
             hovering={hovering === i}
-            playing={songPlaying === song.fileName}
             pointerenter={() => setHovering(i)}
             pointerleave={() => setHovering(null)}
             onclick={() => onSongClick(song)}
@@ -165,6 +168,7 @@ const Container = styled('div')`
   transition: ${TRANSITION};
   opacity: 0;
   box-shadow: ${BOX_SHADOW};
+  outline: 1px solid #292929;
 
   animation-name: fade-in;
   animation-duration: 2s;
@@ -242,6 +246,7 @@ const TitleAndLinks = styled('div')`
   justify-content: space-between;
   width: 100%;
   overflow: hidden;
+  cursor: pointer;
 `
 
 const Title = styled('span')`
