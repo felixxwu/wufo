@@ -1,6 +1,6 @@
 import { VNode } from 'preact'
 import { IconProps } from '../lib/types'
-import { BORDER_RADIUS, HIGHLIGHT, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import { BORDER_RADIUS_LARGE, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { styled } from 'goober'
 
 export const LINK_ICON_SIZE = 14
@@ -30,8 +30,8 @@ export function Link({
       {...(href ? {} : { role: 'button' })}
       aria-label={ariaLabel}
     >
-      <Icon color={TEXT_COLOR} style={{ width: LINK_ICON_SIZE, height: LINK_ICON_SIZE }} />
       {name && <Name>{name}</Name>}
+      <Icon color={TEXT_COLOR} style={{ width: LINK_ICON_SIZE, height: LINK_ICON_SIZE }} />
     </Container>
   )
 }
@@ -39,17 +39,19 @@ export function Link({
 const Container = styled('a')`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 8px;
-  padding: 5px 10px;
-  border-radius: ${BORDER_RADIUS}px;
+  padding: 6px 12px;
+  border-radius: ${BORDER_RADIUS_LARGE}px;
   cursor: pointer;
   text-decoration: none;
   color: ${TEXT_COLOR};
   transition: ${QUICK_TRANSITION};
 
+  background-color: rgba(255, 255, 255, 0.06);
+
   &:hover {
-    background-color: ${HIGHLIGHT};
+    background-color: rgba(255, 255, 255, 0.1);
   }
 `
 
