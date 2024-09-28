@@ -43,7 +43,7 @@ export const content: Content = {
       background: 'https://i1.sndcdn.com/artworks-P4bUXXZRQnka-0-t200x200.jpg',
       soundcloud: 'https://soundcloud.com/wufo/look-in-her-eye',
       spotify: 'https://open.spotify.com/track/0KZNdQXHvKQgRgW8nBwmz4',
-      youtube: 'https://www.youtube.com/watch?v=a2iOpR60Wvw',
+      youtube: 'https://www.youtube.com/watch?v=Yy-hHyAQKpw',
       apple: 'https://music.apple.com/us/album/look-in-her-eye/1762738681',
       songs: [{ title: 'Look In Her Eye', fileName: '/audio/lookinhereye.mp3', length: '4:33' }],
       year: 2024,
