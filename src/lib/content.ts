@@ -34,6 +34,21 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Say It Again (ft. Taylor B-W)',
+      slug: 'sayitagain',
+      color: [70, 70, 70],
+      cover: 'https://i1.sndcdn.com/artworks-ojUp8b6IJ9A7-0-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-ojUp8b6IJ9A7-0-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-ojUp8b6IJ9A7-0-t50x50.jpg',
+      background: 'https://i1.sndcdn.com/artworks-ojUp8b6IJ9A7-0-t200x200.jpg',
+      soundcloud: 'https://soundcloud.com/wufo/say-it-again',
+      spotify: 'https://open.spotify.com/track/0Yy2iidwmAYV5UdDW39gRq',
+      youtube: 'https://www.youtube.com/watch?v=E_Pw6ejuhK0',
+      apple: 'https://music.apple.com/gb/album/say-it-again/1773408428',
+      songs: [{ title: 'Say It Again', fileName: '/audio/sayitagain.mp3', length: '3:07' }],
+      year: 2024,
+    },
+    {
       title: 'Look In Her Eye (ft. Taylor B-W)',
       slug: 'lookinhereye',
       color: [70, 70, 70],
