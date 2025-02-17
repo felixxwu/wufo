@@ -56,7 +56,7 @@ export function ArtworkBackground() {
           translate: `${translateX} ${translateY}`,
           opacity: imageOpacity,
           // filter: `blur(${imageOpacity === 0 ? 20 : 0}px)`,
-          filter: `blur(50px)`,
+          // filter: `blur(50px)`,
         }}
       />
       <Grain
