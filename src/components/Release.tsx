@@ -18,7 +18,8 @@ import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
 import { URL } from '../icons/url'
 import { getLargeTitleFontSize } from '../lib/getTitleFontSize'
-import { playing, songPlaying } from '../lib/signals'
+import { expandedReleases, playing, songPlaying } from '../lib/signals'
+import { PlayingAnimation } from './PlayingAnimation.tsx'
 
 const LARGE_IMAGE_SIZE = 300
 export const IMAGE_SIZE = 130
@@ -27,7 +28,7 @@ const SMALL_IMAGE_SIZE = 50
 export const GRID_GAP = 20
 const EXTRA_SSM_HEIGHT = 100
 const NUM_GRID_GAPS = 3
-export const ANIMATION_INTERVAL = 0.3
+export const ANIMATION_INTERVAL = 0.1
 export const ANIMATION_DELAY = 1.5
 const URLIconSize = 18
 
@@ -42,32 +43,44 @@ export function Release({
 }) {
   const [, setAfterInitialRender] = useState(false)
 
+  const setReleaseOpen = (open: boolean) => {
+    if (open) {
+      expandedReleases.value = [release]
+      if (!playing.value) {
+        onSongClick(release.songs[0])
+      }
+    } else {
+      expandedReleases.value = []
+    }
+  }
+
   useEffect(() => {
     setAfterInitialRender(true)
   }, [])
 
   useEffect(() => {
-    if (release.songs.includes(songPlaying.value)) {
+    if (release.songs.includes(songPlaying.value) && playing.value) {
       setReleaseOpen(true)
     }
   }, [songPlaying.value, playing.value])
 
   const [hovering, setHovering] = useState<number | null>(null)
-  const [releaseOpen, setReleaseOpen] = useState(index === 0)
-  const expanded = releaseOpen || singleSongMode()
+  const expanded = !!expandedReleases.value.find(r => r.title === release.title) || singleSongMode()
   const releaseImageSize = getReleaseImageSize(expanded)
   const latestRelease = index === 0 && !singleSongMode()
   const releaseHeight = getReleaseHeight(release, expanded)
+  const thisReleasePlaying = release.songs.includes(songPlaying.value)
+  const showPlayingAnimation = !expanded && thisReleasePlaying && playing.value
 
   return (
     <Container
       {...(!expanded && { onClick: () => setReleaseOpen(true) })}
       style={{
-        animationDelay: `${ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
+        animationDelay: `${singleSongMode() ? 0 : ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
         height: releaseHeight,
         gridTemplateAreas: singleSongMode()
           ? `'image' 'title' 'slider' 'songs' 'links'`
-          : `'image title' 'slider slider' 'songs songs' 'links links'`,
+          : `'image title animation' 'slider slider slider' 'songs songs songs' 'links links links'`,
         gridTemplateColumns: singleSongMode() ? '1fr' : `${releaseImageSize}px 1fr`,
         gridTemplateRows: singleSongMode()
           ? `${releaseImageSize}px 1fr auto auto ${LINKS_HEIGHT}px`
@@ -120,6 +133,14 @@ export function Release({
           {release.songs.length === 1 ? '' : 's'}
         </Meta>
       </TitleAndLinks>
+
+      <PlayingAnimationContainer
+        style={{
+          opacity: showPlayingAnimation ? 1 : 0,
+        }}
+      >
+        <PlayingAnimation />
+      </PlayingAnimationContainer>
       <SliderWrapper>
         <Slider release={release} />
       </SliderWrapper>
@@ -173,7 +194,7 @@ const Container = styled('div')`
   outline: 1px solid #292929;
 
   animation-name: fade-in;
-  animation-duration: 3s;
+  animation-duration: 2s;
   animation-fill-mode: forwards;
 `
 
@@ -204,7 +225,6 @@ const URLIconWrapper = styled('a')`
 
 const Meta = styled('div')`
   opacity: 0.8;
-  place-self: bottom;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -238,6 +258,13 @@ const Image = styled('img')`
   &:hover {
     box-shadow: ${BOX_SHADOW_LARGE};
   }
+`
+
+const PlayingAnimationContainer = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: ${TRANSITION};
 `
 
 const TitleAndLinks = styled('div')`

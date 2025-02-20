@@ -5,7 +5,7 @@ import { ANIMATION_DELAY, ANIMATION_INTERVAL } from './Release'
 import { singleSongMode } from '../lib/singleSongMode'
 
 export function CopyRightFooter() {
-  return <CopyRight>&copy; WUFO 2024</CopyRight>
+  return <CopyRight>&copy; WUFO 2025</CopyRight>
 }
 
 const CopyRight = styled('span')`
