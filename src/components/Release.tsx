@@ -28,7 +28,7 @@ export const GRID_GAP = 20
 const EXTRA_SSM_HEIGHT = 100
 const NUM_GRID_GAPS = 3
 export const ANIMATION_INTERVAL = 0.3
-export const ANIMATION_DELAY = 0
+export const ANIMATION_DELAY = 1.5
 const URLIconSize = 18
 
 export function Release({
@@ -55,20 +55,9 @@ export function Release({
   const [hovering, setHovering] = useState<number | null>(null)
   const [releaseOpen, setReleaseOpen] = useState(index === 0)
   const expanded = releaseOpen || singleSongMode()
-  const releaseImageSize = singleSongMode()
-    ? LARGE_IMAGE_SIZE
-    : expanded
-    ? IMAGE_SIZE
-    : SMALL_IMAGE_SIZE
+  const releaseImageSize = getReleaseImageSize(expanded)
   const latestRelease = index === 0 && !singleSongMode()
-  const releaseHeight = expanded
-    ? releaseImageSize +
-      release.songs.length * SONG_HEIGHT +
-      GRID_GAP * NUM_GRID_GAPS +
-      LINKS_HEIGHT +
-      SLIDER_HEIGHT +
-      (singleSongMode() ? EXTRA_SSM_HEIGHT : 0)
-    : releaseImageSize
+  const releaseHeight = getReleaseHeight(release, expanded)
 
   return (
     <Container
@@ -157,6 +146,19 @@ export function Release({
   )
 }
 
+export const getReleaseHeight = (release: IRelease, expanded: boolean) =>
+  expanded
+    ? getReleaseImageSize(expanded) +
+      release.songs.length * SONG_HEIGHT +
+      GRID_GAP * NUM_GRID_GAPS +
+      LINKS_HEIGHT +
+      SLIDER_HEIGHT +
+      (singleSongMode() ? EXTRA_SSM_HEIGHT : 0)
+    : getReleaseImageSize(expanded)
+
+export const getReleaseImageSize = (expanded: boolean) =>
+  singleSongMode() ? LARGE_IMAGE_SIZE : expanded ? IMAGE_SIZE : SMALL_IMAGE_SIZE
+
 const Container = styled('div')`
   display: grid;
   gap: ${GRID_GAP}px;
@@ -171,7 +173,7 @@ const Container = styled('div')`
   outline: 1px solid #292929;
 
   animation-name: fade-in;
-  animation-duration: 2s;
+  animation-duration: 3s;
   animation-fill-mode: forwards;
 `
 

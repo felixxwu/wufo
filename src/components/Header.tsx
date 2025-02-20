@@ -1,12 +1,10 @@
 import { styled } from 'goober'
 import { FadeInDelay } from '../lib/FadeInDelay'
 import { FontWeightAnimation } from '../lib/FontWeightAnimation'
-import { BORDER_RADIUS_LARGE, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
+import { TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { Link } from './Link'
-import { Music } from '../icons/music'
-import { showControls } from '../lib/signals'
 import { useState } from 'preact/hooks'
 
 const TIMING_CONFIG = {
@@ -22,7 +20,7 @@ const TIMING_CONFIG = {
   downArrow: 2000,
 }
 
-export function Header({ startPlaying }: { startPlaying: () => void }) {
+export function Header({}: { startPlaying: () => void }) {
   const [showEasterEgg, setShowEasterEgg] = useState(false)
   console.log(`showEasterEgg`, showEasterEgg)
 
@@ -33,7 +31,11 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
   }
 
   return (
-    <Container>
+    <Container
+      style={{
+        height: `calc(100vh - 250px)`,
+      }}
+    >
       <TopRow>
         {/* <FadeInDelay delay={TIMING_CONFIG.avatar}>
             <Avatar src={content.avatar} alt='WUFO Avatar' />
@@ -63,12 +65,12 @@ export function Header({ startPlaying }: { startPlaying: () => void }) {
           ))}
         </BottomRow>
       </FadeInDelay>
-      <FadeInDelay delay={TIMING_CONFIG.downArrow}>
-        <StartListening onClick={startPlaying} style={{ opacity: showControls.value ? 0 : 1 }}>
-          <Music color={TEXT_COLOR} style={{ width: '35px', height: '35px' }} />
-          Start Listening
-        </StartListening>
-      </FadeInDelay>
+      {/*<FadeInDelay delay={TIMING_CONFIG.downArrow}>*/}
+      {/*  <StartListening onClick={startPlaying} style={{ opacity: showControls.value ? 0 : 1 }}>*/}
+      {/*    <Music color={TEXT_COLOR} style={{ width: '35px', height: '35px' }} />*/}
+      {/*    Start Listening*/}
+      {/*  </StartListening>*/}
+      {/*</FadeInDelay>*/}
     </Container>
   )
 }
@@ -82,7 +84,6 @@ const Container = styled('div')`
   color: ${TEXT_COLOR};
   max-width: 500px;
   margin: auto;
-  height: 100vh;
   opacity: 0;
   animation-name: fade-in;
   animation-delay: 0.2s;
@@ -134,21 +135,21 @@ const BottomRow = styled('div')`
   gap: 10px;
 `
 
-const StartListening = styled('div')`
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  margin-top: 10px;
-  border-radius: ${BORDER_RADIUS_LARGE}px;
-  font-size: 14px;
-  color: ${TEXT_COLOR};
-  cursor: pointer;
-  transition: ${QUICK_TRANSITION};
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-`
+// const StartListening = styled('div')`
+//   display: flex;
+//   gap: 10px;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 20px;
+//   margin-top: 10px;
+//   border-radius: ${BORDER_RADIUS_LARGE}px;
+//   font-size: 14px;
+//   color: ${TEXT_COLOR};
+//   cursor: pointer;
+//   transition: ${QUICK_TRANSITION};
+//
+//   &:hover {
+//     background-color: rgba(255, 255, 255, 0.1);
+//   }
+// `

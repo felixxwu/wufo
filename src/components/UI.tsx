@@ -11,6 +11,8 @@ import { styled } from 'goober'
 import { MOBILE_CUTOFF } from '../lib/consts'
 import { SliderListeners } from './SliderListeners'
 
+export const RELEASES_GAP = 20
+
 export function UI() {
   useEffect(() => {
     if (progressOverride.value !== 0) {
@@ -21,7 +23,7 @@ export function UI() {
   const { play, pause, next, prev, onSongClick, onTrackEnd } = usePlayerController()
 
   useEffect(() => {
-    const onkeydown = (e: KeyboardEvent) => {
+    window.onkeydown = (e: KeyboardEvent) => {
       if (e.key === ' ') {
         playing.value ? pause() : play()
         e.preventDefault()
@@ -35,7 +37,6 @@ export function UI() {
         e.preventDefault()
       }
     }
-    window.onkeydown = onkeydown
   }, [playing.value, songPlaying.value])
 
   return (
@@ -63,7 +64,7 @@ export function UI() {
 const Container = styled('div')`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: ${RELEASES_GAP}px;
   width: 100vw;
   max-width: ${MOBILE_CUTOFF}px;
 `
