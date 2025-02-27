@@ -206,15 +206,10 @@ const LinkCopy = styled('div')`
   right: 0;
   width: 70px;
   height: 70px;
-  opacity: 0;
   transition: ${QUICK_TRANSITION};
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &:hover {
-    opacity: 1;
-  }
 `
 
 const URLIconWrapper = styled('a')`
