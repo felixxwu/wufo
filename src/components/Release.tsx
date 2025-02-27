@@ -134,13 +134,15 @@ export function Release({
         </Meta>
       </TitleAndLinks>
 
-      <PlayingAnimationContainer
-        style={{
-          opacity: showPlayingAnimation ? 1 : 0,
-        }}
-      >
-        <PlayingAnimation />
-      </PlayingAnimationContainer>
+      {!singleSongMode() && (
+        <PlayingAnimationContainer
+          style={{
+            opacity: showPlayingAnimation ? 1 : 0,
+          }}
+        >
+          <PlayingAnimation />
+        </PlayingAnimationContainer>
+      )}
       <SliderWrapper>
         <Slider release={release} />
       </SliderWrapper>
