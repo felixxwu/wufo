@@ -5,8 +5,7 @@ import { YouTube } from '../icons/youtube'
 import { Apple } from '../icons/apple'
 import { SoundCloud } from '../icons/soundcloud'
 import { ButtonLink } from './ButtonLink'
-
-export const LINKS_HEIGHT = 90
+import { MOBILE_CUTOFF } from '../lib/consts.ts'
 
 export const ButtonLinks = ({ release }: { release: IRelease }) => {
   return (
@@ -33,4 +32,8 @@ const Links = styled('div')`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+
+  @media (min-width: ${MOBILE_CUTOFF}px) {
+    grid-template-columns: auto auto auto auto;
+  }
 `

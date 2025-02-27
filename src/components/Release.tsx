@@ -14,11 +14,11 @@ import { SONG_HEIGHT, Song } from './Song'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
 import { getReleaseColourDark, getReleaseColourDarkTransparent } from '../lib/getReleaseColourDark'
-import { ButtonLinks, LINKS_HEIGHT } from './ButtonLinks'
+import { ButtonLinks } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
 import { URL } from '../icons/url'
 import { getLargeTitleFontSize } from '../lib/getTitleFontSize'
-import { expandedReleases, playing, songPlaying } from '../lib/signals'
+import { expandedReleases, linksHeight, playing, songPlaying } from '../lib/signals'
 import { PlayingAnimation } from './PlayingAnimation.tsx'
 
 const LARGE_IMAGE_SIZE = 300
@@ -83,8 +83,8 @@ export function Release({
           : `'image title animation' 'slider slider slider' 'songs songs songs' 'links links links'`,
         gridTemplateColumns: singleSongMode() ? '1fr' : `${releaseImageSize}px 1fr`,
         gridTemplateRows: singleSongMode()
-          ? `${releaseImageSize}px 1fr auto auto ${LINKS_HEIGHT}px`
-          : `${releaseImageSize}px auto auto ${LINKS_HEIGHT}px`,
+          ? `${releaseImageSize}px 1fr auto auto ${linksHeight.value}px`
+          : `${releaseImageSize}px auto auto ${linksHeight.value}px`,
         backgroundColor: expanded ? getReleaseColourDarkTransparent(release) : BG_DARK,
         cursor: expanded ? 'default' : 'pointer',
       }}
@@ -172,7 +172,7 @@ export const getReleaseHeight = (release: IRelease, expanded: boolean) =>
     ? getReleaseImageSize(expanded) +
       release.songs.length * SONG_HEIGHT +
       GRID_GAP * NUM_GRID_GAPS +
-      LINKS_HEIGHT +
+      linksHeight.value +
       SLIDER_HEIGHT +
       (singleSongMode() ? EXTRA_SSM_HEIGHT : 0)
     : getReleaseImageSize(expanded)

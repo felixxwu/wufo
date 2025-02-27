@@ -1,6 +1,7 @@
-import { signal } from '@preact/signals'
+import { computed, signal } from '@preact/signals'
 import { IRelease, ISong } from './types'
 import { content } from './content'
+import { MOBILE_CUTOFF } from './consts.ts'
 
 export const screenHeight = signal(window.innerHeight)
 export const screenWidth = signal(window.innerWidth)
@@ -15,3 +16,4 @@ export const showControls = signal(false)
 export const progressOverride = signal(0)
 export const appElement = signal(document.getElementById('app')!)
 export const expandedReleases = signal<IRelease[]>([content.releases[0]])
+export const linksHeight = computed(() => (screenWidth.value < MOBILE_CUTOFF ? 90 : 45))

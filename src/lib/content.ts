@@ -34,6 +34,21 @@ export const content: Content = {
   email: 'wufodnb@gmail.com',
   releases: processReleases([
     {
+      title: 'Understated (ft. Taylor B-W)',
+      slug: 'understated',
+      color: [71, 112, 164],
+      cover: 'https://i1.sndcdn.com/artworks-zt5FpguaYdKA-0-t500x500.jpg',
+      coverSmall: 'https://i1.sndcdn.com/artworks-zt5FpguaYdKA-0-t200x200.jpg',
+      coverTiny: 'https://i1.sndcdn.com/artworks-zt5FpguaYdKA-0-t50x50.jpg',
+      background: 'https://i1.sndcdn.com/artworks-zt5FpguaYdKA-0-t200x200.jpg',
+      soundcloud: 'https://soundcloud.com/wufo/understated',
+      spotify: 'https://open.spotify.com/track/64nBPfgSEq0wfYiEmv5yBu',
+      youtube: 'https://www.youtube.com/watch?v=yh5RPGcBFyM',
+      apple: 'https://music.apple.com/us/album/understated/1791454210',
+      songs: [{ title: 'Understated', fileName: '/audio/understated.mp3', length: '3:54' }],
+      year: 2025,
+    },
+    {
       title: 'Say It Again (ft. Taylor B-W)',
       slug: 'sayitagain',
       color: [70, 70, 70],
