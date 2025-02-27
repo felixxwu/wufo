@@ -89,7 +89,7 @@ export function Release({
         cursor: expanded ? 'default' : 'pointer',
       }}
     >
-      {!singleSongMode() && (
+      {!singleSongMode() && expanded && (
         <LinkCopy>
           <URLIconWrapper
             href={`/${release.slug}`}
