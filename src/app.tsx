@@ -1,6 +1,5 @@
 import './styles.css'
 import './keyframes.css'
-import './lexend.css'
 import { UI } from './components/UI'
 import { useEffect, useState } from 'preact/hooks'
 import { ArtworkBackground } from './components/ArtworkBackground'
