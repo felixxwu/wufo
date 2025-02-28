@@ -19,16 +19,5 @@ export function FontWeightAnimation(props: {
 }
 
 const Container = styled('div')`
-  font-weight: 100;
-  animation-name: weight-increase;
-  animation-fill-mode: forwards;
-
-  @keyframes weight-increase {
-    0% {
-      font-weight: 200;
-    }
-    100% {
-      font-weight: 770;
-    }
-  }
+  font-weight: 750;
 `

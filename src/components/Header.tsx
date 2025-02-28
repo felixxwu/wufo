@@ -12,7 +12,7 @@ const LETTER_CONFIG = {
     { letter: 'W', delay: 0, kerning: 0 },
     { letter: 'U', delay: 200, kerning: 0 },
     { letter: 'F', delay: 400, kerning: -6 },
-    { letter: 'O', delay: 600, kerning: -4 },
+    { letter: 'O', delay: 600, kerning: -6 },
   ],
   fontWeightDuration: 4000,
   avatar: 1000,
@@ -133,6 +133,7 @@ const NameLetter = styled('div')<{ left: number }>`
   font-optical-sizing: auto;
   font-style: italic;
   margin-left: ${props => props.left}px;
+  transform: scaleY(1.2);
 `
 
 const BottomRow = styled('div')`
