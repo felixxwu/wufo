@@ -48,15 +48,6 @@
   }
 }
 
-@keyframes weight-increase {
-  0% {
-    font-weight: 100;
-  }
-  100% {
-    font-weight: 600;
-  }
-}
-
 @keyframes flash {
   0% {
     opacity: 0;

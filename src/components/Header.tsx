@@ -7,14 +7,14 @@ import { singleSongMode } from '../lib/singleSongMode'
 import { Link } from './Link'
 import { useState } from 'preact/hooks'
 
-const TIMING_CONFIG = {
+const LETTER_CONFIG = {
   name: [
-    { letter: 'W', delay: 200 },
-    { letter: 'U', delay: 400 },
-    { letter: 'F', delay: 600 },
-    { letter: 'O', delay: 800 },
+    { letter: 'W', delay: 0, kerning: 0 },
+    { letter: 'U', delay: 200, kerning: 0 },
+    { letter: 'F', delay: 400, kerning: -6 },
+    { letter: 'O', delay: 600, kerning: -4 },
   ],
-  fontWeightDuration: 5000,
+  fontWeightDuration: 4000,
   avatar: 1000,
   bottomRow: 1500,
   downArrow: 2000,
@@ -41,11 +41,13 @@ export function Header({}: { startPlaying: () => void }) {
             <Avatar src={content.avatar} alt='WUFO Avatar' />
           </FadeInDelay> */}
         <NameRow>
-          {TIMING_CONFIG.name.map(({ letter, delay }) => (
-            <FontWeightAnimation delay={delay} duration={TIMING_CONFIG.fontWeightDuration}>
+          {LETTER_CONFIG.name.map(({ letter, delay, kerning }) => (
+            <FontWeightAnimation delay={delay} duration={LETTER_CONFIG.fontWeightDuration}>
               <FadeInDelay delay={delay}>
                 <>
-                  <Name onClick={() => handleEasterEgg(letter)}>{letter}</Name>
+                  <NameLetter left={kerning} onClick={() => handleEasterEgg(letter)}>
+                    {letter}
+                  </NameLetter>
                   {letter === 'O' && showEasterEgg && <Egg src={content.avatar} />}
                 </>
               </FadeInDelay>
@@ -53,7 +55,7 @@ export function Header({}: { startPlaying: () => void }) {
           ))}
         </NameRow>
       </TopRow>
-      <FadeInDelay delay={TIMING_CONFIG.bottomRow}>
+      <FadeInDelay delay={LETTER_CONFIG.bottomRow}>
         <BottomRow>
           {content.socials.map(social => (
             <Link
@@ -122,12 +124,15 @@ const Egg = styled('img')`
 
 const NameRow = styled('div')`
   display: flex;
-  gap: 40px;
 `
 
-const Name = styled('div')`
-  font-size: 70px;
+const NameLetter = styled('div')<{ left: number }>`
+  font-size: 130px;
   text-align: center;
+  font-family: 'Rethink Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-style: italic;
+  margin-left: ${props => props.left}px;
 `
 
 const BottomRow = styled('div')`
