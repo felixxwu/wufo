@@ -133,7 +133,7 @@ const NameLetter = styled('div')<{ left: number }>`
   font-optical-sizing: auto;
   font-style: italic;
   margin-left: ${props => props.left}px;
-  transform: scaleY(1.2);
+  transform: scaleY(1.15);
 `
 
 const BottomRow = styled('div')`

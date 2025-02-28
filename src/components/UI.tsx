@@ -11,7 +11,7 @@ import { styled } from 'goober'
 import { MOBILE_CUTOFF } from '../lib/consts'
 import { SliderListeners } from './SliderListeners'
 
-export const RELEASES_GAP = 20
+export const RELEASES_GAP = 10
 
 export function UI() {
   useEffect(() => {

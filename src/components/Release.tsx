@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import {
   BG_DARK,
+  BG_HIGHTLIGHT,
   BORDER_RADIUS,
   BORDER_RADIUS_LARGE,
   BOX_SHADOW,
@@ -75,19 +76,12 @@ export function Release({
   return (
     <Container
       {...(!expanded && { onClick: () => setReleaseOpen(true) })}
-      style={{
-        animationDelay: `${singleSongMode() ? 0 : ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`,
-        height: releaseHeight,
-        gridTemplateAreas: singleSongMode()
-          ? `'image' 'title' 'slider' 'songs' 'links'`
-          : `'image title animation' 'slider slider slider' 'songs songs songs' 'links links links'`,
-        gridTemplateColumns: singleSongMode() ? '1fr' : `${releaseImageSize}px 1fr`,
-        gridTemplateRows: singleSongMode()
-          ? `${releaseImageSize}px 1fr auto auto ${linksHeight.value}px`
-          : `${releaseImageSize}px auto auto ${linksHeight.value}px`,
-        backgroundColor: expanded ? getReleaseColourDarkTransparent(release) : BG_DARK,
-        cursor: expanded ? 'default' : 'pointer',
-      }}
+      expanded={expanded}
+      index={index}
+      releaseColor={getReleaseColourDarkTransparent(release)}
+      releaseHeight={releaseHeight}
+      releaseImageSize={releaseImageSize}
+      linksHeight={linksHeight.value}
     >
       {!singleSongMode() && expanded && (
         <LinkCopy>
@@ -182,7 +176,29 @@ export const getReleaseHeight = (release: IRelease, expanded: boolean) =>
 export const getReleaseImageSize = (expanded: boolean) =>
   singleSongMode() ? LARGE_IMAGE_SIZE : expanded ? IMAGE_SIZE : SMALL_IMAGE_SIZE
 
-const Container = styled('div')`
+const Container = styled('div')<{
+  expanded: boolean
+  index: number
+  releaseColor: string
+  releaseHeight: number
+  releaseImageSize: number
+  linksHeight: number
+}>`
+  animation-delay: ${({ index }) =>
+    `${singleSongMode() ? 0 : ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`};
+  height: ${({ releaseHeight }) => releaseHeight}px;
+  grid-template-areas: ${singleSongMode()
+    ? `'image' 'title' 'slider' 'songs' 'links'`
+    : `'image title animation' 'slider slider slider' 'songs songs songs' 'links links links'`};
+  grid-template-columns: ${({ releaseImageSize }) =>
+    singleSongMode() ? '1fr' : `${releaseImageSize}px 1fr`};
+  grid-template-rows: ${({ releaseImageSize, linksHeight }) =>
+    singleSongMode()
+      ? `${releaseImageSize}px 1fr auto auto ${linksHeight}px`
+      : `${releaseImageSize}px auto auto ${linksHeight}px`};
+  background-color: ${({ expanded, releaseColor }) => (expanded ? releaseColor : BG_DARK)};
+  cursor: ${({ expanded }) => (expanded ? 'default' : 'pointer')};
+
   display: grid;
   gap: ${GRID_GAP}px;
   color: ${TEXT_COLOR};
@@ -198,6 +214,10 @@ const Container = styled('div')`
   animation-name: fade-in;
   animation-duration: 2s;
   animation-fill-mode: forwards;
+
+  &:hover {
+    background-color: ${({ expanded, releaseColor }) => (expanded ? releaseColor : BG_HIGHTLIGHT)};
+  }
 `
 
 const LinkCopy = styled('div')`
@@ -262,6 +282,7 @@ const PlayingAnimationContainer = styled('div')`
   justify-content: center;
   align-items: center;
   transition: ${TRANSITION};
+  pointer-events: none;
 `
 
 const TitleAndLinks = styled('div')`
