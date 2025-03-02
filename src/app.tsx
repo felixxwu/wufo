@@ -1,4 +1,3 @@
-import './styles.css'
 import './keyframes.css'
 import { UI } from './components/UI'
 import { useEffect, useState } from 'preact/hooks'

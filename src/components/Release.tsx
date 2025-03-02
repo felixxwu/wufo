@@ -14,10 +14,9 @@ import { IRelease, ISong } from '../lib/types'
 import { SONG_HEIGHT, Song } from './Song'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
-import { getReleaseColourDark, getReleaseColourDarkTransparent } from '../lib/getReleaseColourDark'
+import { getReleaseColourDarkTransparent } from '../lib/getReleaseColourDark'
 import { ButtonLinks } from './ButtonLinks'
 import { SLIDER_HEIGHT, Slider } from './Slider'
-import { URL } from '../icons/url'
 import { getLargeTitleFontSize } from '../lib/getTitleFontSize'
 import { expandedReleases, linksHeight, playing, songPlaying } from '../lib/signals'
 import { PlayingAnimation } from './PlayingAnimation.tsx'
@@ -31,7 +30,6 @@ const EXTRA_SSM_HEIGHT = 100
 const NUM_GRID_GAPS = 3
 export const ANIMATION_INTERVAL = 0.1
 export const ANIMATION_DELAY = 1.5
-const URLIconSize = 18
 
 export function Release({
   release,
@@ -82,17 +80,8 @@ export function Release({
       releaseHeight={releaseHeight}
       releaseImageSize={releaseImageSize}
       linksHeight={linksHeight.value}
+      showPlayingAnimation={showPlayingAnimation}
     >
-      {!singleSongMode() && expanded && (
-        <LinkCopy>
-          <URLIconWrapper
-            href={`/${release.slug}`}
-            style={{ backgroundColor: getReleaseColourDark(release) }}
-          >
-            <URL color={TEXT_COLOR} style={{ width: URLIconSize, height: URLIconSize }} />
-          </URLIconWrapper>
-        </LinkCopy>
-      )}
       <ImageContainer
         style={{
           backgroundColor: `rgb(${release?.color.join(', ')})`,
@@ -128,12 +117,8 @@ export function Release({
         </Meta>
       </TitleAndLinks>
 
-      {!singleSongMode() && (
-        <PlayingAnimationContainer
-          style={{
-            opacity: showPlayingAnimation ? 1 : 0,
-          }}
-        >
+      {!singleSongMode() && showPlayingAnimation && (
+        <PlayingAnimationContainer>
           <PlayingAnimation />
         </PlayingAnimationContainer>
       )}
@@ -183,13 +168,17 @@ const Container = styled('div')<{
   releaseHeight: number
   releaseImageSize: number
   linksHeight: number
+  showPlayingAnimation: boolean
 }>`
   animation-delay: ${({ index }) =>
     `${singleSongMode() ? 0 : ANIMATION_DELAY + index * ANIMATION_INTERVAL}s`};
   height: ${({ releaseHeight }) => releaseHeight}px;
-  grid-template-areas: ${singleSongMode()
-    ? `'image' 'title' 'slider' 'songs' 'links'`
-    : `'image title animation' 'slider slider slider' 'songs songs songs' 'links links links'`};
+  grid-template-areas: ${({ showPlayingAnimation }) =>
+    singleSongMode()
+      ? `'image' 'title' 'slider' 'songs' 'links'`
+      : showPlayingAnimation
+        ? `'image title animation' 'slider slider slider' 'songs songs songs' 'links links links'`
+        : `'image title' 'slider slider' 'songs songs' 'links links'`};
   grid-template-columns: ${({ releaseImageSize }) =>
     singleSongMode() ? '1fr' : `${releaseImageSize}px 1fr`};
   grid-template-rows: ${({ releaseImageSize, linksHeight }) =>
@@ -218,26 +207,6 @@ const Container = styled('div')<{
   &:hover {
     background-color: ${({ expanded, releaseColor }) => (expanded ? releaseColor : BG_HIGHTLIGHT)};
   }
-`
-
-const LinkCopy = styled('div')`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 70px;
-  height: 70px;
-  transition: ${QUICK_TRANSITION};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const URLIconWrapper = styled('a')`
-  border-radius: 100vh;
-  cursor: pointer;
-  padding: 10px;
-  width: ${URLIconSize}px;
-  height: ${URLIconSize}px;
 `
 
 const Meta = styled('div')`
