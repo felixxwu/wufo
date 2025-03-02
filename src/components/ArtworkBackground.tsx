@@ -50,7 +50,7 @@ export function ArtworkBackground() {
   return (
     <Container>
       <Image
-        src={displayedRelease?.coverSmall}
+        src={displayedRelease?.cover}
         alt={songPlaying.value?.title || 'WUFO'}
         style={{
           translate: `${translateX} ${translateY}`,
@@ -92,7 +92,10 @@ const Image = styled('img')`
   height: 100%;
   min-width: ${100 + MIN_SCROLL_AMOUNT}vh;
   min-height: ${100 + MIN_SCROLL_AMOUNT}vw;
-  transition: opacity ${ANIMATION_DURATION}ms, filter ${ANIMATION_DURATION}ms, translate 20ms;
+  transition:
+    opacity ${ANIMATION_DURATION}ms,
+    filter ${ANIMATION_DURATION}ms,
+    translate 20ms;
 `
 
 const ImagePreload = styled('img')`
