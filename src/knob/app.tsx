@@ -15,7 +15,7 @@ export function App() {
     if (!pointerDown.current || !circle.current) return
 
     const yDiff = value.y - posFromLastMouseDown.current.y
-    rotationDegs.current = oldRotationDegs.current + yDiff * 0.5
+    rotationDegs.current = oldRotationDegs.current - yDiff * 0.5
 
     circle.current.style.transform = `rotate(${rotationDegs.current}deg)`
   })
@@ -46,7 +46,7 @@ export function App() {
           player.current.start()
           player.current.loop = true
           player.current.loopStart = 0
-          player.current.loopEnd = 1
+          player.current.loopEnd = 1.413
         }}
       >
         Button 1
@@ -72,4 +72,5 @@ const Circle = styled('button')`
   height: 100px;
   border-radius: 50% 50% 50% 0;
   background-color: white;
+  cursor: pointer;
 `
