@@ -1,11 +1,12 @@
 import { GRID_GAP, IMAGE_SIZE, SIDE_MARGIN } from '../components/Release'
 import { MOBILE_CUTOFF } from './consts'
-import { screenWidth } from './signals'
+import { useScreenWidth } from './signals'
 import { singleSongMode } from './singleSongMode'
 
-export function getLargeTitleFontSize(title: string) {
+export function useLargeTitleFontSize(title: string) {
+  const screenWidth = useScreenWidth.value()
   const titleWidth =
-    Math.min(MOBILE_CUTOFF, screenWidth.value) -
+    Math.min(MOBILE_CUTOFF, screenWidth) -
     (singleSongMode() ? 0 : IMAGE_SIZE + GRID_GAP) -
     GRID_GAP * 2 -
     SIDE_MARGIN * 2
@@ -39,10 +40,8 @@ export function getLargeTitleFontSize(title: string) {
     document.body.appendChild(parentEl)
     elWidth = el.clientWidth
     elHeight = el.clientHeight
-    // console.log(elWidth, titleWidth, elHeight, titleHeight)
     parentEl.remove()
   }
-  console.log(elWidth, titleWidth, elHeight, titleHeight)
 
   return fontSize
 }

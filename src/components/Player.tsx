@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'react'
 import { sleep } from '../lib/sleep'
 import { styled } from 'goober'
 

@@ -4,12 +4,7 @@ import { pointerHelper } from '../lib/pointerHelper'
 import { ISong } from '../lib/types'
 import { styled } from 'goober'
 import { convertSongLengthToString } from '../lib/convertSongLengthToString'
-import {
-  playing as playingSignal,
-  realPlaybackProgress,
-  songLength,
-  songPlaying,
-} from '../lib/signals'
+import { usePlaying, useRealPlaybackProgress, useSongLength, useSongPlaying } from '../lib/signals'
 import { PLAY_ICON_SIZE, PlayingAnimation } from './PlayingAnimation.tsx'
 
 export const SONG_HEIGHT = 50
@@ -29,7 +24,12 @@ export function Song({
   pointerleave: () => void
   onclick: () => void
 }) {
-  const playing = songPlaying.value.fileName === song.fileName && playingSignal.value
+  const songPlaying = useSongPlaying.value()
+  const playingSignal = usePlaying.value()
+  const realPlaybackProgress = useRealPlaybackProgress.value()
+  const songLength = useSongLength.value()
+
+  const playing = songPlaying.fileName === song.fileName && playingSignal
 
   return (
     <Container
@@ -50,9 +50,7 @@ export function Song({
       </NumberOrPlay>
       <SongTitle style={{ fontWeight: playing ? '600' : '400' }}>{song.title}</SongTitle>
       <SongLength style={{ opacity: playing ? 1 : 0.8, color: playing ? 'white' : TEXT_COLOR }}>
-        {playing
-          ? `${convertSongLengthToString(songLength.value * realPlaybackProgress.value)} / `
-          : ''}
+        {playing ? `${convertSongLengthToString(songLength * realPlaybackProgress)} / ` : ''}
         {song.length}
       </SongLength>
     </Container>

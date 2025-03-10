@@ -1,7 +1,7 @@
-import { VNode } from 'preact'
 import { IconProps } from '../lib/types'
 import { BORDER_RADIUS, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { styled } from 'goober'
+import { JSX } from 'react'
 
 const ICON_SIZE = 16
 
@@ -12,7 +12,7 @@ export function Button({
   href,
 }: {
   label: string
-  Icon: (props: IconProps) => VNode
+  Icon: (props: IconProps) => JSX.Element
   onClick?: () => void
   href?: string
 }) {

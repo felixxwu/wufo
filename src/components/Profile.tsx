@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useState } from 'react'
 import { BORDER_RADIUS_LARGE, BOX_SHADOW, HIGHLIGHT, TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { sleep } from '../lib/sleep'

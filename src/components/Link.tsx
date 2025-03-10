@@ -1,7 +1,7 @@
-import { VNode } from 'preact'
 import { IconProps } from '../lib/types'
 import { BORDER_RADIUS_LARGE, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { styled } from 'goober'
+import { JSX } from 'react'
 
 export const LINK_ICON_SIZE = 24
 
@@ -13,7 +13,7 @@ export function Link({
   ariaLabel,
 }: {
   name?: string
-  Icon: (props: IconProps) => VNode
+  Icon: (props: IconProps) => JSX.Element
   href?: string
   onclick?: () => void
   newWindow?: boolean

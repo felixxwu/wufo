@@ -1,7 +1,7 @@
 import { styled } from 'goober'
 import { BORDER_RADIUS_LARGE, QUICK_TRANSITION, TEXT_COLOR } from '../lib/consts'
 import { IconProps } from '../lib/types'
-import { VNode } from 'preact'
+import { JSX } from 'react'
 
 export const LINK_ICON_SIZE = 16
 
@@ -12,7 +12,7 @@ export const ButtonLink = ({
 }: {
   name: string
   href?: string
-  icon: (props: IconProps) => VNode
+  icon: (props: IconProps) => JSX.Element
 }) => {
   if (!href) return null
 

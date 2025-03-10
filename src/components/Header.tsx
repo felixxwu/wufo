@@ -4,7 +4,7 @@ import { TEXT_COLOR } from '../lib/consts'
 import { content } from '../lib/content'
 import { singleSongMode } from '../lib/singleSongMode'
 import { Link } from './Link'
-import { useState } from 'preact/hooks'
+import { useState } from 'react'
 
 const LETTER_CONFIG = {
   name: [
@@ -21,7 +21,6 @@ const LETTER_CONFIG = {
 
 export function Header({}: { startPlaying: () => void }) {
   const [showEasterEgg, setShowEasterEgg] = useState(false)
-  console.log(`showEasterEgg`, showEasterEgg)
 
   if (singleSongMode()) return null
 
@@ -34,7 +33,7 @@ export function Header({}: { startPlaying: () => void }) {
       <TopRow>
         <NameRow>
           {LETTER_CONFIG.name.map(({ letter, delay, kerning }) => (
-            <FadeInDelay delay={delay}>
+            <FadeInDelay key={letter + delay + kerning} delay={delay}>
               <>
                 <NameLetter left={kerning} onClick={() => handleEasterEgg(letter)}>
                   {letter}
@@ -49,6 +48,7 @@ export function Header({}: { startPlaying: () => void }) {
         <BottomRow>
           {content.socials.map(social => (
             <Link
+              key={social.label}
               name={social.label}
               Icon={social.Icon}
               href={social.link}

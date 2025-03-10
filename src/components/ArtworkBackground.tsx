@@ -1,6 +1,12 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useState } from 'react'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
-import { appElement, screenHeight, screenWidth, scrollTop, songPlaying } from '../lib/signals'
+import {
+  useAppElement,
+  useScreenHeight,
+  useScreenWidth,
+  useScrollTop,
+  useSongPlaying,
+} from '../lib/signals'
 import { Grain } from './Grain'
 import { MIN_SCROLL_AMOUNT } from '../lib/consts'
 import { styled } from 'goober'
@@ -9,18 +15,25 @@ const MAX_OPACITY = 0.15
 const ANIMATION_DURATION = 1500
 
 export function ArtworkBackground() {
-  const [displayedSong, setDisplayedSong] = useState(songPlaying.value)
+  const songPlaying = useSongPlaying.value()
+  const screenWidth = useScreenWidth.value()
+  const scrollTop = useScrollTop.value()
+  const appElement = useAppElement.value()
+  const screenHeight = useScreenHeight.value()
+
+  const [displayedSong, setDisplayedSong] = useState(songPlaying)
   const [opacity, setOpacity] = useState(MAX_OPACITY)
   const [imageLoaded, setImageLoaded] = useState(true)
-  const realContentHeight = appElement.value.scrollHeight
-  const minContentHeight = screenWidth.value * 2
+
+  const realContentHeight = appElement.scrollHeight
+  const minContentHeight = screenWidth * 2
   const contentHeight = Math.max(minContentHeight, realContentHeight)
   const smallContentOffset = Math.max(0, minContentHeight - realContentHeight) / 2
-  const scrollBottom = contentHeight - screenHeight.value
-  const scrollPercentage = (scrollTop.value + smallContentOffset) / scrollBottom
+  const scrollBottom = contentHeight - screenHeight
+  const scrollPercentage = (scrollTop + smallContentOffset) / scrollBottom
 
   const displayedRelease = findReleaseFromSong(displayedSong)
-  const playingRelease = findReleaseFromSong(songPlaying.value)
+  const playingRelease = findReleaseFromSong(songPlaying)
 
   useEffect(() => {
     setInterval(() => {
@@ -35,11 +48,11 @@ export function ArtworkBackground() {
       if (displayedRelease?.title !== playingRelease?.title) {
         setOpacity(0)
         await new Promise(resolve => setTimeout(resolve, ANIMATION_DURATION))
-        setDisplayedSong(songPlaying.value)
+        setDisplayedSong(songPlaying)
         setOpacity(MAX_OPACITY)
       }
     })()
-  }, [songPlaying.value])
+  }, [songPlaying])
 
   const imageOpacity = imageLoaded ? opacity : 0
   const minTranslate = `${MIN_SCROLL_AMOUNT / 2}vh - (${scrollPercentage * MIN_SCROLL_AMOUNT}vh)`
@@ -51,7 +64,7 @@ export function ArtworkBackground() {
     <Container>
       <Image
         src={displayedRelease?.cover}
-        alt={songPlaying.value?.title || 'WUFO'}
+        alt={songPlaying?.title || 'WUFO'}
         style={{
           translate: `${translateX} ${translateY}`,
           opacity: imageOpacity,
@@ -67,7 +80,7 @@ export function ArtworkBackground() {
       <ImagePreload
         id='artwork-background'
         src={playingRelease?.background}
-        alt={songPlaying.value?.title || 'WUFO'}
+        alt={songPlaying?.title || 'WUFO'}
       />
     </Container>
   )

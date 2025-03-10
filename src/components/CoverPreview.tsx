@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'react'
 import { IRelease } from '../lib/types'
 import { BORDER_RADIUS_LARGE, BOX_SHADOW } from '../lib/consts'
 import { styled } from 'goober'

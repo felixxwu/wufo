@@ -1,9 +1,24 @@
-import { h, render } from 'preact'
+import { createRoot } from 'react-dom/client'
 import { App } from './app.tsx'
+import React from 'react'
 import { setup } from 'goober'
+import { shouldForwardProp } from 'goober/should-forward-prop'
 
-setup(h)
+setup(
+  React.createElement,
+  undefined,
+  undefined,
+  shouldForwardProp(prop => {
+    return (
+      prop !== 'releaseColor' &&
+      prop !== 'releaseImageSize' &&
+      prop !== 'releaseHeight' &&
+      prop !== 'showPlayingAnimation' &&
+      prop !== 'autoplay' &&
+      prop !== 'linksHeight' &&
+      prop !== 'expanded'
+    )
+  })
+)
 
-history.scrollRestoration = 'manual'
-
-render(<App />, document.getElementById('app')!)
+createRoot(document.getElementById('app')!).render(<App />)

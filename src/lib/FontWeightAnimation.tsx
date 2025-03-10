@@ -1,5 +1,5 @@
-import { JSX } from 'preact/jsx-runtime'
 import { styled } from 'goober'
+import { JSX } from 'react'
 
 export function FontWeightAnimation(props: {
   children: JSX.Element

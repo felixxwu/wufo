@@ -1,19 +1,17 @@
-import { computed, signal } from '@preact/signals'
 import { IRelease, ISong } from './types'
 import { content } from './content'
-import { MOBILE_CUTOFF } from './consts.ts'
+import { singletonState } from 'singleton-state-hook'
 
-export const screenHeight = signal(window.innerHeight)
-export const screenWidth = signal(window.innerWidth)
-export const scrollTop = signal(0)
-export const songPlaying = signal<ISong>(content.releases[0].songs[0])
-export const playing = signal(false)
-export const autoPlay = signal(false)
-export const realPlaybackProgress = signal(0)
-export const songLength = signal(0)
-export const loadedProgress = signal(0)
-export const showControls = signal(false)
-export const progressOverride = signal(0)
-export const appElement = signal(document.getElementById('app')!)
-export const expandedReleases = signal<IRelease[]>([content.releases[0]])
-export const linksHeight = computed(() => (screenWidth.value < MOBILE_CUTOFF ? 90 : 45))
+export const useScreenHeight = singletonState(window.innerHeight)
+export const useScreenWidth = singletonState(window.innerWidth)
+export const useScrollTop = singletonState(0)
+export const useSongPlaying = singletonState<ISong>(content.releases[0].songs[0])
+export const usePlaying = singletonState(false)
+export const useAutoPlay = singletonState(false)
+export const useRealPlaybackProgress = singletonState(0)
+export const useSongLength = singletonState(0)
+export const useLoadedProgress = singletonState(0)
+export const useShowControls = singletonState(false)
+export const useProgressOverride = singletonState(0)
+export const useAppElement = singletonState(document.getElementById('app')!)
+export const useExpandedReleases = singletonState<IRelease[]>([content.releases[0]])

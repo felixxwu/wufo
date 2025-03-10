@@ -9,12 +9,17 @@
     "preview": "tsc && vite build && vite preview"
   },
   "dependencies": {
-    "@preact/signals": "^1.2.2",
+    "@preact/signals-react": "^3.0.1",
     "goober": "^2.1.14",
-    "preact": "^10.16.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "singleton-state-hook": "^1.0.7",
+    "tone": "^15.0.4"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.8.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react-swc": "^3.8.0",
     "prettier": "3.5.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.0"

@@ -1,4 +1,4 @@
-import { useEffect } from 'preact/hooks'
+import { useEffect } from 'react'
 import { styled } from 'goober'
 
 const ANIMATION_START_DELAY = 1000

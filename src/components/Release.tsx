@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useState } from 'react'
 import {
   BG_DARK,
   BG_HIGHTLIGHT,
@@ -6,19 +6,20 @@ import {
   BORDER_RADIUS_LARGE,
   BOX_SHADOW,
   BOX_SHADOW_LARGE,
+  MOBILE_CUTOFF,
   QUICK_TRANSITION,
   TEXT_COLOR,
   TRANSITION,
 } from '../lib/consts'
 import { IRelease, ISong } from '../lib/types'
-import { SONG_HEIGHT, Song } from './Song'
+import { Song, SONG_HEIGHT } from './Song'
 import { singleSongMode } from '../lib/singleSongMode'
 import { styled } from 'goober'
 import { getReleaseColourDarkTransparent } from '../lib/getReleaseColourDark'
 import { ButtonLinks } from './ButtonLinks'
-import { SLIDER_HEIGHT, Slider } from './Slider'
-import { getLargeTitleFontSize } from '../lib/getTitleFontSize'
-import { expandedReleases, linksHeight, playing, songPlaying } from '../lib/signals'
+import { Slider, SLIDER_HEIGHT } from './Slider'
+import { useLargeTitleFontSize } from '../lib/useLargeTitleFontSize.ts'
+import { useExpandedReleases, usePlaying, useScreenWidth, useSongPlaying } from '../lib/signals'
 import { PlayingAnimation } from './PlayingAnimation.tsx'
 
 const LARGE_IMAGE_SIZE = 300
@@ -40,16 +41,31 @@ export function Release({
   index: number
   onSongClick: (song: ISong) => void
 }) {
+  const screenWidth = useScreenWidth.value()
+  const playing = usePlaying.value()
+  const songPlaying = useSongPlaying.value()
+  const expandedReleases = useExpandedReleases.value()
+
   const [, setAfterInitialRender] = useState(false)
+  const linksHeight = screenWidth < MOBILE_CUTOFF ? 90 : 45
+  const [hovering, setHovering] = useState<number | null>(null)
+  const largeFontSize = useLargeTitleFontSize(release.title)
+
+  const expanded = !!expandedReleases.find(r => r.title === release.title) || singleSongMode()
+  const releaseImageSize = getReleaseImageSize(expanded)
+  const latestRelease = index === 0 && !singleSongMode()
+  const releaseHeight = useReleaseHeight(release, expanded)
+  const thisReleasePlaying = release.songs.includes(songPlaying)
+  const showPlayingAnimation = !expanded && thisReleasePlaying && playing
 
   const setReleaseOpen = (open: boolean) => {
     if (open) {
-      expandedReleases.value = [release]
-      if (!playing.value) {
+      useExpandedReleases.set([release])
+      if (!playing) {
         onSongClick(release.songs[0])
       }
     } else {
-      expandedReleases.value = []
+      useExpandedReleases.set([])
     }
   }
 
@@ -58,18 +74,10 @@ export function Release({
   }, [])
 
   useEffect(() => {
-    if (release.songs.includes(songPlaying.value) && playing.value) {
+    if (release.songs.includes(songPlaying) && playing) {
       setReleaseOpen(true)
     }
-  }, [songPlaying.value, playing.value])
-
-  const [hovering, setHovering] = useState<number | null>(null)
-  const expanded = !!expandedReleases.value.find(r => r.title === release.title) || singleSongMode()
-  const releaseImageSize = getReleaseImageSize(expanded)
-  const latestRelease = index === 0 && !singleSongMode()
-  const releaseHeight = getReleaseHeight(release, expanded)
-  const thisReleasePlaying = release.songs.includes(songPlaying.value)
-  const showPlayingAnimation = !expanded && thisReleasePlaying && playing.value
+  }, [songPlaying, playing])
 
   return (
     <Container
@@ -79,7 +87,7 @@ export function Release({
       releaseColor={getReleaseColourDarkTransparent(release)}
       releaseHeight={releaseHeight}
       releaseImageSize={releaseImageSize}
-      linksHeight={linksHeight.value}
+      linksHeight={linksHeight}
       showPlayingAnimation={showPlayingAnimation}
     >
       <ImageContainer
@@ -104,7 +112,7 @@ export function Release({
       <TitleAndLinks onClick={() => setReleaseOpen(!expanded)}>
         <Title
           style={{
-            fontSize: expanded ? `${getLargeTitleFontSize(release.title)}px` : '16px',
+            fontSize: expanded ? `${largeFontSize}px` : '16px',
             letterSpacing: expanded ? '-1px' : '0',
           }}
         >
@@ -128,6 +136,7 @@ export function Release({
       <Songs className='songs'>
         {release.songs.map((song, i) => (
           <Song
+            key={i}
             song={song}
             index={i}
             hovering={hovering === i}
@@ -148,15 +157,18 @@ export function Release({
   )
 }
 
-export const getReleaseHeight = (release: IRelease, expanded: boolean) =>
-  expanded
+export const useReleaseHeight = (release: IRelease, expanded: boolean) => {
+  const screenWidth = useScreenWidth.value()
+  const linksHeight = screenWidth < MOBILE_CUTOFF ? 90 : 45
+  return expanded
     ? getReleaseImageSize(expanded) +
-      release.songs.length * SONG_HEIGHT +
-      GRID_GAP * NUM_GRID_GAPS +
-      linksHeight.value +
-      SLIDER_HEIGHT +
-      (singleSongMode() ? EXTRA_SSM_HEIGHT : 0)
+        release.songs.length * SONG_HEIGHT +
+        GRID_GAP * NUM_GRID_GAPS +
+        linksHeight +
+        SLIDER_HEIGHT +
+        (singleSongMode() ? EXTRA_SSM_HEIGHT : 0)
     : getReleaseImageSize(expanded)
+}
 
 export const getReleaseImageSize = (expanded: boolean) =>
   singleSongMode() ? LARGE_IMAGE_SIZE : expanded ? IMAGE_SIZE : SMALL_IMAGE_SIZE

@@ -1,17 +1,21 @@
-import { useEffect } from 'preact/hooks'
+import { useEffect } from 'react'
 import { ISong } from './types'
 import { content } from './content'
 import { singleSongMode } from './singleSongMode'
-import { autoPlay, playing, showControls, songPlaying } from './signals'
+import { useAutoPlay, usePlaying, useShowControls, useSongPlaying } from './signals'
 
 const flatSongs = content.releases.reduce((acc, release) => {
   return [...acc, ...release.songs]
 }, [] as ISong[])
 
 export function usePlayerController() {
+  const playing = usePlaying.value()
+  const songPlaying = useSongPlaying.value()
+  const showControls = useShowControls.value()
+
   useEffect(() => {
-    if (playing.value) {
-      document.title = `▶ WUFO - ${songPlaying.value.title}`
+    if (playing) {
+      document.title = `▶ WUFO - ${songPlaying.title}`
     } else {
       if (singleSongMode()) {
         document.title = `WUFO - ${content.releases[0].title}`
@@ -19,36 +23,36 @@ export function usePlayerController() {
         document.title = 'WUFO - Official Website'
       }
     }
-  }, [songPlaying.value, playing.value])
+  }, [songPlaying, playing])
 
   const onSongClick = (song: ISong) => {
-    showControls.value = true
+    useShowControls.set(true)
 
-    if (songPlaying.value.fileName === song.fileName) {
-      playing.value = !playing.value
+    if (songPlaying.fileName === song.fileName) {
+      usePlaying.set(!playing)
       return
     }
 
-    songPlaying.value = song
-    autoPlay.value = true
+    useSongPlaying.set(song)
+    useAutoPlay.set(true)
 
-    playing.value = true
+    usePlaying.set(true)
   }
 
   const play = () => {
-    if (!showControls.value) {
+    if (!showControls) {
       onSongClick(content.releases[0].songs[0])
     } else {
-      playing.value = true
+      usePlaying.set(true)
     }
   }
 
   const pause = () => {
-    playing.value = false
+    usePlaying.set(false)
   }
 
   const next = () => {
-    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName)
+    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.fileName)
     const nextSong = flatSongs[songIndex + 1]
     if (nextSong) {
       onSongClick(nextSong)
@@ -56,7 +60,7 @@ export function usePlayerController() {
   }
 
   const prev = () => {
-    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName)
+    const songIndex = flatSongs.findIndex(song => song.fileName === songPlaying.fileName)
     const prevSong = flatSongs[songIndex - 1]
     if (prevSong) {
       onSongClick(prevSong)
@@ -72,9 +76,9 @@ export function usePlayerController() {
   }
 
   const nextSongPlayable =
-    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName) + 1]
+    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.fileName) + 1]
   const prevSongPlayable =
-    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.value.fileName) - 1]
+    !!flatSongs[flatSongs.findIndex(song => song.fileName === songPlaying.fileName) - 1]
 
   return {
     play,

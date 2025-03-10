@@ -1,13 +1,21 @@
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'react'
 import { SLIDER_CLASSNAME } from './Slider'
-import { loadedProgress, progressOverride, realPlaybackProgress, songPlaying } from '../lib/signals'
+import {
+  useLoadedProgress,
+  useProgressOverride,
+  useRealPlaybackProgress,
+  useSongPlaying,
+} from '../lib/signals'
 import { findReleaseFromSong } from '../lib/findReleaseFromSong'
 import { usePlayerController } from '../lib/usePlayerController'
 import { findReleaseFromSlug } from '../lib/findReleaseFromSlug'
 
 export const SliderListeners = () => {
+  const songPlaying = useSongPlaying.value()
+  const releasePlaying = findReleaseFromSong(songPlaying)
+
   const [isDragging, setIsDragging] = useState(false)
-  const sliderRef = useRef<HTMLElement | undefined>()
+  const sliderRef = useRef<HTMLElement | undefined>(undefined)
 
   const { onSongClick } = usePlayerController()
 
@@ -20,15 +28,14 @@ export const SliderListeners = () => {
         ) as HTMLElement
 
       if (!sliderRef.current) return
-      const releasePlaying = findReleaseFromSong(songPlaying.value)
 
       if (releasePlaying && sliderRef.current.id && sliderRef.current.id !== releasePlaying.slug) {
         const release = findReleaseFromSlug(sliderRef.current.id)
         if (release) {
           onSongClick(release.songs[0])
-          progressOverride.value = 0
-          loadedProgress.value = 0
-          realPlaybackProgress.value = 0
+          useProgressOverride.set(0)
+          useLoadedProgress.set(0)
+          useRealPlaybackProgress.set(0)
         }
       } else {
         setIsDragging(true)
@@ -58,14 +65,14 @@ export const SliderListeners = () => {
       window.removeEventListener('pointerleave', handlePointerUp)
       window.removeEventListener('blur', handlePointerUp)
     }
-  }, [isDragging])
+  }, [isDragging, releasePlaying])
 
   function handlePointerSeek(e: PointerEvent) {
     if (!sliderRef.current) return
     const sliderRect = sliderRef.current.getBoundingClientRect()
     const percent = (e.clientX - sliderRect.left) / sliderRect.width
     const clampedPercent = Math.max(0, Math.min(1, percent))
-    progressOverride.value = clampedPercent
+    useProgressOverride.set(clampedPercent)
   }
 
   return null

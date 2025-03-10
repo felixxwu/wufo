@@ -1,4 +1,4 @@
-import { VNode } from 'preact'
+import { CSSProperties, JSX } from 'react'
 
 declare global {
   interface Window {
@@ -58,11 +58,11 @@ export interface Content {
   bio: string
   avatar: string
   email: string
-  socials: { link: string; label: string; Icon: (props: IconProps) => VNode }[]
+  socials: { link: string; label: string; Icon: (props: IconProps) => JSX.Element }[]
   releases: IRelease[]
 }
 
 export interface IconProps {
   color: string
-  style?: React.CSSProperties
+  style?: CSSProperties
 }

@@ -1,22 +1,24 @@
 import './keyframes.css'
 import { UI } from './components/UI'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useState } from 'react'
 import { ArtworkBackground } from './components/ArtworkBackground'
-import { appElement, screenHeight, screenWidth, scrollTop } from './lib/signals'
+import { useAppElement, useScreenHeight, useScreenWidth, useScrollTop } from './lib/signals'
 import { styled } from 'goober'
 
 export function App() {
+  const appElement = useAppElement.value()
   const [showBackground, setShowBackground] = useState(false)
+
   useEffect(() => {
     setShowBackground(true)
 
-    appElement.value.onscroll = () => {
-      scrollTop.value = appElement.value.scrollTop
+    appElement.onscroll = () => {
+      useScrollTop.set(appElement.scrollTop)
     }
 
     window.addEventListener('resize', () => {
-      screenWidth.value = window.innerWidth
-      screenHeight.value = window.innerHeight
+      useScreenWidth.set(window.innerWidth)
+      useScreenHeight.set(window.innerHeight)
     })
   }, [])
 

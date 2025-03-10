@@ -1,5 +1,5 @@
-import { JSX } from 'preact/jsx-runtime'
 import { styled } from 'goober'
+import { JSX } from 'react'
 
 export function FadeInDelay(props: { children: JSX.Element; delay: number; duration?: number }) {
   return (

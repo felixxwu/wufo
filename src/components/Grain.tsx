@@ -1,4 +1,4 @@
-import { CSSProperties, useRef } from 'preact/compat'
+import { CSSProperties, useRef } from 'react'
 import { MIN_SCROLL_AMOUNT } from '../lib/consts'
 
 const GRAIN_DENSITY = 1500
@@ -9,7 +9,18 @@ export function Grain({ styles }: { styles?: CSSProperties }) {
   return (
     <svg
       ref={SVG}
-      style={{ ...Container, ...styles }}
+      style={{
+        position: 'fixed',
+        top: `-${MIN_SCROLL_AMOUNT / 2}vh`,
+        left: `-${MIN_SCROLL_AMOUNT / 2}vw`,
+        width: '100%',
+        height: '100%',
+        minWidth: `${100 + MIN_SCROLL_AMOUNT}vh`,
+        minHeight: `${100 + MIN_SCROLL_AMOUNT}vw`,
+        zIndex: '-1',
+        overflow: 'visible',
+        ...styles,
+      }}
       viewBox={`0 0 ${GRAIN_DENSITY} ${GRAIN_DENSITY}`}
     >
       <defs>
@@ -27,7 +38,9 @@ export function Grain({ styles }: { styles?: CSSProperties }) {
         </filter>
       </defs>
       <rect
-        style={GrainStyles}
+        style={{
+          opacity: '0.2',
+        }}
         fill='white'
         filter='url(#grain)'
         width={`1300px`}
@@ -35,20 +48,4 @@ export function Grain({ styles }: { styles?: CSSProperties }) {
       ></rect>
     </svg>
   )
-}
-
-const Container: CSSProperties = {
-  position: 'fixed',
-  top: `-${MIN_SCROLL_AMOUNT / 2}vh`,
-  left: `-${MIN_SCROLL_AMOUNT / 2}vw`,
-  width: '100%',
-  height: '100%',
-  minWidth: `${100 + MIN_SCROLL_AMOUNT}vh`,
-  minHeight: `${100 + MIN_SCROLL_AMOUNT}vw`,
-  zIndex: '-1',
-  overflow: 'visible',
-}
-
-const GrainStyles: CSSProperties = {
-  opacity: '0.2',
 }

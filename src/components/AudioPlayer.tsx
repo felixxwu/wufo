@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'react'
 import {
-  autoPlay,
-  playing,
-  progressOverride,
-  realPlaybackProgress,
-  songLength,
-  songPlaying,
+  useAutoPlay,
+  usePlaying,
+  useProgressOverride,
+  useRealPlaybackProgress,
+  useSongLength,
+  useSongPlaying,
 } from '../lib/signals'
 import { styled } from 'goober'
 
@@ -18,30 +18,35 @@ export function AudioPlayer({
   onTrackEnd?: () => void
   onLoadProgress?: (progress: number) => void
 }) {
+  const songPlaying = useSongPlaying.value()
+  const autoPlay = useAutoPlay.value()
+  const progressOverride = useProgressOverride.value()
+  const playing = usePlaying.value()
+
   const audio = useRef<HTMLAudioElement>(null)
   const [duration, setDuration] = useState<number>(0)
   const [time, setTime] = useState<number>(0)
   const [buffered, setBuffered] = useState<number>(0)
 
   useEffect(() => {
-    if (playing.value) {
+    if (playing) {
       audio.current?.play()
     } else {
       audio.current?.pause()
     }
-  }, [playing.value])
+  }, [playing])
 
   useEffect(() => {
     const newPlaybackProgress = time / duration
     const newLength = duration * 1000
-    realPlaybackProgress.value = newPlaybackProgress
-    songLength.value = newLength
+    useRealPlaybackProgress.set(newPlaybackProgress)
+    useSongLength.set(newLength)
   }, [duration, time])
 
   useEffect(() => {
     if (!audio.current) return
-    audio.current!.currentTime = progressOverride.value! * duration
-  }, [progressOverride.value])
+    audio.current!.currentTime = progressOverride! * duration
+  }, [progressOverride])
 
   useEffect(() => {
     onLoadProgress?.(buffered / duration)
@@ -50,9 +55,8 @@ export function AudioPlayer({
   return (
     <Container>
       <audio
-        src={songPlaying.value.fileName}
-        autoplay={autoPlay.value}
-        type='audio/mp3'
+        src={songPlaying.fileName}
+        autoPlay={autoPlay}
         ref={audio}
         onLoadedMetadata={() => setDuration(audio.current!.duration)}
         onTimeUpdate={() => setTime(audio.current!.currentTime)}

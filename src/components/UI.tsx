@@ -1,12 +1,12 @@
 import { content } from '../lib/content'
 import { Release } from './Release'
 import { usePlayerController } from '../lib/usePlayerController'
-import { useEffect } from 'preact/hooks'
+import { useEffect } from 'react'
 import { Header } from './Header'
 import { AudioPlayer } from './AudioPlayer'
 import { CopyRightFooter } from './Copyright'
 import { ReleaseTopBar } from './ReleaseTopBar'
-import { loadedProgress, playing, progressOverride, songPlaying } from '../lib/signals'
+import { useLoadedProgress, usePlaying, useProgressOverride, useSongPlaying } from '../lib/signals'
 import { styled } from 'goober'
 import { MOBILE_CUTOFF } from '../lib/consts'
 import { SliderListeners } from './SliderListeners'
@@ -14,18 +14,22 @@ import { SliderListeners } from './SliderListeners'
 export const RELEASES_GAP = 10
 
 export function UI() {
+  const playing = usePlaying.value()
+  const songPlaying = useSongPlaying.value()
+  const progressOverride = useProgressOverride.value()
+
   useEffect(() => {
-    if (progressOverride.value !== 0) {
+    if (progressOverride !== 0) {
       play()
     }
-  }, [progressOverride.value])
+  }, [progressOverride])
 
   const { play, pause, next, prev, onSongClick, onTrackEnd } = usePlayerController()
 
   useEffect(() => {
     window.onkeydown = (e: KeyboardEvent) => {
       if (e.key === ' ') {
-        playing.value ? pause() : play()
+        playing ? pause() : play()
         e.preventDefault()
       }
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -37,7 +41,7 @@ export function UI() {
         e.preventDefault()
       }
     }
-  }, [playing.value, songPlaying.value])
+  }, [playing, songPlaying])
 
   return (
     <Container>
@@ -46,13 +50,13 @@ export function UI() {
       <ReleaseTopBar />
 
       {content.releases.map((release, i) => (
-        <Release release={release} index={i} onSongClick={onSongClick} />
+        <Release key={i} release={release} index={i} onSongClick={onSongClick} />
       ))}
 
       <CopyRightFooter />
 
       <AudioPlayer
-        onLoadProgress={progress => (loadedProgress.value = progress)}
+        onLoadProgress={progress => useLoadedProgress.set(progress)}
         onTrackEnd={onTrackEnd}
       />
 

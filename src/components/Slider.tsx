@@ -1,29 +1,37 @@
 import { styled } from 'goober'
 import { TEXT_COLOR } from '../lib/consts'
-import { loadedProgress, playing, realPlaybackProgress, songPlaying } from '../lib/signals'
+import {
+  useLoadedProgress,
+  usePlaying,
+  useRealPlaybackProgress,
+  useSongPlaying,
+} from '../lib/signals'
 import { PlayPause } from './PlayPause'
 import { usePlayerController } from '../lib/usePlayerController'
 import { IRelease } from '../lib/types'
 
 export const Slider = ({ release }: { release: IRelease }) => {
+  const songPlaying = useSongPlaying.value()
+  const playing = usePlaying.value()
+  const realPlaybackProgress = useRealPlaybackProgress.value()
+  const loadedProgress = useLoadedProgress.value()
+
   const { play, pause, onSongClick } = usePlayerController()
-  const thisReleasePlaying = release.songs.includes(songPlaying.value)
-  const [loaded, progress] = thisReleasePlaying
-    ? [loadedProgress.value, realPlaybackProgress.value]
-    : [0, 0]
+  const thisReleasePlaying = release.songs.includes(songPlaying)
+  const [loaded, progress] = thisReleasePlaying ? [loadedProgress, realPlaybackProgress] : [0, 0]
 
   return (
     <Wrapper>
       <PlayPauseWrapper
         onClick={() => {
           if (thisReleasePlaying) {
-            playing.value ? pause() : play()
+            playing ? pause() : play()
           } else {
             onSongClick(release.songs[0])
           }
         }}
       >
-        <PlayPause playing={thisReleasePlaying && playing.value} size={SLIDER_HEIGHT} />
+        <PlayPause playing={thisReleasePlaying && playing} size={SLIDER_HEIGHT} />
       </PlayPauseWrapper>
 
       <SliderWrapper id={release.slug} className={SLIDER_CLASSNAME} onClick={() => {}}>

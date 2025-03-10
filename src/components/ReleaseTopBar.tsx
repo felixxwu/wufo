@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks'
+import { useState } from 'react'
 import { Back } from '../icons/back'
 import { content } from '../lib/content'
 import { Button } from './Button'
