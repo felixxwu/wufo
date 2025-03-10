@@ -16,9 +16,9 @@ export function App() {
   const rotationDegs = useRef(0)
   const oldRotationDegs = useRef(0)
   const posFromLastMouseDown = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
-  const [loopStartInBeats, setLoopStartInBeats] = useState(0)
+  const [loopStartInBeats, setLoopStartInBeats] = useState(6)
   const loopStartInBeatsRef = useRef(loopStartInBeats)
-  const [currentLoopPlaying, setCurrentLoopPlaying] = useState(0)
+  const [currentLoopPlaying, setCurrentLoopPlaying] = useState(6)
 
   useEffect(() => {
     loopStartInBeatsRef.current = loopStartInBeats
@@ -43,6 +43,7 @@ export function App() {
 
   const handleStart = async () => {
     if (!player.current) return
+    if (player.current.state === 'started') return
 
     player.current.start(0, loopLength * loopStartInBeatsRef.current)
     player.current.loop = true
@@ -69,7 +70,8 @@ export function App() {
     <Container>
       <Circle ref={circle}>knob</Circle>
       <button onClick={handleStart}>Start</button>
-      Current loop: {currentLoopPlaying}
+      <span>Current loop: {currentLoopPlaying}</span>
+      <span>Loop length: {loopNumBeats} beats</span>
       <button onClick={handleLoopIncrease}>Increase loop start ({loopStartInBeats})</button>
       <button onClick={handleLoopDecrease}>Decrease loop start ({loopStartInBeats})</button>
     </Container>
