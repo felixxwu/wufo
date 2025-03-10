@@ -8,12 +8,12 @@
     ],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
-      },
-      {
         "source": "/knob",
         "destination": "/knob.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
