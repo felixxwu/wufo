@@ -1,79 +1,85 @@
 import { styled } from 'goober'
 import { useEffect, useRef, useState } from 'react'
 import * as Tone from 'tone'
-import { useRefWithOnChange } from './utils/useRefWithOnChange.ts'
-import { useWindowEventListeners } from './lib/useWindowEventListeners.ts'
+import { useCreateDoublePlayers } from './utils/useCreateDoublePlayers.ts'
+import { Knob } from './components/Knob.tsx'
 
 export function App() {
-  const player = useRef<Tone.Player>(new Tone.Player('/audio/fromthestart.mp3').toDestination())
-  const bpm = 174
+  const bpm = 172
   const clockFreqHz = 2
   const beatLength = 60 / bpm
   const loopNumBeats = 32
   const loopLength = loopNumBeats * beatLength
-  const pointerDown = useRef(false)
-  const circle = useRef<HTMLButtonElement>(null)
-  const rotationDegs = useRef(0)
-  const oldRotationDegs = useRef(0)
-  const posFromLastMouseDown = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
-  const [loopStartInBeats, setLoopStartInBeats] = useState(6)
-  const loopStartInBeatsRef = useRef(loopStartInBeats)
-  const [currentLoopPlaying, setCurrentLoopPlaying] = useState(6)
+
+  const [loopNum, setLoopNum] = useState(0)
+  const [currentLoopPlaying, setCurrentLoopPlaying] = useState(loopNum)
+  const [timeUntilNextLoopStart, setTimeUntilNextLoopStart] = useState(0)
+  const [started, setStarted] = useState(false)
+
+  const players = useCreateDoublePlayers(
+    '/knob/lookinhereye',
+    [
+      'piano.mp3',
+      'piano-voc2.mp3',
+      'drums-piano.mp3',
+      'drums-piano-sax-chords-bells-voc.mp3',
+      'drums-piano-bass-sax-chords-bells.mp3',
+      'drums-piano-bass-sax-chords-bells-voc.mp3',
+      'drums-piano-bass-sax-chords-bells-voc2.mp3',
+    ],
+    bpm
+  )
+
+  const loopRef = useRef({ num: loopNum, player: players[loopNum] })
+  const clock = useRef<Tone.Clock>(null)
 
   useEffect(() => {
-    loopStartInBeatsRef.current = loopStartInBeats
-  }, [loopStartInBeats])
-
-  const currentMousePos = useRefWithOnChange({ x: 0, y: 0 }, value => {
-    if (!pointerDown.current || !circle.current) return
-
-    const yDiff = value.y - posFromLastMouseDown.current.y
-    rotationDegs.current = oldRotationDegs.current - yDiff * 0.5
-
-    circle.current.style.transform = `rotate(${rotationDegs.current}deg)`
-  })
-
-  useWindowEventListeners({
-    currentMousePos,
-    oldRotationDegs,
-    pointerDown,
-    posFromLastMouseDown,
-    rotationDegs,
-  })
+    loopRef.current = { num: loopNum, player: players[loopNum] }
+  }, [loopNum])
 
   const handleStart = async () => {
-    if (!player.current) return
-    if (player.current.state === 'started') return
+    setStarted(true)
+    clock.current = new Tone.Clock(time => {
+      const offset = loopLength - players[0].leadInLength - 0.2
+      const timeLeftUntilNextLoop = loopLength - ((time + offset) % loopLength)
+      setTimeUntilNextLoopStart(timeLeftUntilNextLoop)
 
-    player.current.start(0, loopLength * loopStartInBeatsRef.current)
-    player.current.loop = true
-
-    new Tone.Clock(time => {
-      const timeLeftUntilNextLoop = loopLength - (time % loopLength)
-      if (timeLeftUntilNextLoop <= 1 / clockFreqHz) {
-        console.log('seek', timeLeftUntilNextLoop, loopStartInBeatsRef.current)
-        player.current.seek(loopLength * loopStartInBeatsRef.current, time + timeLeftUntilNextLoop)
-        setCurrentLoopPlaying(loopStartInBeatsRef.current)
+      const timeUntilLoopStartDisabled = timeLeftUntilNextLoop - players[0].leadInLength
+      if (timeUntilLoopStartDisabled <= 1 / clockFreqHz && timeUntilLoopStartDisabled > 0) {
+        loopRef.current.player.play(time + timeLeftUntilNextLoop - players[0].leadInLength)
+        setCurrentLoopPlaying(loopRef.current.num)
       }
     }, clockFreqHz).start()
   }
 
   const handleLoopIncrease = () => {
-    setLoopStartInBeats(beats => beats + 1)
+    setLoopNum(num => Math.min(num + 1, players.length - 1))
   }
 
   const handleLoopDecrease = () => {
-    setLoopStartInBeats(beats => beats - 1)
+    setLoopNum(num => Math.max(num - 1, 0))
+  }
+
+  const handleStop = () => {
+    players.forEach(player => player.stop())
+    setStarted(false)
+    clock.current?.stop()
+    clock.current?.dispose()
   }
 
   return (
     <Container>
-      <Circle ref={circle}>knob</Circle>
-      <button onClick={handleStart}>Start</button>
-      <span>Current loop: {currentLoopPlaying}</span>
-      <span>Loop length: {loopNumBeats} beats</span>
-      <button onClick={handleLoopIncrease}>Increase loop start ({loopStartInBeats})</button>
-      <button onClick={handleLoopDecrease}>Decrease loop start ({loopStartInBeats})</button>
+      <Knob />
+      {!started && <button onClick={handleStart}>START</button>}
+      {started && <button onClick={handleStop}>STOP</button>}
+      <span style={{ color: timeUntilNextLoopStart < players[0].leadInLength ? 'red' : 'white' }}>
+        Time until next loop start: {Math.round(timeUntilNextLoopStart)}s
+      </span>
+      <span>Playing loop: {currentLoopPlaying}</span>
+      <div>
+        <button onClick={handleLoopDecrease}>{'<'}</button> Selected loop: {loopNum}{' '}
+        <button onClick={handleLoopIncrease}>{'>'}</button>
+      </div>
     </Container>
   )
 }
@@ -88,12 +94,4 @@ const Container = styled('div')`
   justify-content: center;
   color: white;
   gap: 20px;
-`
-
-const Circle = styled('button')`
-  width: 100px;
-  height: 100px;
-  border-radius: 50% 50% 50% 0;
-  background-color: white;
-  cursor: pointer;
 `
