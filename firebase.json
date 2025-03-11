@@ -8,8 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/knob",
-        "destination": "/knob.html"
+        "source": "/interactive",
+        "destination": "/interactive.html"
       },
       {
         "source": "**",
