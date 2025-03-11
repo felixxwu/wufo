@@ -9,9 +9,9 @@ const flatSongs = content.releases.reduce((acc, release) => {
 }, [] as ISong[])
 
 export function usePlayerController() {
-  const playing = usePlaying.value()
-  const songPlaying = useSongPlaying.value()
-  const showControls = useShowControls.value()
+  const playing = usePlaying.useState()
+  const songPlaying = useSongPlaying.useState()
+  const showControls = useShowControls.useState()
 
   useEffect(() => {
     if (playing) {

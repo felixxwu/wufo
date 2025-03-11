@@ -4,7 +4,7 @@ import { useScreenWidth } from './signals'
 import { singleSongMode } from './singleSongMode'
 
 export function useLargeTitleFontSize(title: string) {
-  const screenWidth = useScreenWidth.value()
+  const screenWidth = useScreenWidth.useState()
   const titleWidth =
     Math.min(MOBILE_CUTOFF, screenWidth) -
     (singleSongMode() ? 0 : IMAGE_SIZE + GRID_GAP) -

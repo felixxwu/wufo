@@ -6,7 +6,7 @@ import { useAppElement, useScreenHeight, useScreenWidth, useScrollTop } from './
 import { styled } from 'goober'
 
 export function App() {
-  const appElement = useAppElement.value()
+  const appElement = useAppElement.useState()
   const [showBackground, setShowBackground] = useState(false)
 
   useEffect(() => {

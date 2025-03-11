@@ -13,7 +13,7 @@
     "goober": "^2.1.14",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "singleton-state-hook": "^1.0.8",
+    "singleton-state-hook": "^1.1.1",
     "tone": "^15.0.4"
   },
   "devDependencies": {

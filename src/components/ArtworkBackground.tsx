@@ -15,11 +15,11 @@ const MAX_OPACITY = 0.15
 const ANIMATION_DURATION = 1500
 
 export function ArtworkBackground() {
-  const songPlaying = useSongPlaying.value()
-  const screenWidth = useScreenWidth.value()
-  const scrollTop = useScrollTop.value()
-  const appElement = useAppElement.value()
-  const screenHeight = useScreenHeight.value()
+  const songPlaying = useSongPlaying.useState()
+  const screenWidth = useScreenWidth.useState()
+  const scrollTop = useScrollTop.useState()
+  const appElement = useAppElement.useState()
+  const screenHeight = useScreenHeight.useState()
 
   const [displayedSong, setDisplayedSong] = useState(songPlaying)
   const [opacity, setOpacity] = useState(MAX_OPACITY)

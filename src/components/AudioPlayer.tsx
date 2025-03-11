@@ -18,10 +18,10 @@ export function AudioPlayer({
   onTrackEnd?: () => void
   onLoadProgress?: (progress: number) => void
 }) {
-  const songPlaying = useSongPlaying.value()
-  const autoPlay = useAutoPlay.value()
-  const progressOverride = useProgressOverride.value()
-  const playing = usePlaying.value()
+  const songPlaying = useSongPlaying.useState()
+  const autoPlay = useAutoPlay.useState()
+  const progressOverride = useProgressOverride.useState()
+  const playing = usePlaying.useState()
 
   const audio = useRef<HTMLAudioElement>(null)
   const [duration, setDuration] = useState<number>(0)

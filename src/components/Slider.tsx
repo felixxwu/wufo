@@ -11,10 +11,10 @@ import { usePlayerController } from '../lib/usePlayerController'
 import { IRelease } from '../lib/types'
 
 export const Slider = ({ release }: { release: IRelease }) => {
-  const songPlaying = useSongPlaying.value()
-  const playing = usePlaying.value()
-  const realPlaybackProgress = useRealPlaybackProgress.value()
-  const loadedProgress = useLoadedProgress.value()
+  const songPlaying = useSongPlaying.useState()
+  const playing = usePlaying.useState()
+  const realPlaybackProgress = useRealPlaybackProgress.useState()
+  const loadedProgress = useLoadedProgress.useState()
 
   const { play, pause, onSongClick } = usePlayerController()
   const thisReleasePlaying = release.songs.includes(songPlaying)

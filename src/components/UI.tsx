@@ -14,9 +14,9 @@ import { SliderListeners } from './SliderListeners'
 export const RELEASES_GAP = 10
 
 export function UI() {
-  const playing = usePlaying.value()
-  const songPlaying = useSongPlaying.value()
-  const progressOverride = useProgressOverride.value()
+  const playing = usePlaying.useState()
+  const songPlaying = useSongPlaying.useState()
+  const progressOverride = useProgressOverride.useState()
 
   useEffect(() => {
     if (progressOverride !== 0) {

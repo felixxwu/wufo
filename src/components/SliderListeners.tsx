@@ -11,7 +11,7 @@ import { usePlayerController } from '../lib/usePlayerController'
 import { findReleaseFromSlug } from '../lib/findReleaseFromSlug'
 
 export const SliderListeners = () => {
-  const songPlaying = useSongPlaying.value()
+  const songPlaying = useSongPlaying.useState()
   const releasePlaying = findReleaseFromSong(songPlaying)
 
   const [isDragging, setIsDragging] = useState(false)

@@ -41,10 +41,10 @@ export function Release({
   index: number
   onSongClick: (song: ISong) => void
 }) {
-  const screenWidth = useScreenWidth.value()
-  const playing = usePlaying.value()
-  const songPlaying = useSongPlaying.value()
-  const expandedReleases = useExpandedReleases.value()
+  const screenWidth = useScreenWidth.useState()
+  const playing = usePlaying.useState()
+  const songPlaying = useSongPlaying.useState()
+  const expandedReleases = useExpandedReleases.useState()
 
   const [, setAfterInitialRender] = useState(false)
   const linksHeight = screenWidth < MOBILE_CUTOFF ? 90 : 45
@@ -158,7 +158,7 @@ export function Release({
 }
 
 export const useReleaseHeight = (release: IRelease, expanded: boolean) => {
-  const screenWidth = useScreenWidth.value()
+  const screenWidth = useScreenWidth.useState()
   const linksHeight = screenWidth < MOBILE_CUTOFF ? 90 : 45
   return expanded
     ? getReleaseImageSize(expanded) +

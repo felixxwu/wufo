@@ -24,10 +24,10 @@ export function Song({
   pointerleave: () => void
   onclick: () => void
 }) {
-  const songPlaying = useSongPlaying.value()
-  const playingSignal = usePlaying.value()
-  const realPlaybackProgress = useRealPlaybackProgress.value()
-  const songLength = useSongLength.value()
+  const songPlaying = useSongPlaying.useState()
+  const playingSignal = usePlaying.useState()
+  const realPlaybackProgress = useRealPlaybackProgress.useState()
+  const songLength = useSongLength.useState()
 
   const playing = songPlaying.fileName === song.fileName && playingSignal
 
