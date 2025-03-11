@@ -6,11 +6,7 @@ import { Knob } from './components/Knob.tsx'
 import { refs } from './lib/refs.ts'
 
 export function App() {
-  const bpm = 172
   const clockFreqHz = 1
-  const beatLength = 60 / bpm
-  const loopNumBeats = 32
-  const loopLength = loopNumBeats * beatLength
 
   const [loopNum, setLoopNum] = useState(0)
   const [loopsLoaded, setLoopsLoaded] = useState(false)
@@ -21,15 +17,27 @@ export function App() {
   const players = useCreatePlayers(
     '/knob/lookinhereye',
     [
-      'piano.mp3',
-      'piano-voc2.mp3',
-      'drums-piano.mp3',
-      'drums-piano-sax-chords-bells-voc.mp3',
-      'drums-piano-bass-sax-chords-bells.mp3',
-      'drums-piano-bass-sax-chords-bells-voc.mp3',
-      'drums-piano-bass-sax-chords-bells-voc2.mp3',
+      { name: 'piano.mp3', instruments: ['piano'] },
+      { name: 'piano-voc2.mp3', instruments: ['piano', 'vocal'] },
+      { name: 'drums-piano.mp3', instruments: ['drums', 'piano'] },
+      {
+        name: 'drums-piano-sax-chords-bells-voc.mp3',
+        instruments: ['drums', 'piano', 'sax', 'chords', 'vocal'],
+      },
+      {
+        name: 'drums-piano-bass-sax-chords-bells.mp3',
+        instruments: ['drums', 'piano', 'bass', 'sax', 'chords'],
+      },
+      {
+        name: 'drums-piano-bass-sax-chords-bells-voc.mp3',
+        instruments: ['drums', 'piano', 'bass', 'sax', 'chords', 'vocal'],
+      },
+      {
+        name: 'drums-piano-bass-sax-chords-bells-voc2.mp3',
+        instruments: ['drums', 'piano', 'bass', 'sax', 'chords', 'vocal (alt.)'],
+      },
     ],
-    bpm
+    172
   )
 
   useEffect(() => {
@@ -49,8 +57,8 @@ export function App() {
 
     setStarted(true)
     clock.current = new Tone.Clock(time => {
-      const offset = loopLength - players.leadInLength - 0.2
-      const timeLeftUntilNextLoop = loopLength - ((time + offset) % loopLength)
+      const offset = players.loopLength - players.leadInLength - 0.2
+      const timeLeftUntilNextLoop = players.loopLength - ((time + offset) % players.loopLength)
       setTimeUntilNextLoopStart(timeLeftUntilNextLoop)
 
       const timeUntilLoopStartDisabled = timeLeftUntilNextLoop - players.leadInLength
@@ -89,6 +97,7 @@ export function App() {
         <button onClick={handleLoopDecrease}>{'<'}</button> Selected loop: {loopNum}{' '}
         <button onClick={handleLoopIncrease}>{'>'}</button>
       </div>
+      <span>Stems: {players.getInstruments(loopNum).join(', ')}</span>
     </Container>
   )
 }
