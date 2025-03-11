@@ -1,22 +1,24 @@
 import { styled } from 'goober'
 import { useEffect, useRef, useState } from 'react'
 import * as Tone from 'tone'
-import { useCreateDoublePlayers } from './utils/useCreateDoublePlayers.ts'
+import { useCreatePlayers } from './utils/useCreatePlayers.ts'
 import { Knob } from './components/Knob.tsx'
+import { refs } from './lib/refs.ts'
 
 export function App() {
   const bpm = 172
-  const clockFreqHz = 2
+  const clockFreqHz = 1
   const beatLength = 60 / bpm
   const loopNumBeats = 32
   const loopLength = loopNumBeats * beatLength
 
   const [loopNum, setLoopNum] = useState(0)
+  const [loopsLoaded, setLoopsLoaded] = useState(false)
   const [currentLoopPlaying, setCurrentLoopPlaying] = useState(loopNum)
   const [timeUntilNextLoopStart, setTimeUntilNextLoopStart] = useState(0)
   const [started, setStarted] = useState(false)
 
-  const players = useCreateDoublePlayers(
+  const players = useCreatePlayers(
     '/knob/lookinhereye',
     [
       'piano.mp3',
@@ -30,30 +32,37 @@ export function App() {
     bpm
   )
 
-  const loopRef = useRef({ num: loopNum, player: players[loopNum] })
+  useEffect(() => {
+    players.preLoadAll().then(() => {
+      setLoopsLoaded(true)
+    })
+  }, [])
+
   const clock = useRef<Tone.Clock>(null)
 
   useEffect(() => {
-    loopRef.current = { num: loopNum, player: players[loopNum] }
+    refs.loopNum = loopNum
   }, [loopNum])
 
   const handleStart = async () => {
+    if (!loopsLoaded) return
+
     setStarted(true)
     clock.current = new Tone.Clock(time => {
-      const offset = loopLength - players[0].leadInLength - 0.2
+      const offset = loopLength - players.leadInLength - 0.2
       const timeLeftUntilNextLoop = loopLength - ((time + offset) % loopLength)
       setTimeUntilNextLoopStart(timeLeftUntilNextLoop)
 
-      const timeUntilLoopStartDisabled = timeLeftUntilNextLoop - players[0].leadInLength
+      const timeUntilLoopStartDisabled = timeLeftUntilNextLoop - players.leadInLength
       if (timeUntilLoopStartDisabled <= 1 / clockFreqHz && timeUntilLoopStartDisabled > 0) {
-        loopRef.current.player.play(time + timeLeftUntilNextLoop - players[0].leadInLength)
-        setCurrentLoopPlaying(loopRef.current.num)
+        players.play(refs.loopNum, time + timeLeftUntilNextLoop - players.leadInLength)
+        setCurrentLoopPlaying(refs.loopNum)
       }
     }, clockFreqHz).start()
   }
 
   const handleLoopIncrease = () => {
-    setLoopNum(num => Math.min(num + 1, players.length - 1))
+    setLoopNum(num => Math.min(num + 1, players.numLoops - 1))
   }
 
   const handleLoopDecrease = () => {
@@ -61,7 +70,7 @@ export function App() {
   }
 
   const handleStop = () => {
-    players.forEach(player => player.stop())
+    players.stop()
     setStarted(false)
     clock.current?.stop()
     clock.current?.dispose()
@@ -70,9 +79,9 @@ export function App() {
   return (
     <Container>
       <Knob />
-      {!started && <button onClick={handleStart}>START</button>}
+      {!started && <button onClick={handleStart}>{loopsLoaded ? 'START' : 'Loading...'}</button>}
       {started && <button onClick={handleStop}>STOP</button>}
-      <span style={{ color: timeUntilNextLoopStart < players[0].leadInLength ? 'red' : 'white' }}>
+      <span style={{ color: timeUntilNextLoopStart < players.leadInLength ? 'red' : 'white' }}>
         Time until next loop start: {Math.round(timeUntilNextLoopStart)}s
       </span>
       <span>Playing loop: {currentLoopPlaying}</span>
