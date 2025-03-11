@@ -1,22 +1,18 @@
 import React, { useEffect } from 'react'
+import {
+  useOldRotationDegs,
+  usePointerDown,
+  usePosFromLastMouseDown,
+  useRotationDegs,
+} from './store.ts'
 
-export function useWindowEventListeners({
-  currentMousePos,
-  oldRotationDegs,
-  pointerDown,
-  posFromLastMouseDown,
-  rotationDegs,
-}: {
-  pointerDown: React.RefObject<boolean>
-  posFromLastMouseDown: React.RefObject<{ x: number; y: number }>
+export function useWindowEventListeners(
   currentMousePos: React.RefObject<{ x: number; y: number }>
-  oldRotationDegs: React.RefObject<number>
-  rotationDegs: React.RefObject<number>
-}) {
+) {
   useEffect(() => {
     window.addEventListener('pointerdown', e => {
-      pointerDown.current = true
-      posFromLastMouseDown.current = { x: e.clientX, y: e.clientY }
+      usePointerDown.set(true)
+      usePosFromLastMouseDown.set({ x: e.clientX, y: e.clientY })
     })
 
     window.addEventListener('pointermove', e => {
@@ -24,8 +20,8 @@ export function useWindowEventListeners({
     })
 
     window.addEventListener('pointerup', () => {
-      pointerDown.current = false
-      oldRotationDegs.current = rotationDegs.current
+      usePointerDown.set(false)
+      useOldRotationDegs.set(useRotationDegs.ref())
     })
   }, [])
 }

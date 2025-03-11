@@ -20,7 +20,7 @@ export function useStartClock() {
       new Tone.Clock(time => {
         const offset = loopLength - leadInLength - 0.2
         const timeLeftUntilNextLoop = loopLength - ((time + offset) % loopLength)
-        useTimeUntilNextLoopStart.set(timeLeftUntilNextLoop)
+        useTimeUntilNextLoopStart.set({ time: timeLeftUntilNextLoop, when: Date.now() })
 
         const timeUntilLoopStartDisabled = timeLeftUntilNextLoop - leadInLength
         if (timeUntilLoopStartDisabled <= 1 / clockFreqHz && timeUntilLoopStartDisabled > 0) {

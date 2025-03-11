@@ -13,7 +13,6 @@ import { useStop } from './actions/useStop.ts'
 import { useLeadInLength } from './computed/useLeadInLength.ts'
 import { usePreloadSongs } from './actions/usePreloadSongs.ts'
 import { useSetSong } from './actions/useSetSong.ts'
-import { useSetLoopNum } from './actions/useSetLoopNum.ts'
 import { useSongConfig } from './computed/useSongConfig.ts'
 
 export function App() {
@@ -29,27 +28,23 @@ export function App() {
 
   const leadInLength = useLeadInLength()
   const setSong = useSetSong()
-  const setLoopNum = useSetLoopNum()
   const startClock = useStartClock()
   const stop = useStop()
 
   return (
     <Container>
+      <Knob />
       <div>
         <button onClick={() => setSong(songNum - 1)}>{'<'}</button> {songName}{' '}
         <button onClick={() => setSong(songNum + 1)}>{'>'}</button>
       </div>
-      <Knob />
       {!started && <button onClick={startClock}>{songLoaded ? 'START' : 'Loading...'}</button>}
       {started && <button onClick={stop}>STOP</button>}
-      <span style={{ color: timeUntilNextLoopStart < leadInLength ? 'red' : 'white' }}>
-        Time until next loop start: {Math.round(timeUntilNextLoopStart)}s
+      <span style={{ color: timeUntilNextLoopStart.time < leadInLength ? 'red' : 'white' }}>
+        Time until next loop start: {Math.round(timeUntilNextLoopStart.time)}s
       </span>
       <span>Playing loop: {currentLoopPlaying}</span>
-      <div>
-        <button onClick={() => setLoopNum(loopNum - 1)}>{'<'}</button> Selected loop: {loopNum}{' '}
-        <button onClick={() => setLoopNum(loopNum + 1)}>{'>'}</button>
-      </div>
+      <div>Selected loop: {loopNum}</div>
       <span>Stems: {files[loopNum].stems.join(', ')}</span>
     </Container>
   )
