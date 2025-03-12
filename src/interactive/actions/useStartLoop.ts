@@ -4,6 +4,7 @@ import {
   useCurrentLoopPlaying,
   useLoopRequested,
   useNextPlayerToUse,
+  useBase64Audio,
 } from '../lib/store.ts'
 import { useSongConfig } from '../computed/useSongConfig.ts'
 import * as Tone from 'tone'
@@ -11,7 +12,7 @@ import { useLeadInLength } from '../computed/useLeadInLength.ts'
 import { useTimeUntilNextLoop } from '../computed/useTimeUntilNextLoop.ts'
 
 export function useStartLoop() {
-  const { path, files } = useSongConfig()
+  const { files } = useSongConfig()
   const leadInLength = useLeadInLength()
   const timeLeftUntilNextLoop = useTimeUntilNextLoop()
 
@@ -24,7 +25,7 @@ export function useStartLoop() {
     const shouldUsePlayer1 = useNextPlayerToUse.ref() === 1
     const usePlayer = shouldUsePlayer1 ? usePlayer1 : usePlayer2
 
-    await usePlayer.ref().load(`${path}/${files[useLoopRequested.ref()].name}`)
+    await usePlayer.ref().load(useBase64Audio.ref()[useLoopRequested.ref()])
 
     const when = Tone.now() + timeLeftUntilNextLoop() - leadInLength
     const late = when < Tone.now()
