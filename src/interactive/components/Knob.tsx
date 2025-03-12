@@ -12,14 +12,16 @@ import {
 } from '../lib/store.ts'
 import knobSvg from '../assets/knob.svg'
 import { config } from '../lib/config.ts'
-import { useSetLoopNum } from '../actions/useSetLoopNum.ts'
+import { useSetRequestedLoopNum } from '../actions/useSetRequestedLoopNum.ts'
 import { LoopIndicator } from './LoopIndicator.tsx'
 import { consts } from '../lib/consts.ts'
 import { useSongConfig } from '../computed/useSongConfig.ts'
+import { Minus } from '../../icons/minus.tsx'
+import { Plus } from '../../icons/plus.tsx'
 
 export function Knob() {
   const circle = useRef<HTMLButtonElement>(null)
-  const setLoopNum = useSetLoopNum()
+  const setRequestedLoopNum = useSetRequestedLoopNum()
   const loopRequested = useLoopRequested.useState()
   const songNum = useSongNum.useState()
   const pointerDown = usePointerDown.useState()
@@ -43,7 +45,7 @@ export function Knob() {
       0
     )
     if (nearestStepIndex !== useLoopRequested.ref()) {
-      setLoopNum(nearestStepIndex)
+      setRequestedLoopNum(nearestStepIndex)
     }
   })
 
@@ -58,6 +60,10 @@ export function Knob() {
     circle.current.style.transform = `rotate(${angle}deg)`
     useRotationDegs.set(angle)
     useOldRotationDegs.set(angle)
+  }
+
+  const handleIntensityModifier = (direction: 'up' | 'down') => {
+    setRequestedLoopNum(direction === 'up' ? loopRequested + 1 : loopRequested - 1)
   }
 
   useEffect(() => {
@@ -84,6 +90,15 @@ export function Knob() {
         <Polygon points='1,0 2,2 0,2' />
         <Polygon points='1,5 0,3 2,3' />
       </Svg>
+      <BottomRow>
+        <IconButton onClick={() => handleIntensityModifier('down')}>
+          <Minus color='white' style={{ width: '10px', height: '10px' }} />
+        </IconButton>
+        <Text>INTENSITY</Text>
+        <IconButton onClick={() => handleIntensityModifier('up')}>
+          <Plus color='white' style={{ width: '10px', height: '10px' }} />
+        </IconButton>
+      </BottomRow>
     </Div>
   )
 }
@@ -95,7 +110,7 @@ const Div = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 180px;
+  bottom: 200px;
   pointer-events: none;
 `
 
@@ -118,4 +133,33 @@ const Svg = styled('svg')`
 const Polygon = styled('polygon')`
   fill: white;
   transform: translateY(${p => p.offset}px);
+`
+
+const BottomRow = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: fixed;
+  pointer-events: all;
+  margin-top: 280px;
+`
+
+const Text = styled('span')`
+  letter-spacing: 6px;
+`
+
+const IconButton = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #222;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #444;
+  }
 `

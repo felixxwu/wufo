@@ -3,10 +3,10 @@ import { config } from '../lib/config.ts'
 import { useCurrentLoopPlaying, useLoopRequested, useSongNum, useStarted } from '../lib/store.ts'
 import { consts } from '../lib/consts.ts'
 import { Arc } from './Arc.tsx'
-import { useSetLoopNum } from '../actions/useSetLoopNum.ts'
+import { useSetRequestedLoopNum } from '../actions/useSetRequestedLoopNum.ts'
 
 export function LoopIndicator({ step }: { step: number }) {
-  const setLoopNum = useSetLoopNum()
+  const setLoopNum = useSetRequestedLoopNum()
   const loopRequested = useLoopRequested.useState()
   const loopPlaying = useCurrentLoopPlaying.useState()
   const started = useStarted.useState()
@@ -27,7 +27,7 @@ export function LoopIndicator({ step }: { step: number }) {
   const showArc = started && loopPlaying !== step && loopRequested === step
   const fileName = files[step].name
   const size = (() => {
-    if (fileName === null) return 10
+    if (fileName === null) return 15
     if (playing) return 25
     return 20
   })()

@@ -1,7 +1,7 @@
 import { useLoopRequested } from '../lib/store.ts'
 import { useSongConfig } from '../computed/useSongConfig.ts'
 
-export function useSetLoopNum() {
+export function useSetRequestedLoopNum() {
   const { files } = useSongConfig()
 
   return (loopNum: number) => {
