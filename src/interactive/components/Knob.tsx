@@ -142,7 +142,7 @@ const BottomRow = styled('div')`
   gap: 20px;
   position: fixed;
   pointer-events: all;
-  margin-top: 240px;
+  margin-top: 260px;
 `
 
 const Text = styled('span')`
