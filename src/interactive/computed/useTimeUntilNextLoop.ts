@@ -6,7 +6,7 @@ export function useTimeUntilNextLoop() {
   const { bpm } = useSongConfig()
   const leadInLength = useLeadInLength()
   const loopLength = (60 / bpm) * 32
-  const offset = loopLength - leadInLength - 0.2
+  const offset = loopLength - leadInLength - 0.5
 
   return () => {
     const time = Tone.now()
