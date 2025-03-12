@@ -27,9 +27,9 @@ export function App() {
         <button onClick={() => setSong(songNum - 1)}>{'<'}</button> {songName}{' '}
         <button onClick={() => setSong(songNum + 1)}>{'>'}</button>
       </div>
+      <Stems />
       {!started && <button onClick={startClock}>{songLoaded ? 'START' : 'Loading...'}</button>}
       {started && <button onClick={stop}>STOP</button>}
-      <Stems />
     </Container>
   )
 }
@@ -41,7 +41,8 @@ const Container = styled('div')`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 50px;
   color: white;
   gap: 20px;
 `
