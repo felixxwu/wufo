@@ -34,7 +34,7 @@ export function LoopIndicator({ step }: { step: number }) {
   const color = (() => {
     if (fileName === null) return '#a22'
     if (showArc) return 'transparent'
-    if (playing) return '#ccc'
+    if (playing) return '#bbb'
     return '#666'
   })()
 

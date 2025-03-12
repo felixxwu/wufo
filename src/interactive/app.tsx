@@ -27,9 +27,9 @@ export function App() {
         <button onClick={() => setSong(songNum - 1)}>{'<'}</button> {songName}{' '}
         <button onClick={() => setSong(songNum + 1)}>{'>'}</button>
       </div>
-      <Stems />
       {!started && <button onClick={startClock}>{songLoaded ? 'START' : 'Loading...'}</button>}
       {started && <button onClick={stop}>STOP</button>}
+      <Stems />
     </Container>
   )
 }

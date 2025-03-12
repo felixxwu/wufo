@@ -127,7 +127,7 @@ const Circle = styled('div')`
 const Svg = styled('svg')`
   position: fixed;
   width: 12px;
-  opacity: 0.3;
+  opacity: 0.2;
 `
 
 const Polygon = styled('polygon')`

@@ -35,7 +35,7 @@ const Div = styled('div')`
   padding: 6px;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 4px solid #ccc;
+  border: 4px solid #bbb;
   animation: rotate 1s linear infinite;
   mask: conic-gradient(#000 0deg, #0000 0);
 `
