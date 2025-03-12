@@ -1,4 +1,4 @@
-import { useStarted } from '../lib/store.ts'
+import { useSongLoaded, useStarted } from '../lib/store.ts'
 import { styled } from 'goober'
 import { useStop } from '../actions/useStop.ts'
 import { useStartClock } from '../actions/useStartClock.ts'
@@ -7,6 +7,11 @@ export function PlayPause() {
   const started = useStarted.useState()
   const startClock = useStartClock()
   const stop = useStop()
+  const songLoaded = useSongLoaded.useState()
+
+  if (!songLoaded) {
+    return <Div>Loading...</Div>
+  }
 
   return (
     <Div>
