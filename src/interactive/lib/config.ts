@@ -12,11 +12,11 @@ export const config: SongConfig[] = [
       { name: null, stems: [] },
       { name: 'piano.mp3', stems: [piano] },
       { name: 'piano-voc-voc2.mp3', stems: [piano, vocal, vocal2] },
+      { name: 'drums2-piano-voc4.mp3', stems: [drums2, piano, vocal4] },
       {
         name: 'piano-bass-instruments-voc.mp3',
         stems: [bass, piano, instr, vocal],
       },
-      { name: 'drums2-piano-voc4.mp3', stems: [drums2, piano, vocal4] },
       { name: 'drums-piano.mp3', stems: [drums, piano] },
       {
         name: 'drums-piano-instruments-voc.mp3',
