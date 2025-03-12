@@ -13,13 +13,11 @@ export function LoopIndicator({ step }: { step: number }) {
   const { files } = config[useSongNum.ref()]
   const steps = files.map((_, i) => i / (files.length - 1))
   const angle = steps[step] * consts.knobRangeDeg - consts.knobRangeDeg / 2
-  const distance = 270
 
-  const x = distance * Math.cos((angle - 90) * (Math.PI / 180))
-  const y = distance * Math.sin((angle - 90) * (Math.PI / 180))
+  const x = consts.loopIndicatorDistance * Math.cos((angle - 90) * (Math.PI / 180))
+  const y = consts.loopIndicatorDistance * Math.sin((angle - 90) * (Math.PI / 180))
 
   const handleClick = () => {
-    console.log(`setLoopNum`, setLoopNum)
     setLoopNum(step)
   }
 
@@ -27,15 +25,15 @@ export function LoopIndicator({ step }: { step: number }) {
   const showArc = started && loopPlaying !== step && loopRequested === step
   const fileName = files[step].name
   const size = (() => {
-    if (fileName === null) return 15
     if (playing) return 25
+    if (fileName === null) return 12
     return 20
   })()
   const color = (() => {
     if (fileName === null) return '#a22'
     if (showArc) return 'transparent'
     if (playing) return '#bbb'
-    return '#666'
+    return '#333'
   })()
 
   return (

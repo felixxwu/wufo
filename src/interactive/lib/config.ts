@@ -2,7 +2,7 @@ import { SongConfig } from './types.ts'
 
 export const config: SongConfig[] = [
   {
-    songName: 'Look in Here Eye',
+    songName: 'Look in Her Eye',
     path: '/interactive/lookinhereye',
     stemOrder: ['Drums', 'Piano', 'Bass', 'Chords', 'Vocal 1', 'Vocal 2', 'Vocal 3'],
     files: [

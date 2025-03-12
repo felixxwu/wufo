@@ -8,4 +8,5 @@ export const noForwardProps = [
   'playing',
   'showArc',
   'expanded',
+  'active',
 ]

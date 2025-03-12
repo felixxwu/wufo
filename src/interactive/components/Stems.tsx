@@ -2,6 +2,7 @@ import { styled } from 'goober'
 import { useSongConfig } from '../computed/useSongConfig.ts'
 import { useCurrentLoopPlaying, useLoopRequested, useStarted } from '../lib/store.ts'
 import { Arc } from './Arc.tsx'
+import { PlayingAnimation } from '../../components/PlayingAnimation.tsx'
 
 export function Stems() {
   const { files, stemOrder } = useSongConfig()
@@ -26,7 +27,9 @@ export function Stems() {
                 <Arc />
               </ArcContainer>
             ) : (
-              <IconContainer active={playing}>icon</IconContainer>
+              <IconContainer active={playing}>
+                {playing ? <PlayingAnimation /> : null}
+              </IconContainer>
             )}
           </Stem>
         )
@@ -39,7 +42,7 @@ const Div = styled('div')`
   position: fixed;
   display: flex;
   gap: 10px;
-  bottom: 380px;
+  bottom: 330px;
 `
 
 const Stem = styled('div')`
@@ -50,7 +53,6 @@ const Stem = styled('div')`
   gap: 20px;
   align-items: flex-start;
   justify-content: flex-end;
-  font-size: 18px;
 `
 
 const IconContainer = styled('div')<{ active: boolean }>`
@@ -72,6 +74,7 @@ const Text = styled('div')<{ active: boolean }>`
   position: fixed;
   transform-origin: 0 0;
   transform: translate(3px, -20px) rotate(-90deg);
+  letter-spacing: 5px;
 `
 
 const ArcContainer = styled('div')`

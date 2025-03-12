@@ -68,7 +68,7 @@ export function Knob() {
 
   useEffect(() => {
     if (!pointerDown) handleResetKnobPosition()
-  }, [pointerDown, loopRequested])
+  }, [pointerDown, loopRequested, songNum])
 
   useWindowEventListeners(currentMousePos)
 
@@ -110,7 +110,7 @@ const Div = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 200px;
+  bottom: 180px;
   pointer-events: none;
 `
 
@@ -142,7 +142,7 @@ const BottomRow = styled('div')`
   gap: 20px;
   position: fixed;
   pointer-events: all;
-  margin-top: 280px;
+  margin-top: 240px;
 `
 
 const Text = styled('span')`
