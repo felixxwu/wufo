@@ -1,30 +1,42 @@
 import { SongConfig } from './types.ts'
+import { stemNames } from './stemNames.ts'
+
+const { drums, drums2, instr, bass, vocal, vocal2, vocal3, vocal4, piano } = stemNames
 
 export const config: SongConfig[] = [
   {
     songName: 'Look in Her Eye',
     path: '/interactive/lookinhereye',
-    stemOrder: ['Drums', 'Piano', 'Bass', 'Chords', 'Vocal 1', 'Vocal 2', 'Vocal 3'],
+    stemOrder: [drums, drums2, bass, piano, instr, vocal, vocal2, vocal3, vocal4],
     files: [
       { name: null, stems: [] },
-      { name: 'piano.mp3', stems: ['Piano'] },
-      { name: 'piano-voc2.mp3', stems: ['Piano', 'Vocal 1', 'Vocal 2'] },
-      { name: 'drums-piano.mp3', stems: ['Drums', 'Piano'] },
+      { name: 'piano.mp3', stems: [piano] },
+      { name: 'piano-voc-voc2.mp3', stems: [piano, vocal, vocal2] },
       {
-        name: 'drums-piano-sax-chords-bells-voc.mp3',
-        stems: ['Drums', 'Piano', 'Chords', 'Vocal 1'],
+        name: 'piano-bass-instruments-voc.mp3',
+        stems: [bass, piano, instr, vocal],
+      },
+      { name: 'drums2-piano-voc4.mp3', stems: [drums2, piano, vocal4] },
+      { name: 'drums-piano.mp3', stems: [drums, piano] },
+      {
+        name: 'drums-piano-instruments-voc.mp3',
+        stems: [drums, piano, instr, vocal],
       },
       {
-        name: 'drums-piano-bass-sax-chords-bells.mp3',
-        stems: ['Drums', 'Piano', 'Bass', 'Chords'],
+        name: 'drums-bass.mp3',
+        stems: [drums, bass],
       },
       {
-        name: 'drums-piano-bass-sax-chords-bells-voc.mp3',
-        stems: ['Drums', 'Piano', 'Bass', 'Chords', 'Vocal 1'],
+        name: 'drums-piano-bass-instruments.mp3',
+        stems: [drums, piano, bass, instr],
       },
       {
-        name: 'drums-piano-bass-sax-chords-bells-voc2.mp3',
-        stems: ['Drums', 'Piano', 'Bass', 'Chords', 'Vocal 1', 'Vocal 3'],
+        name: 'drums-piano-bass-instruments-voc.mp3',
+        stems: [drums, piano, bass, instr, vocal],
+      },
+      {
+        name: 'drums-piano-bass-instruments-voc-voc3.mp3',
+        stems: [drums, piano, bass, instr, vocal, 'Vocal 3'],
       },
     ],
     bpm: 172,
@@ -34,14 +46,14 @@ export const config: SongConfig[] = [
   {
     songName: 'Second song',
     path: '/interactive/lookinhereye',
-    stemOrder: ['Drums', 'Piano', 'Bass', 'Chords'],
+    stemOrder: [drums, piano, bass, instr],
     files: [
       { name: null, stems: [] },
-      { name: 'piano.mp3', stems: ['Piano'] },
-      { name: 'drums-piano.mp3', stems: ['Drums', 'Piano'] },
+      { name: 'piano.mp3', stems: [piano] },
+      { name: 'drums-piano.mp3', stems: [drums, piano] },
       {
-        name: 'drums-piano-bass-sax-chords-bells.mp3',
-        stems: ['Drums', 'Piano', 'Bass', 'Chords'],
+        name: 'drums-piano-bass-instruments.mp3',
+        stems: [drums, piano, bass, instr],
       },
     ],
     bpm: 172,
