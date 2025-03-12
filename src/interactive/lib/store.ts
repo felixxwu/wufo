@@ -1,7 +1,7 @@
 import { singletonState } from 'singleton-state-hook'
 import * as Tone from 'tone'
 
-export const useLoopNum = singletonState(1)
+export const useLoopRequested = singletonState(1)
 export const useSongNum = singletonState(0)
 export const useSongLoaded = singletonState(false)
 export const useCurrentLoopPlaying = singletonState(1)

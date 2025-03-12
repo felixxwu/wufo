@@ -3,21 +3,14 @@ import { App } from './app.tsx'
 import React from 'react'
 import { setup } from 'goober'
 import { shouldForwardProp } from 'goober/should-forward-prop'
+import { noForwardProps } from './noForwardProps.ts'
 
 setup(
   React.createElement,
   undefined,
   undefined,
   shouldForwardProp(prop => {
-    return (
-      prop !== 'releaseColor' &&
-      prop !== 'releaseImageSize' &&
-      prop !== 'releaseHeight' &&
-      prop !== 'showPlayingAnimation' &&
-      prop !== 'autoplay' &&
-      prop !== 'linksHeight' &&
-      prop !== 'expanded'
-    )
+    return !noForwardProps.includes(prop)
   })
 )
 

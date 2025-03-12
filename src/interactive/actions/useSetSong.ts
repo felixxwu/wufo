@@ -1,5 +1,5 @@
 import { config } from '../lib/config.ts'
-import { useLoopNum, useSongNum } from '../lib/store.ts'
+import { useLoopRequested, useSongNum } from '../lib/store.ts'
 import { useStop } from './useStop.ts'
 
 export function useSetSong() {
@@ -8,7 +8,7 @@ export function useSetSong() {
   return (songNum: number) => {
     if (songNum < 0 || songNum >= config.length) return
 
-    useLoopNum.set(1)
+    useLoopRequested.set(1)
     useSongNum.set(songNum)
     stop()
   }

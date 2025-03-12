@@ -1,4 +1,4 @@
-import { useLoopNum } from '../lib/store.ts'
+import { useLoopRequested } from '../lib/store.ts'
 import { useSongConfig } from '../computed/useSongConfig.ts'
 
 export function useSetLoopNum() {
@@ -7,6 +7,6 @@ export function useSetLoopNum() {
   return (loopNum: number) => {
     if (loopNum < 0 || loopNum >= files.length) return
 
-    useLoopNum.set(loopNum)
+    useLoopRequested.set(loopNum)
   }
 }

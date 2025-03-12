@@ -3,27 +3,27 @@ import { useEffect, useRef } from 'react'
 import { useRefWithOnChange } from '../utils/useRefWithOnChange.ts'
 import { useWindowEventListeners } from '../lib/useWindowEventListeners.ts'
 import {
-  useLoopNum,
+  useLoopRequested,
   useOldRotationDegs,
   usePointerDown,
   usePosFromLastMouseDown,
   useRotationDegs,
   useSongNum,
-  useTimeUntilNextLoopStart,
 } from '../lib/store.ts'
 import knobSvg from '../assets/knob.svg'
 import { config } from '../lib/config.ts'
 import { useSetLoopNum } from '../actions/useSetLoopNum.ts'
-
-const knobSize = 250
-const knobSensitivity = 0.6
-const knobRangeDeg = 240
+import { LoopIndicator } from './LoopIndicator.tsx'
+import { consts } from '../lib/consts.ts'
+import { useSongConfig } from '../computed/useSongConfig.ts'
 
 export function Knob() {
   const circle = useRef<HTMLButtonElement>(null)
-  const arc = useRef<HTMLDivElement>(null)
   const setLoopNum = useSetLoopNum()
+  const loopRequested = useLoopRequested.useState()
+  const songNum = useSongNum.useState()
   const pointerDown = usePointerDown.useState()
+  const { files } = useSongConfig()
 
   const currentMousePos = useRefWithOnChange({ x: 0, y: 0 }, value => {
     if (!usePointerDown.ref() || !circle.current) return
@@ -31,57 +31,59 @@ export function Knob() {
     const { files } = config[useSongNum.ref()]
 
     const yDiff = value.y - usePosFromLastMouseDown.ref().y
-    useRotationDegs.set(useOldRotationDegs.ref() - yDiff * knobSensitivity)
+    useRotationDegs.set(useOldRotationDegs.ref() - yDiff * consts.knobSensitivity)
 
     circle.current.style.transition = '0ms'
     circle.current.style.transform = `rotate(${useRotationDegs.ref()}deg)`
 
-    const progress = (useRotationDegs.ref() + knobRangeDeg / 2) / knobRangeDeg
+    const progress = (useRotationDegs.ref() + consts.knobRangeDeg / 2) / consts.knobRangeDeg
     const steps = files.map((_, i) => i / (files.length - 1))
     const nearestStepIndex = steps.reduce(
       (acc, step, i) => (Math.abs(step - progress) < Math.abs(steps[acc] - progress) ? i : acc),
       0
     )
-    if (nearestStepIndex !== useLoopNum.ref()) {
+    if (nearestStepIndex !== useLoopRequested.ref()) {
       setLoopNum(nearestStepIndex)
     }
   })
 
-  useEffect(() => {
-    if (pointerDown || !circle.current) return
+  const handleResetKnobPosition = () => {
+    if (!circle.current) return
 
     const { files } = config[useSongNum.ref()]
     const steps = files.map((_, i) => i / (files.length - 1))
-    const angle = steps[useLoopNum.ref()] * knobRangeDeg - knobRangeDeg / 2
+    const angle = steps[useLoopRequested.ref()] * consts.knobRangeDeg - consts.knobRangeDeg / 2
 
     circle.current.style.transition = '200ms'
     circle.current.style.transform = `rotate(${angle}deg)`
     useRotationDegs.set(angle)
     useOldRotationDegs.set(angle)
-  }, [pointerDown])
+  }
 
   useEffect(() => {
-    setInterval(() => {
-      if (!arc.current) return
-
-      const timeLeft = useTimeUntilNextLoopStart.ref().time
-      const adjustment = Date.now() - useTimeUntilNextLoopStart.ref().when
-
-      const timeLeftAdjusted = timeLeft - adjustment / 1000
-      const loopLength = 32 / (config[useSongNum.ref()].bpm / 60)
-      const progress = Math.max(0, Math.min(1, timeLeftAdjusted / loopLength))
-      arc.current.style.mask = `conic-gradient(#000 ${(1 - progress) * 360}deg, #0000 0)`
-    }, 200)
-  }, [])
+    if (!pointerDown) handleResetKnobPosition()
+  }, [pointerDown, loopRequested])
 
   useWindowEventListeners(currentMousePos)
 
   return (
     <Div>
       <Circle ref={circle}>
-        <img src={knobSvg} width={knobSize} height={knobSize} draggable={false} alt='Knob' />
+        <img
+          src={knobSvg}
+          width={consts.knobSize}
+          height={consts.knobSize}
+          draggable={false}
+          alt='Knob'
+        />
       </Circle>
-      <Arc ref={arc} />
+      {files.map((_, i) => (
+        <LoopIndicator step={i} key={songNum + '-' + i} />
+      ))}
+      <Svg viewBox='0 0 2 5'>
+        <Polygon points='1,0 2,2 0,2' />
+        <Polygon points='1,5 0,3 2,3' />
+      </Svg>
     </Div>
   )
 }
@@ -94,6 +96,7 @@ const Div = styled('div')`
   align-items: center;
   justify-content: center;
   bottom: 180px;
+  pointer-events: none;
 `
 
 const Circle = styled('div')`
@@ -101,17 +104,18 @@ const Circle = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${knobSize}px;
-  height: ${knobSize}px;
+  width: ${consts.knobSize}px;
+  height: ${consts.knobSize}px;
   cursor: pointer;
 `
 
-const Arc = styled('div')`
-  width: 250px;
-  aspect-ratio: 1;
-  padding: 8px;
-  box-sizing: border-box;
-  border-radius: 50%;
-  border: 4px solid white;
-  animation: rotate 1s linear infinite;
+const Svg = styled('svg')`
+  position: fixed;
+  width: 12px;
+  opacity: 0.3;
+`
+
+const Polygon = styled('polygon')`
+  fill: white;
+  transform: translateY(${p => p.offset}px);
 `
