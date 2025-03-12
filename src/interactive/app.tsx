@@ -4,12 +4,14 @@ import { usePreloadSongs } from './actions/usePreloadSongs.ts'
 import { Stems } from './components/Stems.tsx'
 import { SongPicker } from './components/SongPicker.tsx'
 import { PlayPause } from './components/PlayPause.tsx'
+import { Background } from './components/Background.tsx'
 
 export function App() {
   usePreloadSongs()
 
   return (
     <Container>
+      <Background />
       <SongPicker />
       <Knob />
       <PlayPause />

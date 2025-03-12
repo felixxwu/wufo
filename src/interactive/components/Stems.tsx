@@ -16,7 +16,7 @@ export function Stems() {
   return (
     <Div>
       {stemOrder.map(stem => {
-        const requested = started && requestedStems.includes(stem)
+        const requested = requestedStems.includes(stem)
         const showArc = started && requestedStems.includes(stem) && !playingStems.includes(stem)
         const playing = started && playingStems.includes(stem)
         return (
@@ -65,6 +65,7 @@ const IconContainer = styled('div')<{ active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 200ms;
 `
 
 const Text = styled('div')<{ active: boolean }>`
@@ -76,6 +77,7 @@ const Text = styled('div')<{ active: boolean }>`
   transform: translate(3px, -20px) rotate(-90deg);
   letter-spacing: 5px;
   white-space: nowrap;
+  transition: 200ms;
 `
 
 const ArcContainer = styled('div')`

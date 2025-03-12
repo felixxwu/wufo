@@ -29,6 +29,7 @@ export const config: SongConfig[] = [
     ],
     bpm: 172,
     leadInLengthBeats: 4,
+    cover: 'https://i1.sndcdn.com/artworks-P4bUXXZRQnka-0-t500x500.jpg',
   },
   {
     songName: 'Second song',
@@ -45,5 +46,6 @@ export const config: SongConfig[] = [
     ],
     bpm: 172,
     leadInLengthBeats: 4,
+    cover: 'https://i1.sndcdn.com/artworks-zt5FpguaYdKA-0-t500x500.jpg',
   },
 ]

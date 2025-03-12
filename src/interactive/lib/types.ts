@@ -5,4 +5,5 @@ export type SongConfig = {
   files: { name: string | null; stems: string[] }[]
   bpm: number
   leadInLengthBeats: number
+  cover: string
 }
