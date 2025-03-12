@@ -75,6 +75,7 @@ const Text = styled('div')<{ active: boolean }>`
   transform-origin: 0 0;
   transform: translate(3px, -20px) rotate(-90deg);
   letter-spacing: 5px;
+  white-space: nowrap;
 `
 
 const ArcContainer = styled('div')`
