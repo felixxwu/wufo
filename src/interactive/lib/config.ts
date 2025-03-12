@@ -27,16 +27,20 @@ export const config: SongConfig[] = [
         stems: [drums, bass],
       },
       {
-        name: 'drums-piano-bass-instruments.mp3',
-        stems: [drums, piano, bass, instr],
+        name: 'drums-bass-instruments.mp3',
+        stems: [drums, bass, instr],
+      },
+      {
+        name: 'drums-piano-bass-voc3.mp3',
+        stems: [drums, piano, bass, vocal3],
+      },
+      {
+        name: 'drums-piano-bass-instruments-voc2.mp3',
+        stems: [drums, piano, bass, instr, vocal2],
       },
       {
         name: 'drums-piano-bass-instruments-voc.mp3',
         stems: [drums, piano, bass, instr, vocal],
-      },
-      {
-        name: 'drums-piano-bass-instruments-voc-voc3.mp3',
-        stems: [drums, piano, bass, instr, vocal, 'Vocal 3'],
       },
     ],
     bpm: 172,

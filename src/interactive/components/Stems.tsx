@@ -74,7 +74,7 @@ const Text = styled('div')<{ active: boolean }>`
   text-transform: uppercase;
   position: fixed;
   transform-origin: 0 0;
-  transform: translate(3px, -20px) rotate(-90deg);
+  transform: translate(5px, -20px) rotate(-90deg);
   letter-spacing: 5px;
   white-space: nowrap;
   transition: 200ms;
