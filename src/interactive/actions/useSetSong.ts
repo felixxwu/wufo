@@ -1,5 +1,5 @@
 import { config } from '../lib/config.ts'
-import { useLoopRequested, useSongNum } from '../lib/store.ts'
+import { useCurrentLoopPlaying, useLoopRequested, useSongNum } from '../lib/store.ts'
 import { useStop } from './useStop.ts'
 
 export function useSetSong() {
@@ -10,6 +10,7 @@ export function useSetSong() {
 
     useLoopRequested.set(1)
     useSongNum.set(songNum)
+    useCurrentLoopPlaying.set(1)
     stop()
   }
 }

@@ -16,6 +16,9 @@ export function App() {
       <Knob />
       <PlayPause />
       <Stems />
+      <audio id='silence'>
+        <source src='/silence.mp3' type='audio/mp3'></source>
+      </audio>
     </Container>
   )
 }

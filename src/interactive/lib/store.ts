@@ -8,6 +8,7 @@ export const useCurrentLoopPlaying = singletonState(1)
 export const useTimeUntilNextLoopStart = singletonState({ time: 0, when: 0 })
 export const useStarted = singletonState(false)
 export const useClock = singletonState<Tone.Clock | null>(null)
+export const useClockStartTime = singletonState<number | null>(null)
 
 export const usePointerDown = singletonState(false)
 export const useRotationDegs = singletonState(0)

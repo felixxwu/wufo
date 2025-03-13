@@ -1,4 +1,4 @@
-import { usePlayer1, usePlayer2, useStarted, useClock } from '../lib/store.ts'
+import { usePlayer1, usePlayer2, useStarted, useClock, useClockStartTime } from '../lib/store.ts'
 
 export function useStop() {
   return () => {
@@ -8,5 +8,7 @@ export function useStop() {
 
     useClock.ref()?.stop()
     useClock.ref()?.dispose()
+
+    useClockStartTime.set(null)
   }
 }

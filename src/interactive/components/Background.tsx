@@ -12,7 +12,7 @@ const Img = styled('img')`
   width: 100vw;
   height: 100svh;
   object-fit: cover;
-  filter: contrast(0.3) brightness(0.2) blur(10px);
+  filter: contrast(0.5) brightness(0.3) blur(50px);
   top: 0;
   left: 0;
 `

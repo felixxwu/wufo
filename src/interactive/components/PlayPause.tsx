@@ -2,21 +2,12 @@ import { useSongLoaded, useStarted } from '../lib/store.ts'
 import { styled } from 'goober'
 import { useStop } from '../actions/useStop.ts'
 import { useStartClock } from '../actions/useStartClock.ts'
-import { useRef } from 'react'
-import * as Tone from 'tone'
 
 export function PlayPause() {
   const started = useStarted.useState()
   const startClock = useStartClock()
   const stop = useStop()
   const songLoaded = useSongLoaded.useState()
-  const audio = useRef<HTMLAudioElement>(null)
-
-  const handleStart = async () => {
-    audio.current?.play()
-    await Tone.start()
-    await startClock()
-  }
 
   if (!songLoaded) {
     return <Div>Loading...</Div>
@@ -32,15 +23,12 @@ export function PlayPause() {
           </Svg>
         </IconContainer>
       ) : (
-        <IconContainer onClick={handleStart}>
+        <IconContainer onClick={startClock}>
           <Svg viewBox='0 0 2 2' style={{ transform: 'translateX(2px)' }}>
             <Polygon points='2,1 0,2 0,0' />
           </Svg>
         </IconContainer>
       )}
-      <audio ref={audio}>
-        <source src='/silence.mp3' type='audio/mp3'></source>
-      </audio>
     </Div>
   )
 }
