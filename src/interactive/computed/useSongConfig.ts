@@ -2,5 +2,5 @@ import { config } from '../lib/config.ts'
 import { useSongNum } from '../lib/store.ts'
 
 export function useSongConfig() {
-  return config[useSongNum.ref()]
+  return config[useSongNum.useState()]
 }
