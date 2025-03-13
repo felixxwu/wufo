@@ -12,6 +12,10 @@
         "destination": "/interactive.html"
       },
       {
+        "source": "/knob",
+        "destination": "/interactive.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
