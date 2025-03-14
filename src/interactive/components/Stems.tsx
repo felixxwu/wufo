@@ -39,10 +39,8 @@ export function Stems() {
 }
 
 const Div = styled('div')`
-  position: fixed;
   display: flex;
   gap: 15px;
-  bottom: 330px;
 `
 
 const Stem = styled('div')`

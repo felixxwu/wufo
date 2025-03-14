@@ -27,12 +27,11 @@ export function SongPicker() {
 }
 
 const Div = styled('div')`
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  top: 30px;
 `
 
 const SongName = styled('div')`
@@ -40,6 +39,7 @@ const SongName = styled('div')`
   letter-spacing: 3px;
   font-weight: bold;
   font-size: 22px;
+  text-align: center;
 `
 
 const IconContainer = styled('div')`

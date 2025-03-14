@@ -34,8 +34,8 @@ export function PlayPause() {
 }
 
 const Div = styled('div')`
-  position: fixed;
-  top: 80px;
+  position: relative;
+  height: 40px;
 `
 
 const IconContainer = styled('div')`

@@ -13,9 +13,9 @@ export function App() {
     <Container>
       <Background />
       <SongPicker />
-      <Knob />
       <PlayPause />
       <Stems />
+      <Knob />
       <audio id='silence'>
         <source src='/silence.mp3' type='audio/mp3'></source>
       </audio>
@@ -28,10 +28,9 @@ const Container = styled('div')`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
-  justify-content: flex-start;
-  padding-top: 90px;
+  justify-content: center;
   color: white;
-  gap: 20px;
+  gap: 10px;
 `

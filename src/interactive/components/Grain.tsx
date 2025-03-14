@@ -1,4 +1,4 @@
-const GRAIN_DENSITY = 700
+const GRAIN_DENSITY = 600
 
 export function Grain() {
   return (
@@ -27,7 +27,14 @@ export function Grain() {
           />
         </filter>
       </defs>
-      <rect fill='white' filter='url(#grain)' x={`-100vw`} width={`100vw`} height={`100svh`}></rect>
+      <rect
+        fill='white'
+        filter='url(#grain)'
+        x={`-100vw`}
+        y={`-100svh`}
+        width={`100vw`}
+        height={`100svh`}
+      ></rect>
     </svg>
   )
 }

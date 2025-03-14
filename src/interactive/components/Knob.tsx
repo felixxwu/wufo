@@ -74,22 +74,24 @@ export function Knob() {
 
   return (
     <Div>
-      <Circle ref={circle}>
-        <img
-          src={knobSvg}
-          width={consts.knobSize}
-          height={consts.knobSize}
-          draggable={false}
-          alt='Knob'
-        />
-      </Circle>
-      {files.map((_, i) => (
-        <LoopIndicator step={i} key={songNum + '-' + i} />
-      ))}
-      <Svg viewBox='0 0 2 5'>
-        <Polygon points='1,0 2,2 0,2' />
-        <Polygon points='1,5 0,3 2,3' />
-      </Svg>
+      <KnobAndIndicators>
+        <Circle ref={circle}>
+          <img
+            src={knobSvg}
+            width={consts.knobSize}
+            height={consts.knobSize}
+            draggable={false}
+            alt='Knob'
+          />
+        </Circle>
+        {files.map((_, i) => (
+          <LoopIndicator step={i} key={songNum + '-' + i} />
+        ))}
+        <Svg viewBox='0 0 2 5'>
+          <Polygon points='1,0 2,2 0,2' />
+          <Polygon points='1,5 0,3 2,3' />
+        </Svg>
+      </KnobAndIndicators>
       <BottomRow>
         <IconButton onClick={() => handleIntensityModifier('down')}>
           <Minus color='white' style={{ width: '10px', height: '10px' }} />
@@ -104,18 +106,23 @@ export function Knob() {
 }
 
 const Div = styled('div')`
-  width: 0;
-  height: 0;
-  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 180px;
+  flex-direction: column;
+`
+
+const KnobAndIndicators = styled('div')`
+  width: 0;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
 `
 
 const Circle = styled('div')`
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,9 +147,9 @@ const BottomRow = styled('div')`
   align-items: center;
   justify-content: center;
   gap: 20px;
-  position: fixed;
+  position: relative;
   pointer-events: all;
-  margin-top: 260px;
+  margin-top: -50px;
 `
 
 const Text = styled('span')`
