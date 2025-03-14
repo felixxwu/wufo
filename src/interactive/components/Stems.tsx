@@ -5,23 +5,26 @@ import { Arc } from './Arc.tsx'
 import { PlayingAnimation } from '../../components/PlayingAnimation.tsx'
 
 export function Stems() {
-  const { files, stemOrder } = useSongConfig()
+  const { files, stemCategories } = useSongConfig()
   const loopRequested = useLoopRequested.useState()
   const currentLoopPlaying = useCurrentLoopPlaying.useState()
   const started = useStarted.useState()
 
+  const requestedCategories = files[loopRequested].stems.map(s => s.category)
   const requestedStems = files[loopRequested].stems
-  const playingStems = files[currentLoopPlaying].stems
+  const playingCategories = files[currentLoopPlaying].stems.map(s => s.category)
 
   return (
     <Div>
-      {stemOrder.map(stem => {
-        const requested = requestedStems.includes(stem)
-        const showArc = started && requestedStems.includes(stem) && !playingStems.includes(stem)
-        const playing = started && playingStems.includes(stem)
+      {stemCategories.map(category => {
+        const requested = requestedCategories.includes(category)
+        const showArc =
+          started && requestedCategories.includes(category) && !playingCategories.includes(category)
+        const playing = started && playingCategories.includes(category)
+        const label = requestedStems.find(l => l.category === category)?.label ?? category
         return (
-          <Stem key={stem}>
-            <Text active={requested}>{stem}</Text>
+          <Stem key={category}>
+            <Text active={requested}>{label}</Text>
             {showArc ? (
               <ArcContainer>
                 <Arc />
