@@ -5,17 +5,23 @@ import { Stems } from './components/Stems.tsx'
 import { SongPicker } from './components/SongPicker.tsx'
 import { PlayPause } from './components/PlayPause.tsx'
 import { Background } from './components/Background.tsx'
+import { useScreenSize } from './lib/store.ts'
 
 export function App() {
   usePreloadSongs()
+  const screenSize = useScreenSize.useState()
+  const appHeight = 800
+  const scale = screenSize.height / appHeight
 
   return (
     <Container>
       <Background />
-      <SongPicker />
-      <PlayPause />
-      <Stems />
-      <Knob />
+      <Div style={{ scale }}>
+        <SongPicker />
+        <PlayPause />
+        <Stems />
+        <Knob />
+      </Div>
       <audio id='silence'>
         <source src='/silence.mp3' type='audio/mp3'></source>
       </audio>
@@ -27,10 +33,17 @@ const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100svh;
   overflow: hidden;
-  justify-content: center;
   color: white;
+`
+
+const Div = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
 `

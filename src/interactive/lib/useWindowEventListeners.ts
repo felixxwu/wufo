@@ -5,6 +5,7 @@ import {
   usePointerDown,
   usePosFromLastMouseDown,
   useRotationDegs,
+  useScreenSize,
   useSongNum,
   useStarted,
 } from './store.ts'
@@ -53,6 +54,10 @@ export function useWindowEventListeners(
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         setRequestedLoopNum(Math.min(files.length - 1, useLoopRequested.ref() + 1))
       }
+    }
+
+    window.onresize = () => {
+      useScreenSize.set({ width: window.innerWidth, height: window.innerHeight })
     }
   }, [])
 }
