@@ -1,10 +1,16 @@
 import { styled } from 'goober'
 import { useSongConfig } from '../computed/useSongConfig.ts'
+import { Grain } from './Grain.tsx'
 
 export function Background() {
   const { cover } = useSongConfig()
 
-  return <Img src={cover} alt='Cover art' draggable='false' />
+  return (
+    <>
+      <Img src={cover} alt='Cover art' draggable='false' />
+      <Grain />
+    </>
+  )
 }
 
 const Img = styled('img')`
@@ -12,7 +18,7 @@ const Img = styled('img')`
   width: 100vw;
   height: 100svh;
   object-fit: cover;
-  filter: contrast(0.5) brightness(0.3) blur(50px);
+  filter: brightness(0.2) blur(50px);
   top: 0;
   left: 0;
 `

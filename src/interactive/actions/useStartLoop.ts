@@ -10,15 +10,18 @@ import { useSongConfig } from '../computed/useSongConfig.ts'
 import * as Tone from 'tone'
 import { useLeadInLength } from '../computed/useLeadInLength.ts'
 import { useTimeUntilNextLoop } from '../computed/useTimeUntilNextLoop.ts'
+import { useStop } from './useStop.ts'
 
 export function useStartLoop() {
   const { files } = useSongConfig()
   const leadInLength = useLeadInLength()
   const timeLeftUntilNextLoop = useTimeUntilNextLoop()
+  const stop = useStop()
 
   return async () => {
     if (files[useLoopRequested.ref()].name === null) {
       useCurrentLoopPlaying.set(useLoopRequested.ref())
+      stop(false)
       return
     }
 
