@@ -58,10 +58,10 @@ export function Release({
   const thisReleasePlaying = release.songs.includes(songPlaying)
   const showPlayingAnimation = !expanded && thisReleasePlaying && playing
 
-  const setReleaseOpen = (open: boolean) => {
-    if (open) {
+  const setReleaseOpen = (shouldOpen: boolean) => {
+    if (shouldOpen) {
       useExpandedReleases.set([release])
-      if (!playing) {
+      if (!thisReleasePlaying) {
         onSongClick(release.songs[0])
       }
     } else {
