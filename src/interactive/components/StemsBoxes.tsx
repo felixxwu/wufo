@@ -1,12 +1,13 @@
 import { styled } from 'goober'
 import { useSongConfig } from '../computed/useSongConfig.ts'
-import { useCurrentLoopPlaying, useLoopRequested } from '../lib/store.ts'
+import { useCurrentLoopPlaying, useLoopRequested, useStarted } from '../lib/store.ts'
 import { PlayingAnimation } from '../../components/PlayingAnimation.tsx'
 
 export function StemsBoxes() {
   const { files, stemList } = useSongConfig()
   const loopRequested = useLoopRequested.useState()
   const currentLoopPlaying = useCurrentLoopPlaying.useState()
+  const started = useStarted.useState()
 
   const requestedStems = files[loopRequested].stems
   const playingStems = files[currentLoopPlaying].stems
@@ -16,10 +17,10 @@ export function StemsBoxes() {
       {stemList.map(stem => (
         <Stem
           key={stem.label}
-          playing={playingStems.includes(stem)}
-          requested={requestedStems.includes(stem)}
+          playing={playingStems.includes(stem) && started}
+          requested={requestedStems.includes(stem) && started}
         >
-          <LeftIconWrapper playing={playingStems.includes(stem)}>
+          <LeftIconWrapper playing={playingStems.includes(stem) && started}>
             <PlayingAnimation />
           </LeftIconWrapper>
           {stem.label}
