@@ -7,6 +7,7 @@ export const understated: SongConfig = {
   songName: 'Understated',
   path: '/interactive/understated',
   stemCategories: ['Drums', 'Bass', 'Arp', 'Chords', 'Vocal'],
+  stemList: [drums1, drums2, bass, arp, chords, vocal1, vocal2, vocal3, vocal4],
   files: [
     { name: null, stems: [] },
     {

@@ -38,6 +38,7 @@ export function LoopIndicator({ step }: { step: number }) {
 
   return (
     <Div x={x} y={y} size={size} color={color} onClick={handleClick}>
+      {step !== 0 && playing && <Number>{step}</Number>}
       {showArc && <Arc />}
     </Div>
   )
@@ -57,4 +58,11 @@ const Div = styled('div')<{ x: number; y: number; size: number; color: string }>
   display: flex;
   align-items: center;
   justify-content: center;
+`
+
+const Number = styled('div')`
+  position: absolute;
+  font-size: 12px;
+  opacity: 0.5;
+  color: black;
 `

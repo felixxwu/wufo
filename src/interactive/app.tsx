@@ -1,11 +1,11 @@
 import { styled } from 'goober'
 import { Knob } from './components/Knob.tsx'
 import { usePreloadSongs } from './actions/usePreloadSongs.ts'
-import { Stems } from './components/Stems.tsx'
 import { SongPicker } from './components/SongPicker.tsx'
 import { PlayPause } from './components/PlayPause.tsx'
 import { Background } from './components/Background.tsx'
 import { useScreenSize } from './lib/store.ts'
+import { StemsBoxes } from './components/StemsBoxes.tsx'
 
 export function App() {
   usePreloadSongs()
@@ -19,7 +19,7 @@ export function App() {
       <Div style={{ scale }}>
         <SongPicker />
         <PlayPause />
-        <Stems />
+        <StemsBoxes />
         <Knob />
       </Div>
       <audio id='silence'>

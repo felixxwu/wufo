@@ -1,17 +1,17 @@
 import { SongConfig } from '../lib/types.ts'
 import { stemNames } from '../lib/stemNames.ts'
 
-const { drums1, bass, vocal1, vocal1and2, vocal2, vocal3, vocal4, piano, sax, chords, drums2 } =
-  stemNames
+const { drums1, bass, vocal1, vocal2, vocal3, vocal4, piano, sax, chords, drums2 } = stemNames
 
 export const lookinhereye: SongConfig = {
   songName: 'Look in Her Eye',
   path: '/interactive/lookinhereye',
   stemCategories: ['Drums', 'Bass', 'Piano', 'Sax', 'Chords', 'Vocal'],
+  stemList: [drums1, drums2, bass, piano, sax, chords, vocal1, vocal2, vocal3, vocal4],
   files: [
     { name: null, stems: [] },
     { name: 'piano.mp3', stems: [piano] },
-    { name: 'piano-voc-voc2.mp3', stems: [piano, vocal1and2] },
+    { name: 'piano-voc-voc2.mp3', stems: [piano, vocal1, vocal2] },
     { name: 'drums2-piano-voc4.mp3', stems: [drums2, piano, vocal4] },
     {
       name: 'piano-bass-instruments-voc.mp3',
