@@ -120,8 +120,8 @@ export function Release({
         </Title>
         <Meta>
           {release.songs.length <= 2 ? 'Single' : 'EP'} •{' '}
-          {latestRelease ? 'Latest Release' : release.year} • {release.songs.length} song
-          {release.songs.length === 1 ? '' : 's'}
+          {latestRelease ? 'Latest Release' : release.year}
+          {release.songs.length === 1 ? '' : ` • ${release.songs.length} songs`}
         </Meta>
       </TitleAndLinks>
 
