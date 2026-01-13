@@ -2,15 +2,22 @@ import { styled } from 'goober'
 import { useSongConfig } from '../computed/useSongConfig.ts'
 import { useCurrentLoopPlaying, useLoopRequested, useStarted } from '../lib/store.ts'
 import { PlayingAnimation } from '../../components/PlayingAnimation.tsx'
+import type { Stem } from '../lib/stemNames.ts'
+import { useGetClosestFileFromStemRequest } from '../lib/useGetClosestFileFromStemRequest.ts'
 
 export function StemsBoxes() {
   const { files, stemList } = useSongConfig()
   const loopRequested = useLoopRequested.useState()
   const currentLoopPlaying = useCurrentLoopPlaying.useState()
   const started = useStarted.useState()
+  const getClosestFileFromStemRequest = useGetClosestFileFromStemRequest()
 
   const requestedStems = files[loopRequested].stems
   const playingStems = files[currentLoopPlaying].stems
+
+  const handleClick = (stem: Stem, requestStemToBePresent: boolean) => {
+    getClosestFileFromStemRequest(stem, requestStemToBePresent)
+  }
 
   return (
     <Div>
@@ -19,6 +26,7 @@ export function StemsBoxes() {
           key={stem.label}
           playing={playingStems.includes(stem) && started}
           requested={requestedStems.includes(stem) && started}
+          onClick={() => handleClick(stem, !(requestedStems.includes(stem) && started))}
         >
           <LeftIconWrapper playing={playingStems.includes(stem) && started}>
             <PlayingAnimation />
@@ -38,6 +46,7 @@ const Div = styled('div')`
   max-width: 600px;
   width: 100%;
   margin-top: 20px;
+  cursor: pointer;
 `
 
 const Stem = styled('div')<{ playing: boolean; requested: boolean }>`
@@ -52,7 +61,7 @@ const Stem = styled('div')<{ playing: boolean; requested: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   transition: opacity 200ms;
-  outline: ${p => (p.requested ? '1px solid #777' : 'none')};
+  outline: ${p => (p.requested ? '2px solid #777' : 'none')};
 `
 
 const LeftIconWrapper = styled('div')<{ playing: boolean }>`
