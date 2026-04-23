@@ -1,4 +1,6 @@
+import React from 'react'
 import { Play } from '../icons/play'
+import { Setting } from '../icons/setting'
 import { BG_DARK, BORDER_RADIUS_LARGE, HIGHLIGHT, TEXT_COLOR, TRANSITION } from '../lib/consts'
 import { pointerHelper } from '../lib/pointerHelper'
 import { ISong } from '../lib/types'
@@ -6,6 +8,11 @@ import { styled } from 'goober'
 import { convertSongLengthToString } from '../lib/convertSongLengthToString'
 import { usePlaying, useRealPlaybackProgress, useSongLength, useSongPlaying } from '../lib/signals'
 import { PLAY_ICON_SIZE, PlayingAnimation } from './PlayingAnimation.tsx'
+import { config as interactiveConfig } from '../interactive/lib/config.ts'
+
+const interactiveSongByTitle = new Map(
+  interactiveConfig.map(s => [s.songName.toLowerCase(), s])
+)
 
 export const SONG_HEIGHT = 50
 
@@ -30,6 +37,7 @@ export function Song({
   const songLength = useSongLength.useState()
 
   const playing = songPlaying.fileName === song.fileName && playingSignal
+  const interactiveSong = interactiveSongByTitle.get(song.title.toLowerCase())
 
   return (
     <Container
@@ -49,6 +57,15 @@ export function Song({
         )}
       </NumberOrPlay>
       <SongTitle style={{ fontWeight: playing ? '600' : '400' }}>{song.title}</SongTitle>
+      {interactiveSong && hovering && (
+        <InteractiveLink
+          href={interactiveSong.path}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          aria-label={`Open ${song.title} in interactive mode`}
+        >
+          <Setting color={playing ? 'white' : TEXT_COLOR} style={{ width: 16, height: 16 }} />
+        </InteractiveLink>
+      )}
       <SongLength style={{ opacity: playing ? 1 : 0.8, color: playing ? 'white' : TEXT_COLOR }}>
         {playing ? `${convertSongLengthToString(songLength * realPlaybackProgress)} / ` : ''}
         {song.length}
@@ -83,6 +100,18 @@ const NumberOrPlay = styled('div')`
 const SongLength = styled('div')`
   margin-left: auto;
   transition: ${TRANSITION};
+`
+
+const InteractiveLink = styled('a')`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: ${TRANSITION};
+
+  &:hover {
+    opacity: 1;
+  }
 `
 
 const SongTitle = styled('div')`

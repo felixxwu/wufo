@@ -43,5 +43,11 @@ export function useStartLoop() {
 
     useNextPlayerToUse.set(shouldUsePlayer1 ? 2 : 1)
     useCurrentLoopPlaying.set(useLoopRequested.ref())
+
+    let next = (useLoopRequested.ref() + 1) % files.length
+    for (let i = 0; i < files.length && files[next].name === null; i++) {
+      next = (next + 1) % files.length
+    }
+    useLoopRequested.set(next)
   }
 }

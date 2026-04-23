@@ -12,5 +12,6 @@ export function useSetSong() {
     useSongNum.set(songNum)
     useCurrentLoopPlaying.set(1)
     stop()
+    window.history.pushState(null, '', config[songNum].path)
   }
 }

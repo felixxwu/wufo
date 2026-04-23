@@ -18,6 +18,19 @@ export const understated: SongConfig = {
       name: 'instr2-drums2-vocal.mp3',
       stems: [drums2, vocal1, arp, chords],
     },
+    { name: 'bass2-drums3-vocal2.mp3', stems: [drums2, vocal3] },
+    { name: 'bass2-drums3-vocal-vocal2.mp3', stems: [drums2, vocal3] },
+    { name: 'drums-bass.mp3', stems: [drums1, bass, arp] },
+    { name: 'drums-bass-vocal2-instr.mp3', stems: [drums1, bass, vocal2, chords] },
+    { name: 'drums-bass-vocal2-instr2.mp3', stems: [drums1, bass, vocal2, chords] },
+    {
+      name: 'drums-bass-chords-arp-vocal.mp3',
+      stems: [drums1, bass, vocal3, chords],
+    },
+    {
+      name: 'drums-whisper.mp3',
+      stems: [drums1, vocal4],
+    },
     {
       name: 'drum2-chords-vocal.mp3',
       stems: [drums2, vocal2, chords],
@@ -25,19 +38,6 @@ export const understated: SongConfig = {
     {
       name: 'drum2-chords-vocal2.mp3',
       stems: [drums2, vocal2, chords],
-    },
-    { name: 'bass2-drums3-vocal2.mp3', stems: [drums2, vocal3] },
-    { name: 'bass2-drums3-vocal-vocal2.mp3', stems: [drums2, vocal3] },
-    {
-      name: 'drums-whisper.mp3',
-      stems: [drums1, vocal4],
-    },
-    { name: 'drums-bass.mp3', stems: [drums1, bass, arp] },
-    { name: 'drums-bass-vocal2-instr.mp3', stems: [drums1, bass, vocal2, chords] },
-    { name: 'drums-bass-vocal2-instr2.mp3', stems: [drums1, bass, vocal2, chords] },
-    {
-      name: 'drums-bass-chords-arp-vocal.mp3',
-      stems: [drums1, bass, vocal3, chords],
     },
   ],
   bpm: 160,

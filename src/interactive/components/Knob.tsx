@@ -96,7 +96,7 @@ export function Knob() {
         <IconButton onClick={() => handleIntensityModifier('down')}>
           <Minus color='white' style={{ width: '10px', height: '10px' }} />
         </IconButton>
-        <Text>INTENSITY</Text>
+        <Text>COMBINATION</Text>
         <IconButton onClick={() => handleIntensityModifier('up')}>
           <Plus color='white' style={{ width: '10px', height: '10px' }} />
         </IconButton>

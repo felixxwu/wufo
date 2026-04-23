@@ -4,6 +4,11 @@ import React from 'react'
 import { setup } from 'goober'
 import { shouldForwardProp } from 'goober/should-forward-prop'
 import { noForwardProps } from '../noForwardProps.ts'
+import { config } from './lib/config.ts'
+import { useSongNum } from './lib/store.ts'
+
+const initialSongNum = config.findIndex(s => s.path === window.location.pathname)
+if (initialSongNum > 0) useSongNum.set(initialSongNum)
 
 setup(
   React.createElement,

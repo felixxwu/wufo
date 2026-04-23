@@ -12,19 +12,9 @@ export const lookinhereye: SongConfig = {
     { name: null, stems: [] },
     { name: 'piano.mp3', stems: [piano] },
     { name: 'piano-voc-voc2.mp3', stems: [piano, vocal1, vocal2] },
-    { name: 'drums2-piano-voc4.mp3', stems: [drums2, piano, vocal4] },
     {
       name: 'piano-bass-instruments-voc.mp3',
       stems: [bass, piano, sax, chords, vocal1],
-    },
-    { name: 'drums-piano.mp3', stems: [drums1, piano] },
-    {
-      name: 'drums-piano-instruments-voc.mp3',
-      stems: [drums1, piano, sax, chords, vocal1],
-    },
-    {
-      name: 'drums-bass-instruments.mp3',
-      stems: [drums1, bass, chords],
     },
     {
       name: 'drums-piano-bass-instruments-voc.mp3',
@@ -38,6 +28,16 @@ export const lookinhereye: SongConfig = {
       name: 'drums-piano-bass-voc3.mp3',
       stems: [drums1, piano, bass, vocal3],
     },
+    { name: 'drums2-piano-voc4.mp3', stems: [drums2, piano, vocal4] },
+    {
+      name: 'drums-bass-instruments.mp3',
+      stems: [drums1, bass, chords],
+    },
+    {
+      name: 'drums-piano-instruments-voc.mp3',
+      stems: [drums1, piano, sax, chords, vocal1],
+    },
+    { name: 'drums-piano.mp3', stems: [drums1, piano] },
   ],
   bpm: 172,
   leadInLengthBeats: 4,
