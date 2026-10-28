@@ -16,6 +16,10 @@
         "destination": "/interactive.html"
       },
       {
+        "source": "/qr{,/}",
+        "destination": "/qr.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

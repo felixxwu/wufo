@@ -12,6 +12,9 @@ export default defineConfig({
           if (req.url && /^\/interactive\/[^/]+\/?$/.test(req.url)) {
             req.url = '/interactive.html'
           }
+          if (req.url && /^\/qr\/?$/.test(req.url)) {
+            req.url = '/qr.html'
+          }
           next()
         })
       },
@@ -23,6 +26,7 @@ export default defineConfig({
         main: 'index.html',
         interactive: 'interactive.html',
         knob: 'interactive.html',
+        qr: 'qr.html',
       },
     },
   },
